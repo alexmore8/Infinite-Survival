@@ -1,0 +1,304 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Your Paper}
+\author{You}
+
+\begin{document}
+\section{Descripción general del proyecto}
+\subsection{Introducción}
+Este documento contiene las especificaciones de requisitos y el diseño del plan del trabajo del proyecto que se realizará por Alejandro ...... y Pablo Pérez Manso para la asignatura de Introducción a la Programación de Videojuegos.
+\subsection{Descripción general del producto}
+Este videojuego se desarrollará durante las prácticas de la asignatura, y su diseño y desarrollo se especifican en este documento. El videojuego será una combinación de las mecánicas que se observan en juegos tipo Endless Run, como son el caso de Zombie Tsunami o el popular Sonic.
+\subsection{Funcionalidad (reglas del juego, objetivos, mundo, etc)}
+El videojuego contará con las siguientes pantallas:
+\begin{itemize}
+\item Pantalla de inicio
+\item Menú principal
+\item Ajustes
+\item Pantalla de juego
+\item Tablero de máximas puntuaciones
+\end{itemize}
+Cada pantalla tendrá la siguiente funcionalidad:
+\begin{itemize}
+  \item Pantalla de inicio
+    \begin{itemize}
+      \item Logo del juego
+      \item Título del videojuego
+      \item Botón para acceder al menú del juego
+    \end{itemize}
+  \item Menú principal
+    \begin{itemize}
+      \item Botonera de opciones
+        \begin{itemize}
+          \item Nueva partida
+          \item Ajustes
+          \item Puntuaciones
+        \end{itemize}
+    \end{itemize}
+  \item Ajustes
+    \begin{itemize}
+        \item Ajustes de sonido
+        \item Ajustes de usuario para las puntuaciones
+    \end{itemize}
+  \item Pantalla de juego
+  \item Tablero de máximas puntuaciones
+    \begin{itemize}
+        \item Lista de las mejores puntuaciones (incluyendo duplicidad de jugadores)
+        \item Lista de los mejores jugadores (cada jugador con su mejor puntuación)
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Acciones}
+El gameplay del videojuego constará de un personaje que se mueve horizontalmente por la pantalla (de forma automática) y de izquierda a derecha y las acciones que podrá realizar son las siguientes:
+
+\begin{itemize}
+    \item \textbf{Saltar:} se producirá el salto para evitar enemigos o para saltar las caidas al vacío que puedan aparecer
+    \item \textbf{Agacharse:} en caso de que haya objetos a media altura y no se puedan esquivar saltando podrá agacharse.
+    \item \textbf{Salto doble:} En el caso de que el espacio entre las tierras o que hubiera demasiados objetos juntos se podrá hacer un doble salto.
+\end{itemize}
+
+
+
+\subsubsection{Controles}
+Los controles para las acciones descritas anteriormente serán:
+\begin{itemize}
+    \item \textbf{Saltar:}
+        \begin{itemize}
+            \item Un toque a la tecla de saltar hará un salto corto
+            \item Una pulsación largar hará que el salto sea más largo (aunque no influirá en la altura del salto) 
+        \end{itemize}
+    \item \textbf{Agacharse:}
+        \begin{itemize}
+            \item Un toque hará que el personaje se agache durante un tiempo determinado
+            \item Un toque mientras que el personaje está agachado, no sumará el tiempo, sino que será como si se hubiera agachado en ese momento
+        \end{itemize}
+    \item \textbf{Doble salto:}
+        \begin{itemize}
+            \item Si durante un salto se vuelve a presionar la tecla de salto, se producirá un doble salto
+            \item Se puede hacer un doble salto tanto en saltos sencillos como en saltos dobles
+        \end{itemize}
+\end{itemize}
+
+
+
+
+\subsubsection{Mapeado de teclas}
+
+
+
+
+\subsubsection{Estados}
+
+\textbf{Estados del juego}
+
+Los estados del juego serán los siguientes
+\begin{itemize}
+    \item \textbf{Menú inicial}
+        \begin{itemize}
+            \item Es el estado inicial de nuestro juego
+            \item Desde este menú se pueden acceder al resto de las pantallas: juegos, opciones, tablero...
+        \end{itemize}
+    \item \textbf{Pantalla de juego}
+        \begin{itemize}
+            \item En esta pantalla se producen todas las acciones del juego y su historia. Se muestra la pantalla de juego (véase 3.3 Interfaz de juego)
+        \end{itemize}
+    \item \textbf{Pausa}
+        \begin{itemize}
+            \item En la pausa se mostrará un menú en el que figuraran las siguientes opciones
+                \begin{itemize}
+                    \item Contadores del estado actual de la partida
+                    \item Siguiente marca a batir actualmente
+                    \item Botonera para diferentes acciones 
+                         \begin{itemize}
+                            \item Volver al juego
+                            \item Reiniciar partida
+                            \item Ir al menú principal
+                        \end{itemize}
+                \end{itemize}
+        \end{itemize}
+    \item \textbf{Death}
+        \begin{itemize}
+            \item Se mostrará el resultado final de la partida
+            \item Botonera para diferentes acciones
+                \begin{itemize}
+                    \item Reiniciar la partida
+                    \item Volver al menú principal
+                \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+
+
+\textbf{Estados del personaje}
+
+El personaje podrá encontrarse en los siguientes estados
+
+\begin{itemize}
+    \item Corriendo
+    \begin{itemize}
+        \item Es el estado que se mantendrá la mayor parte del tiempo. 
+        \item Desde este estado se puede llegar a cualquiera de los otros
+    \end{itemize}
+    \item Saltando
+    \begin{itemize}
+        \item Se entra en este estado cuando se presiona la tecla de saltar o de doble salto
+        \item Se sale automáticamente al tocar un objeto o al volver a pulsar el botón de salto (en el caso de un salto sencillo)
+    \end{itemize}
+    \item Agachado
+    \begin{itemize}
+        \item Sólo se podrá entrar a este estado desde el estado de corriendo
+        \item Tendrá una duración predeterminada que será prolongada según se repita la pulsación de la tecla de agacharse
+    \end{itemize}
+    \item Muerto
+    \begin{itemize}
+        \item Se llega a través del resto de los estados
+        \item Indicará que se ha acabado la partida y que se tendrá que lanzar la pantalla de fin de partida
+    \end{itemize}
+\end{itemize}
+
+
+
+
+
+\subsubsection{Mecánica del juego}
+
+En esta sección se intentará dar una aproximación de cómo se pretende que sea el uso del juego. No debe tomarse como un manual del juego, ya que es posible que surjan cambios durante el desarrollo del proyecto, ni como descripción de controles y acciones (secciones anteriores) ni como su intefaz gráfica (secciones venideras).
+
+La mecánica del juego consistirá en una carrera continua automática sobre la que el jugador no tendrá ninguna capacidad de cambiar. Éste deberá utilizar los comandos explicados anteriormente para esquivar los problemas que se le puedan ir planteando a lo largo del juego. Así mismo, el jugador deberá cubrir la distancia más larga para conseguir una puntuación mayor así como recoger objetos que le puedan ayudar durante el juego.
+
+La dificultad del juego residirá en que durante la carrera, se irán poniendo diferentes través para que la dificultad vaya en aumento:
+
+\begin{itemize}
+    \item La \textbf{velocidad aumentará} de modo que los nuevos enemigos y la pantalla aparecerá cada vez más rápido dando menos tiempo al jugador a reaccionar ante estos imprevistos, siendo los reflejos clave para poder continuar jugando
+    \item La \textbf{densidad de obstáculos aumentará}, de modo que cada vez haya más enemigos y cada vez más juntos siendo necesario aplicar saltos más complicados o tener que calcular de una forma más precisa las caidas de los saltos
+\end{itemize}
+
+Además durante el juego se le ofrecerán al jugador mejoras que podrá ir cogiendo durante el juego, tales como powerups que le harán más fácil la partida o le añadirán características interesantes durante el desarrollo del juego.
+
+El juego terminará si la vida del personaje tras chocharse con objetos llega a cero, siendo esta recuperable con diferentes objetos del juego. Además también se terminará cuando la pantalla coma al jugador, es decir, que cuando un objeto se interponga en el avance del jugador y este desaparezca por el lado izquierdo de la pantalla.
+
+\subsection{Dominio}
+Aunque no está categorizado como un tipo de juego, "Enless Run" es el mejor término que lo define. Un personaje corre sin parar y sin fin y el objetivo del juego es llegar lo más lejos posible.
+
+\subsection {Entorno y herramientas de desarrollo}
+El juego va a ser desarrollado bajo la plataforma Phaser.io. Esta plataforma ha de ser trabajada con el lenguaje de programación Javascript y mediante un servidor web. Las herramientas que se utilizarán serán las siguientes:
+
+\begin{itemize}
+	\item \textbf{Linux:} se utilizará un entorno de desarrollo linux junto con las herramientas de texlive para la generación de documentos mediante el lenguaje \LaTeX.
+	\item \textbf{Git y Github:} como control de versión el proyecto se sostendrá sobre git, ya que permite una estructura descentralizada de desarrollo en la que se puede editar en concurrencia. Además, para mantener un backup online y una forma de compartir código, se utilizará la plataforma github, así como registro online del trabajo que vamos desarrollando.
+	\item \textbf{Adobe Photoshop e Illustrator:} con la intención de desarrollar los diferentes aspectos gráficos del juego se utilizarán estos programas con el fin de hacer correcciones o crear nuevos gráficos para el juego.
+	\item \textbf{Adobe Audition:} edición de los diferentes sonidos del juego
+	\item \textbf{Sublime Text y Brackets:} ya que el lenguaje que se utilizará no tiene ningún entorno de desarrollo establecido y que ofrezca ventajas significativas se utilizará un editor de código sencillo para el desarrollo del juego.
+	\item \textbf{Brackets y XAMPP:} dada la necesidad de necesitar un servidor web que se encargue de los diferentes aspectos del juego, éstos serán los escogidos para la realización de las pruebas.
+\end{itemize}
+
+Dado que la mayoría de estos programas son gratuitos o se disponen de las diferentes licencias necesarias para el desarrollo de todo el sistema, el coste en herramientas del desarrollo del proyecto será gratuito.
+
+\subsection{Descripción del hardware}
+Para el desarrollo de todo lo anteriormente descrito y el uso de las herramientas planteadas en la sección anterior se necesitarán los siguiente requisitos hardware:
+
+\begin{itemize}
+	\item Ordenador con un dual boot o una máquina virtual en el que estén preinstlados una distribución Linux y una versión de Windows superior a la 7.
+	\item El ordenador deberá tener ratón y teclado, no sólo para trabajar, sino también para poder realizar las pruebas del juego.
+	\item Un gamepad con el fin de probar el videojuego, ya que éste, también será compatible con este tipo de mandos.
+\end{itemize}
+
+
+
+\subsection{Equipo y lugar de trabajo}
+
+El equipo constará de dos personas que conforman la pareja de prácticas y que compartirán todas las tareas que se especificarán en la sección 2.
+
+El lugar de trabajo, será mayoritariamente los laboratorios de la Escuela Politécnica SUperior de la Universidad Autónoma de Madrid, ya que todos disponen en su mayoría de todos los requisitos de software y hardware descritos anteriormente. Así mismo, también se plantea que de no poderse utilizar los mismos, por los horarios de los mismos o necesidades varias, también se plantea el uso de máquinas personales que podrán ser utilizadas en el lugar más conveniente.
+
+
+\subsection{Técnicas a utilizar}
+
+\subsection{Recursos adicionales}
+En lo referente a recursos que todavía no se han mencionado se preveen lo siguientes:
+
+\begin{itemize}
+	\item \textbf{Sprites:} personajes y diferentes objetos serán cogidos de presets ya creados por otros usuarios de internet.
+	\item \textbf{Menús y fondos:} al igual que los sprites se realizarán búsquedas por internet o se procederá a la generación de los mismos.
+	\item \textbf{Música y efectos sonoros:} se recurriran a bibliotecas de sonido online para poder desarrollar todos los sonidos del juego. De no ser posible, se procedería a la grabación de todo el material que fuera necesario.
+	\item \textbf{Tipografías:} las diferentes tipografías que se utilizarán en el juego se extraerán de plataformas online como Google Fonts.
+\end{itemize}
+
+Todo este material se utilizará, siendo la licencia de los mismos compatibles con la licencia que establezca para el proyecto.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Gestión del Proyecto}
+En esta sección se mostrarán los aspectos de la planificación del proyecto, desde tareas, plazos de entrega y la línea temporal, así como los entregables y su contenido.
+
+\subsection{Tareas a realizar}
+El gráfico con las tareas del desarrollo del proyecto y su plan temporal se encuentran en los anexos de este documento. Si se necesita más información se puede recurrir a la sección 3 de este documento en el que se epsecifica más del Análisis y Diseño.
+
+\subsection{Entregables}
+
+Se plantea el diseño del videojuego en tres entregas, incluyendo la que se realiza con este documento. Las entregas se detallan a continuación.
+
+\subsubsectionmark{Contenido de los entregables}
+
+\begin{itemize}
+	\item \textbf{Documento de diseño previo del videojuego:} recoge las funcionaledades y aspectos generales del videojuego a realizar, todo incluido en el presente documento. Su entrega se prevee al principio del desarrollo.
+	\item \textbf{Prototipo del proyecto:} se entregará un prototipo funcional del proyecto en el que se pueda probar una primera versión del videojuego y en el que se podrán apreciar los diferentes cambios que se han realizado respecto de este documento. Todos esos cambios se documentarán en otro documento. Se prevee su entrega a la mitad del desarrollo. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
