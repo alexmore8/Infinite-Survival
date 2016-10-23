@@ -284,7 +284,7 @@ Para el ciclo de vida de nuestro proyecto se tomará un diseño basado en cascad
 
 \begin{figure}[hbtp]
     \centering
-    \includegraphics[width=0.4\textwidth]{cascada.png}
+    \includegraphics[width=0.4\textwidth]{img/cascada.png}
     \caption{Cascada con realimentación}
     \label{fig:cascadarealimentacion}
 \end{figure}
@@ -331,7 +331,7 @@ La interfaz sería parecida a la siguiente:
 
 \begin{figure}[hbtp]
     \centering
-    \includegraphics[width=0.8\textwidth]{captura_zombies.png}
+    \includegraphics[width=0.8\textwidth]{img/captura_zombies.png}
     \caption{Interfaz similar a la descrita}
     \label{fig:interfazzombie}
 \end{figure}
@@ -361,8 +361,37 @@ En lo que respecta a las fases de la implementación se consideran tres fases:
 \end{itemize}
 
 
+\chapter{Pruebas}
+Para una correcta integración de todas las partes del proyecto, se deben realizar pruebas para que una vez que se realice la integración no haya ningún problema.
+
+\begin{itemize}
+	\item \textbf{Lógica:} se hará una comprobación de que todas las clases tienen un funcionamiento correcto y más tarde se probará sun funcionalidad conjunta. De este modo nos aseguraremos que esta parte funciona de una forma correcta para que al añadir la parte de interfaz se minimicen los errores.
+	\item \textbf{Gráficos:} se cargarán todos los sprites, dibujos, imágenes y sonidos sobre una instancia de phaser nueva para comprobar que funcionan de un modo de adecuado con la plataforma al ser cargados.
+	\item \textbf{Interfaz:} se probarán la cohesión que tienen la creación de la parte gráfica con la lógica del videojuego. Se comproborará que la comunicación entre la lógica y la interfaz se produce de manera correcta, viéndose en la pantalla lo que corresponde por la parte del backend. Además se deberán hacer diferentes pruebas de velocidad del sistema para corregir errores de implementación a la hora de pintar la interfaz.
+\end{itemize}
+
+Cabe destacar, que debido a la complejidad de algunos de los componentes de la parte lógica, su correcto funcionamiento será comprobado mediante su salida por la interfaz, de modo que se comprueba a la vez parte de la lógica y parte de la interfaz.
 
 
+\newpage
+%% Apendices (ejercicios, examenes)
+\appendix
+\chapter{Planificación temporal}
 
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/tabla_tiempos.png}
+    \caption{Tiempos de cada tarea}
+    \label{fig:tiempostarea}
+\end{figure}
+
+\newpage
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/gant_completo.png}
+    \caption{Diagrama de Gant}
+    \label{fig:diagramagant}
+\end{figure}
 
 \end{document}
