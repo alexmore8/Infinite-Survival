@@ -1,79 +1,84 @@
-\documentclass[a4paper]{article}
+\documentclass[palatino]{apuntes}
 
-%% Language and font encodings
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
+\title{Infinite survival}
+\author{Alejandro Moreno San Vidal \\ Pablo Pérez Manso}
+\date{Videojuegos 2016}
 
-%% Sets page size and margins
-\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 
-%% Useful packages
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage[colorlinks=true, allcolors=blue]{hyperref}
-
-\title{Your Paper}
-\author{You}
 
 \begin{document}
-\section{Descripción general del proyecto}
-\subsection{Introducción}
-Este documento contiene las especificaciones de requisitos y el diseño del plan del trabajo del proyecto que se realizará por Alejandro ...... y Pablo Pérez Manso para la asignatura de Introducción a la Programación de Videojuegos.
-\subsection{Descripción general del producto}
-Este videojuego se desarrollará durante las prácticas de la asignatura, y su diseño y desarrollo se especifican en este documento. El videojuego será una combinación de las mecánicas que se observan en juegos tipo Endless Run, como son el caso de Zombie Tsunami o el popular Sonic.
-\subsection{Funcionalidad (reglas del juego, objetivos, mundo, etc)}
+\pagestyle{plain}
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Descripción general del proyecto}
+
+\section{Introducción}
+Este documento contiene las especificaciones de requisitos y el diseño del plan de trabajo del proyecto que se realizará por Alejandro Moreno San Vidal y Pablo Pérez Manso para la asignatura de Introducción a la Programación de Videojuegos.
+
+\section{Descripción general del producto}
+Este videojuego se desarrollará durante las prácticas de la asignatura, y su diseño y desarrollo se especifican en este documento. El videojuego será una combinación de las mecánicas que se observan en juegos tipo Endless Run, como son el caso de Zombie Tsunami o el popular Sonic, en la cual un personaje se mueve horizontalmente por la pantalla intentando recoger premios y evitando las cosas que le pueden matar.
+
+\section{Funcionalidad}
+
 El videojuego contará con las siguientes pantallas:
 \begin{itemize}
-\item Pantalla de inicio
-\item Menú principal
-\item Ajustes
-\item Pantalla de juego
-\item Tablero de máximas puntuaciones
+    \item Pantalla de inicio
+    \item Menú principal
+    \item Ajustes
+    \item Pantalla de juego
+    \item Tablero de máximas puntuaciones
 \end{itemize}
-Cada pantalla tendrá la siguiente funcionalidad:
+
+Cada pantalla tendrá las siguientes características y funcionalidades:
 \begin{itemize}
-  \item Pantalla de inicio
-    \begin{itemize}
-      \item Logo del juego
-      \item Título del videojuego
-      \item Botón para acceder al menú del juego
-    \end{itemize}
-  \item Menú principal
-    \begin{itemize}
-      \item Botonera de opciones
+    \item Pantalla de inicio
         \begin{itemize}
-          \item Nueva partida
-          \item Ajustes
-          \item Puntuaciones
+            \item Logo del juego
+            \item Título del videojuego
+            \item Botón para acceder al menú del juego
         \end{itemize}
-    \end{itemize}
-  \item Ajustes
-    \begin{itemize}
-        \item Ajustes de sonido
-        \item Ajustes de usuario para las puntuaciones
-    \end{itemize}
-  \item Pantalla de juego
-  \item Tablero de máximas puntuaciones
-    \begin{itemize}
-        \item Lista de las mejores puntuaciones (incluyendo duplicidad de jugadores)
-        \item Lista de los mejores jugadores (cada jugador con su mejor puntuación)
-    \end{itemize}
+    \item Menú principal
+        \begin{itemize}
+            \item Mostrará las principales acciones que se pueden realizar al empezar a jugar
+            \item Botonera de opciones
+                \begin{itemize}
+                    \item Nueva partida
+                    \item Ajustes
+                    \item Puntuaciones
+                \end{itemize}
+        \end{itemize}
+    \item Ajustes
+        \begin{itemize}
+            \item Ajustes de sonido
+            \item Ajustes de usuario para las puntuaciones
+        \end{itemize}
+    \item Pantalla de juego
+        \begin{itemize}
+            \item Mostrará la partida que se está jugando actualmente
+            \item Los elementos que contiene esta pantalla están determinados más adelante
+        \end{itemize}
+    \item Tablero de máximas puntuaciones
+        \begin{itemize}
+            \item Lista de las mejores puntuaciones (incluyendo multiples entradas de cada jugador)
+            \item Lista de los mejores jugadores (una entrada por jugador con su mejor puntuación)
+        \end{itemize}
 \end{itemize}
 
-\subsubsection{Acciones}
-El gameplay del videojuego constará de un personaje que se mueve horizontalmente por la pantalla (de forma automática) y de izquierda a derecha y las acciones que podrá realizar son las siguientes:
+
+\subsection{Acciones}
+La pantalla del videojuego constará de un personaje que se mueve horizontalmente (de forma automática) y de izquierda a derecha y las acciones que podrá realizar son las siguientes:
 
 \begin{itemize}
-    \item \textbf{Saltar:} se producirá el salto para evitar enemigos o para saltar las caidas al vacío que puedan aparecer
-    \item \textbf{Agacharse:} en caso de que haya objetos a media altura y no se puedan esquivar saltando podrá agacharse.
-    \item \textbf{Salto doble:} En el caso de que el espacio entre las tierras o que hubiera demasiados objetos juntos se podrá hacer un doble salto.
+    \item \textbf{Saltar:} se producirá el salto para evitar enemigos o para salvar las caidas al vacío que puedan aparecer.
+    \item \textbf{Agacharse:} en caso de que haya objetos a media altura, podrá optar no por saltarlos y esquivarlos agachándose.
+    \item \textbf{Salto doble:} podrá realizarse esta acción si se desea coger objetos demasiado altos, salvar vacíos más largos o esquivar objetos muy extensos.
 \end{itemize}
 
 
 
-\subsubsection{Controles}
+\subsection{Controles}
 Los controles para las acciones descritas anteriormente serán:
 \begin{itemize}
     \item \textbf{Saltar:}
@@ -96,12 +101,12 @@ Los controles para las acciones descritas anteriormente serán:
 
 
 
-\subsubsection{Mapeado de teclas}
+\subsection{Mapeado de teclas}
 
 
 
 
-\subsubsection{Estados}
+\subsection{Estados}
 
 \textbf{Estados del juego}
 
@@ -174,7 +179,7 @@ El personaje podrá encontrarse en los siguientes estados
 
 
 
-\subsubsection{Mecánica del juego}
+\subsection{Mecánica del juego}
 
 En esta sección se intentará dar una aproximación de cómo se pretende que sea el uso del juego. No debe tomarse como un manual del juego, ya que es posible que surjan cambios durante el desarrollo del proyecto, ni como descripción de controles y acciones (secciones anteriores) ni como su intefaz gráfica (secciones venideras).
 
@@ -191,10 +196,10 @@ Además durante el juego se le ofrecerán al jugador mejoras que podrá ir cogie
 
 El juego terminará si la vida del personaje tras chocharse con objetos llega a cero, siendo esta recuperable con diferentes objetos del juego. Además también se terminará cuando la pantalla coma al jugador, es decir, que cuando un objeto se interponga en el avance del jugador y este desaparezca por el lado izquierdo de la pantalla.
 
-\subsection{Dominio}
+\section{Dominio}
 Aunque no está categorizado como un tipo de juego, "Enless Run" es el mejor término que lo define. Un personaje corre sin parar y sin fin y el objetivo del juego es llegar lo más lejos posible.
 
-\subsection {Entorno y herramientas de desarrollo}
+\section {Entorno y herramientas de desarrollo}
 El juego va a ser desarrollado bajo la plataforma Phaser.io. Esta plataforma ha de ser trabajada con el lenguaje de programación Javascript y mediante un servidor web. Las herramientas que se utilizarán serán las siguientes:
 
 \begin{itemize}
@@ -208,7 +213,7 @@ El juego va a ser desarrollado bajo la plataforma Phaser.io. Esta plataforma ha 
 
 Dado que la mayoría de estos programas son gratuitos o se disponen de las diferentes licencias necesarias para el desarrollo de todo el sistema, el coste en herramientas del desarrollo del proyecto será gratuito.
 
-\subsection{Descripción del hardware}
+\section{Descripción del hardware}
 Para el desarrollo de todo lo anteriormente descrito y el uso de las herramientas planteadas en la sección anterior se necesitarán los siguiente requisitos hardware:
 
 \begin{itemize}
@@ -219,16 +224,16 @@ Para el desarrollo de todo lo anteriormente descrito y el uso de las herramienta
 
 
 
-\subsection{Equipo y lugar de trabajo}
+\section{Equipo y lugar de trabajo}
 
 El equipo constará de dos personas que conforman la pareja de prácticas y que compartirán todas las tareas que se especificarán en la sección 2.
 
 El lugar de trabajo, será mayoritariamente los laboratorios de la Escuela Politécnica SUperior de la Universidad Autónoma de Madrid, ya que todos disponen en su mayoría de todos los requisitos de software y hardware descritos anteriormente. Así mismo, también se plantea que de no poderse utilizar los mismos, por los horarios de los mismos o necesidades varias, también se plantea el uso de máquinas personales que podrán ser utilizadas en el lugar más conveniente.
 
 
-\subsection{Técnicas a utilizar}
+\section{Técnicas a utilizar}
 
-\subsection{Recursos adicionales}
+\section{Recursos adicionales}
 En lo referente a recursos que todavía no se han mencionado se preveen lo siguientes:
 
 \begin{itemize}
@@ -260,21 +265,23 @@ Todo este material se utilizará, siendo la licencia de los mismos compatibles c
 
 
 
-\section{Gestión del Proyecto}
+\chapter{Gestión del Proyecto}
 En esta sección se mostrarán los aspectos de la planificación del proyecto, desde tareas, plazos de entrega y la línea temporal, así como los entregables y su contenido.
 
-\subsection{Tareas a realizar}
+\section{Tareas a realizar}
 El gráfico con las tareas del desarrollo del proyecto y su plan temporal se encuentran en los anexos de este documento. Si se necesita más información se puede recurrir a la sección 3 de este documento en el que se epsecifica más del Análisis y Diseño.
 
-\subsection{Entregables}
+\section{Entregables}
 
 Se plantea el diseño del videojuego en tres entregas, incluyendo la que se realiza con este documento. Las entregas se detallan a continuación.
 
-\subsubsectionmark{Contenido de los entregables}
+\subsectionmark{Contenido de los entregables}
 
 \begin{itemize}
 	\item \textbf{Documento de diseño previo del videojuego:} recoge las funcionaledades y aspectos generales del videojuego a realizar, todo incluido en el presente documento. Su entrega se prevee al principio del desarrollo.
-	\item \textbf{Prototipo del proyecto:} se entregará un prototipo funcional del proyecto en el que se pueda probar una primera versión del videojuego y en el que se podrán apreciar los diferentes cambios que se han realizado respecto de este documento. Todos esos cambios se documentarán en otro documento. Se prevee su entrega a la mitad del desarrollo. 
+	\item \textbf{Prototipo del proyecto:} se entregará un prototipo funcional del proyecto en el que se pueda probar una primera versión del videojuego y en el que se podrán apreciar los diferentes cambios que se han realizado respecto de este documento. Todos esos cambios se documentarán en otro documento. Se prevee su entrega a la mitad del desarrollo.
+	\item \textbf{Entrega final:} se entregará una versión del desarrollo completamente operativa y con todas las funcionalidades previamente descritas ya implementadas. Así mismo se entregará una memoria de todo el desarrollo del proyecto y un manual de uso del juego en el que se expondrán todos los aspectos relevantes del juego. Su entrega se preve con la finalización del plazo.
+\end{itemize}
 
 
 
@@ -295,6 +302,97 @@ Se plantea el diseño del videojuego en tres entregas, incluyendo la que se real
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Análisis y diseño}
+Procederemos con los temas referentes a la planificación del proyecto, incluyendo el ciclo de vida del software, planteamiento de diseño a seguir y los diagramas que nos permitirán desarrollar e implementar todas las funcionalidades y aspectos descritos en la sección 1.
+
+\section{Modelo de ciclo de vida}
+
+Para el ciclo de vida de nuestro proyecto se tomará un diseño basado en cascada con realimentación, de modo que nos permite rápidamente volver a la fase anterior para corregir los errores que se pudieran haber cometido. Constará de las siguientes fases:
+
+\begin{enumerate}
+	\item \textbf{Análisis:} se analizan y se definen todas las funcionalidades y los requisitos que necesitará el proyecto, de modo que se pueda tener claro en la fase de diseño qué debería recoger.
+	\item \textbf{Diseño:} se escoge cual es el mejor método para llevar a cabo el proyecto en base a las especificaciones que se observaron en la fase de análisis y se plasman en una serie de documentos. Esto incluirá los diagramas de clases, la planificación temporal, funcionalidades y forma de implementarlas y todos los demás aspectos del proyecto.
+	\item \textbf{Implmementación:} se comenzará con el desarrollo de toda la parte técnica del proyecto, de modo que sea coherente con todos los detalles que se planificaron previamente en la fase de diseño. Así mismo se podrán generar prototipos de todo el proyecto o de partes de él para que puedan pasar a la siguiente fase.
+	\item \textbf{Pruebas:} una buena parte del desarrollo es probar que todo lo anteriormente implementado funcione como se especificó en la parte de diseño. En esta fase se podrían incluso mostrar diversos prototipos al cliente final para que pueda observar el estado del proyecto. En caso de un error detectado se notificará y se devolverá a la fase de implementación o diseño, dependiendo del error.
+	\item \textbf{Entregas:} una vez que los prototipos que ya se planificaron en la fase de diseño, pasen la fase de pruebas se realiarán diferentes entregas de material al cliente para que se pueda ir evaluando el trabajo que se está desarrollando y que éste localice diferentes errores que como cliente no desee o no quedaran claras en la fase previa al análisis.
+	\item \textbf{Entrega del producto y mantenimiento:} una vez terminada toda las fases de desarrollo del proyecto se procederá con la entrega del mismo al cliente, y se mantendrá un periodo de mantenimiento en el que el cliente podrá notificar posibles errores o mejoras que se podrán implementar.
+\end{enumerate}
+
+
+TODO esquema del ciclo de vida
+
+
+\section{Diseño}
+
+Para poder proceder correctamente con la implmentación del proyecto es necesario realizar un diseño modular de todo el código de videojuego. Se diseñarán las clases del código a implmentar que darán forma a los elementos del videojuego.
+
+En esta sección se especificarán las implementaciones de la mayoría de los elementos descritos en la primera sección del documento, por lo que es recomendable que se consulte como referencia si en alguna parte de esta sección se tienen dudas.
+
+Todo el videojuego será controlado por una clase Juego que contendrá todo el resto de los elementos del sistema. Esta contendrá al jugador, los objetos que el jugador podrá obtener, los elementos perjudiciales para el jugador y el mapa.
+
+\begin{itemize}
+	\item El jugador tendrá entidad única para el mismo debido a su diferencia con el resto de instancias del juego. Además se le podrán cambiar diferentes aspectos de su física natural en base a los objetos que pueda ir recogiendo.
+	\item Los objetos que el jugador podrá coger y los elementos que le fastidien se proponen como objetos distintos ya que a la hora de afectar al jugador por igual se analizarán primero unos antes que otros.
+	\item El mapa se irá generando automáticamente o cargando de ficheros externos para poder ir dibujando todo el sistema de juego.
+\end{itemize}
+
+Además se realizarán clases e interfaces que resuelvan las diferentes acciones que puedan ocurrir en el juego, como las colisiones entre objetos, los controles por parte de los diferentes dispositivos, así como las conexiones con el servidor de puntuaciones.
+
+\section{Interfaz del videojuego}
+La parte del videojuego que el cliente termina viendo es una de las más importantes a la hora del desarrollo del videojuego, por lo que en esta sección se pretende dar una idea de la composición de la interfaz de ususario. Se mostrarán diferentes ejemplos de otros juegos con interfaces similares a la que se quiere implementar:
+
+Los elementos que se mostrarán son los que siguen:
+\begin{itemize}
+	\item \textbf{Fondo del videjuego:} se mostrará un fondo que refleje la situación del personaje dependiendo del traje que lleve en cada momento, de forma que pueda hacer que el usuario tenga una inmersión mayor.
+	\item \textbf{Personaje:} el personaje principal será una imagen que por norma general se encontrará en el centro del escenario. Dependiendo de diferentes mejoras del juego se podrá cambiar la imagen del mismo para poder reflejar mejor las mejoras que pueda haber conseguido.
+	\item \textbf{Barra superior:} en esta se mostrarán los principales indicadores del juego para que el jugador las pueda ver.
+		\begin{itemize}
+			\item \textbf{Distancia:} distancia (puntuación) recorrida por el personaje en la partida
+			\item \textbf{Vida:} un indicador en el que se diga la vida que le queda al jugador
+		\end{itemize}
+	\item \textbf{Objetos recogidos:} se pueden ir recogiendo objetos por el juego que luego se podrán usar con diferentes acciones. Para poder conocer que objetos tienes disponibles se dispondrán en una tira en un lado de la pantalla.
+	
+	\item \textbf{Enemigos y mejoras:} durante la carrera irán apareciendo por el escenario distintos enemigos, obstáculos y objetos de mejora que el personaje tendrá que coger o esquivar.
+\end{itemize}
+
+La interfaz sería parecida a la siguiente:
+
+TODO pantallazo de zombie tsunami
+
+
+\chapter{Implementación}
+Para facilitar la creación y la relación entre las clases definidas en la fase de diseño, se ha considerado el uso de patrones de diseño. Además se tratará de que el diseño sea lo más modular posible.
+
+Se van a usar dos tipos de patrones: de creación, para ayudar a crear los nuevos objetos en tiempo de ejecución y estructurales, para mejorar la organización del cógido.
+
+Para los patrones de creación se considera el siguiente:
+\begin{itemize}
+	\item \textbf{Singleton}: nos permite que algunas de las clases solo puedan ser creadas una vez de modo que su control es mucho más fácil por el resto de las clase. Sería el caso del juego o del personaje.
+\end{itemize}
+
+En cuanto a los patrones estructurales se considerael siguiente:
+\begin{itemize}
+	\item \textbf{Modelo Vista Controlador:} ayuda a organizar la lógica interna de modo que se separa por completo la parte de la interfaz de los datos que se manejan. De este modo se crea más independencia entre cada uno de los módulos pudiendo cambiar cada uno de ellos sin necesidad de cambiar el otro.
+\end{itemize}
+
+En lo que respecta a las fases de la implementación se consideran tres fases:
+
+\begin{itemize}
+	\item \textbf{Lógica:} nos referimos a la parte de toda la codificación de la parte lógica del videojuego, personajes, objetos, pantalla...
+	\item \textbf{Gráficos:} búsqueda de posibles materiales gráficos para la temática del juego y su adaptación a las necesidades del proyecto.
+	\item \textbf{Interfaz:} una vez finalizada la parte de gráficos, construcción de la interfaz basada en esos gráficos y su unión con la lógica del juego.
+\end{itemize}
 
 
 
