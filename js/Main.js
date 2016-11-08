@@ -1,4 +1,4 @@
-var SideScroller = SideScroller || {};
+var infinitesurvival = infinitesurvival || {};
 
 infinitesurvival.game = new Phaser.Game(1200, 650, Phaser.AUTO, 'phaser-example');
 
