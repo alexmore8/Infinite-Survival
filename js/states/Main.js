@@ -1,10 +1,10 @@
-var infinitesurvival = infinitesurvival || {};
+var insur = insur || {};
 
-infinitesurvival.game = new Phaser.Game(1366 , 768, Phaser.AUTO, 'phaser-example');
+insur.game = new Phaser.Game(1366 , 768, Phaser.AUTO, 'phaser-example');
 
-infinitesurvival.game.state.add('Boot', infinitesurvival.Boot);
-infinitesurvival.game.state.add('Load', infinitesurvival.Load);
-infinitesurvival.game.state.add('Menu', infinitesurvival.Menu);
-infinitesurvival.game.state.add('Game', infinitesurvival.Game);
+insur.game.state.add('Boot', insur.Boot);
+insur.game.state.add('Load', insur.Load);
+insur.game.state.add('Menu', insur.Menu);
+insur.game.state.add('Game', insur.Game);
 
-infinitesurvival.game.state.start('Boot');
+insur.game.state.start('Boot');

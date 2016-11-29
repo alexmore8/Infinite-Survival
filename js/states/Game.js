@@ -1,46 +1,24 @@
-var infinitesurvival = infinitesurvival || {};
+var insur = insur || {};
 
-infinitesurvival.Game = function(){};
+insur.Game = function(){};
 
-infinitesurvival.Game.prototype = {
+insur.Game.prototype = {
 
-    /*preload: function() {
-        background = infinitesurvival.game.add.image(0,0,'background');
-        background2 = infinitesurvival.game.add.image(1023,0,'background');
-
-
-        this.sprite = infinitesurvival.game.add.sprite(infinitesurvival.game.world.centerX-80,400,'boy_run');
-        this.sprite.scale.setTo(0.4);
-        this.sprite.animations.add('walk');
-        this.sprite.animations.play('walk' ,20, true);
-    },
-    create: function() {
-    },
-    update: function() {
-    },
-    render: function(){
-    },*/
     preload: function() {
-        background = infinitesurvival.game.add.image(0,0,'background');
-        background2 = infinitesurvival.game.add.image(1023,0,'background');
-        this.game.time.advancedTiming = true;
+        background = insur.game.add.image(0,0,'background');
+        background2 = insur.game.add.image(1023,0,'background');
+        insur.game.time.advancedTiming = true;
     },
     create: function() {
-        var newItem;
-
-        //game params
-        this.levelSpeed = -200;
-        this.tileSize = 128;
-        this.probCliff = 0.4;
 
         //initiate groups, we'll recycle elements
-        this.floors = this.game.add.group();
+        this.floors = insur.game.add.group();
         this.floors.enableBody = true;
 
-        for(var i=0; i<13; i++) {
-            newItem = this.floors.create(i * this.tileSize, this.game.world.height - this.tileSize, 'floor');
+        for(var i=0; i<insur.Config.numtiles; i++) {
+            newItem = this.floors.create(i * insur.Config.tileSize, insur.game.world.height - insur.Config.tileSize, 'floor');
             newItem.body.immovable = true;
-            newItem.body.velocity.x = this.levelSpeed;
+            newItem.body.velocity.x = insur.Config.levelSpeed;
         }
 
         //keep track of the last floor
@@ -48,32 +26,30 @@ infinitesurvival.Game.prototype = {
 
         //keep track of the last element
         this.lastCliff = false;
+
     },
 
-
-
     update: function() {
-
         this.generateTerrain();
-
     },
     generateTerrain: function(){
         var i, salto = 0;
-        for(i = 0; i < this.floors.length; i++) {
-            if(this.floors.getAt(i).body.x <= -this.tileSize) {
+        for(i = 0; i < insur.Config.numtiles; i++) {
+            if(this.floors.getAt(i).body.x <= -insur.Config.tileSize) {
 
-                if(Math.random() < this.probCliff && !this.lastCliff) {
+                if((Math.random() < insur.Config.probCliff) && !this.lastCliff) {
                     salto = 1;
                     this.lastCliff = true;
                 }
                 else
                     this.lastCliff = false;
 
-
-                this.floors.getAt(i).body.x = this.lastFloor.body.x + this.tileSize + salto * this.tileSize * 2.5;
+                //this.floors.getAt(i).velocity *= 1.05;
+                this.floors.getAt(i).body.x = this.lastFloor.body.x + insur.Config.tileSize + salto * insur.Config.tileSize * 2.5;
                 if (salto == 1){
                     this.floors.getAt(i).loadTexture('floorl');
-                    this.floors.getAt(i-1).loadTexture('floorr');
+                    j = i==0 ? insur.Config.numtiles-1 : i-1;
+                    this.floors.getAt(j).loadTexture('floorr');
                 } else {
                     this.floors.getAt(i).loadTexture('floor');
                 }
@@ -82,16 +58,9 @@ infinitesurvival.Game.prototype = {
             }
         }
     },
-    collect: function(player, collectable) {
-
-    },
     gameOver: function() {
-        this.game.state.start('Game');
+        insur.game.state.start('Game');
     },
-    playerDuck: function() {
-
-    },
-    render: function()
-    {
+    render: function(){
     }
 };

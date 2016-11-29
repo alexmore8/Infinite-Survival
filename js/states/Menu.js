@@ -1,19 +1,19 @@
-var infinitesurvival = infinitesurvival || {};
+var insur = insur || {};
 
-infinitesurvival.Menu = function(){};
+insur.Menu = function(){};
 
-infinitesurvival.Menu.prototype = {
+insur.Menu.prototype = {
 
     preload: function() {
-        background = infinitesurvival.game.add.image(0,0,'bg_menu');
-        var loadingLabel = infinitesurvival.game.add.text(infinitesurvival.game.world.centerX, 150, 'Infinite Survival',{ font: '100px VT323',  fill: '#000000' });
+        background = insur.game.add.image(0,0,'bg_menu');
+        var loadingLabel = insur.game.add.text(insur.game.world.centerX, 150, 'Infinite Survival',{ font: '100px VT323',  fill: '#000000' });
         loadingLabel.anchor.setTo(0.5, 0.5);
 
-        buttonstart = infinitesurvival.game.add.button(501,500, 'button',this.changebutton,this);
+        buttonstart = insur.game.add.button(501,500, 'button',this.changebutton,this);
         buttonstart.scale.setTo(0.5, 0.5);
 
 
-        var loadingLabel = infinitesurvival.game.add.text(infinitesurvival.game.world.centerX-10, 540, 'Start',{ font: '50px VT323',  fill: '#000000' });
+        var loadingLabel = insur.game.add.text(insur.game.world.centerX-10, 540, 'Start',{ font: '50px VT323',  fill: '#000000' });
         loadingLabel.anchor.setTo(0.5, 0.5);
     },
     create: function() {
@@ -24,6 +24,6 @@ infinitesurvival.Menu.prototype = {
     },
     changebutton: function(){
 
-        infinitesurvival.game.state.start('Game');
+        insur.game.state.start('Game');
     }
 };

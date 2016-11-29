@@ -1,18 +1,18 @@
-var infinitesurvival = infinitesurvival || {};
+var insur = insur || {};
 
-infinitesurvival.Boot = function(){};
+insur.Boot = function(){};
 
-infinitesurvival.Boot.prototype = {
+insur.Boot.prototype = {
     preload: function() {
         // Load the image
-        infinitesurvival.game.load.image('progressBar', 'assets/menu/progress.png');
+        insur.game.load.image('progressBar', 'assets/menu/progress.png');
     },
     create: function() {
         //Pintamos el fondo
-        infinitesurvival.game.stage.backgroundColor = '#aaaaaa';
-        infinitesurvival.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-        infinitesurvival.game.physics.startSystem(Phaser.Physics.ARCADE);
-        infinitesurvival.game.state.start('Load');
+        insur.game.stage.backgroundColor = '#aaaaaa';
+        insur.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+        insur.game.physics.startSystem(Phaser.Physics.ARCADE);
+        insur.game.state.start('Load');
     },
     update: function() {
     },
