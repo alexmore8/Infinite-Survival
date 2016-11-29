@@ -24,9 +24,15 @@ infinitesurvival.Load.prototype = {
 
         infinitesurvival.game.load.spritesheet('boy_dead', 'assets/players/adventureboy/dead.png', 588, 600);
         infinitesurvival.game.load.spritesheet('boy_idle', 'assets/players/adventureboy/idle.png', 319, 486);
-        infinitesurvival.game.load.spritesheet('boy_jump', 'assets/players/adventureboy/jump.png', 407, 536);
+        infinitesurvival.game.load.spritesheet('player', 'assets/players/adventureboy/jump.png', 407, 536);
         infinitesurvival.game.load.spritesheet('boy_run', 'assets/players/adventureboy/run.png', 415, 507);
         infinitesurvival.game.load.spritesheet('boy_slide', 'assets/players/adventureboy/slide.png', 394,389);
+
+
+        //TODO
+        infinitesurvival.game.load.image('floor', 'assets/tiles/2.png');
+        infinitesurvival.game.load.image('floorr', 'assets/tiles/3.png');
+        infinitesurvival.game.load.image('floorl', 'assets/tiles/1.png');
     },
     create: function() {
 
