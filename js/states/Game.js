@@ -40,7 +40,7 @@ insur.Game.prototype = {
         this.platforms.enableBody = true;
 
         for(var i=0; i<insur.Config.numtiles; i++) {
-            newItem = this.platforms.create(i * insur.Config.tileSize, insur.game.world.height - insur.Config.tileSize - 300, 'floor');
+            newItem = this.platforms.create(i * insur.Config.tileSize, insur.game.world.height - insur.Config.tileSize - 300, 'platform');
             newItem.body.immovable = true;
             newItem.body.velocity.x = insur.Config.levelSpeed;
         }
@@ -90,7 +90,7 @@ insur.Game.prototype = {
         for(i = 0; i < insur.Config.numtiles; i++) {
             if(this.platforms.getAt(i).body.x <= -insur.Config.tileSize) {
 
-                if((Math.random() < insur.Config.probCliff*3) && !this.lastCliffPlatforms) {
+                if((Math.random() < insur.Config.probCliff*2) && !this.lastCliffPlatforms) {
                     salto = 1;
                     this.lastCliffPlatforms = true;
                 }
@@ -101,11 +101,11 @@ insur.Game.prototype = {
 		console.log(i);
                 this.platforms.getAt(i).body.x = this.lastPlatform.body.x + insur.Config.tileSize + salto * insur.Config.tileSize * 7.5;
                 if (salto == 1){
-                    this.platforms.getAt(i).loadTexture('floorl');
+                    this.platforms.getAt(i).loadTexture('platforml');
                     j = i==0 ? insur.Config.numtiles-1 : i-1;
-                    this.platforms.getAt(j).loadTexture('floorr');
+                    this.platforms.getAt(j).loadTexture('platformr');
                 } else {
-                    this.platforms.getAt(i).loadTexture('floor');
+                    this.platforms.getAt(i).loadTexture('platform');
                 }
                 this.lastPlatform = this.platforms.getAt(i);
                 break;

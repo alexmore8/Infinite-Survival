@@ -34,6 +34,10 @@ insur.Load.prototype = {
         insur.game.load.image('floor', 'assets/tiles/2.png');
         insur.game.load.image('floorr', 'assets/tiles/3.png');
         insur.game.load.image('floorl', 'assets/tiles/1.png');
+
+        insur.game.load.image('platform', 'assets/tiles/15.png');
+        insur.game.load.image('platformr', 'assets/tiles/16.png');
+        insur.game.load.image('platforml', 'assets/tiles/14.png');
     },
     create: function() {
 
