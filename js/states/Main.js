@@ -1,6 +1,6 @@
 var insur = insur || {};
 
-insur.game = new Phaser.Game(1366 , 768, Phaser.AUTO, 'phaser-example');
+insur.game = new Phaser.Game(window.innerWidth , window.innerHeight, Phaser.AUTO, 'phaser-example');
 
 insur.game.state.add('Boot', insur.Boot);
 insur.game.state.add('Load', insur.Load);

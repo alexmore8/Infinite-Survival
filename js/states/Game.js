@@ -57,7 +57,7 @@ insur.Game.prototype = {
     update: function() {
         this.generateTerrain();
         this.generatePlatforms();
-        //this.generateCoins();
+        this.generateCoins();
     },
     generateTerrain: function(){
         var i, salto = 0;
