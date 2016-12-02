@@ -20,8 +20,9 @@ insur.Load.prototype = {
         insur.game.load.image('background', 'assets/tiles/background.png');
         insur.game.load.image('bg_menu', 'assets/tiles/bg_menu.png');
         insur.game.load.image('button', 'assets/menu/button.png');
-
-
+        insur.game.load.image('coin', 'assets/coin.png');
+ 
+	insur.game.load.spritesheet('coins', 'assets/monedas.png', 64, 64, 12);
         insur.game.load.spritesheet('boy_dead', 'assets/players/adventureboy/dead.png', 588, 600);
         insur.game.load.spritesheet('boy_idle', 'assets/players/adventureboy/idle.png', 319, 486);
         insur.game.load.spritesheet('player', 'assets/players/adventureboy/jump.png', 407, 536);
@@ -36,6 +37,6 @@ insur.Load.prototype = {
     },
     create: function() {
 
-        insur.game.state.start('Menu');
+        insur.game.state.start('Game');
     }
 };
