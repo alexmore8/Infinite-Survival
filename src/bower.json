@@ -1,0 +1,21 @@
+{
+    "name": "Infinite survival",
+    "version": "0.1",
+    "description": "Infinite Survival game",
+    
+    "authors": [
+        "manso92", "alexmore8"
+    ],
+
+    "license": "MIT",
+
+    "dependencies": {
+        "requirejs": "latest",
+        "underscore" : "latest",
+        "phaser": "latest"
+    },
+
+    "ignore": [
+        "src/libs"
+    ]
+}
