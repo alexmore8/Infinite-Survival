@@ -11,7 +11,7 @@ insur.Game.prototype = {
         this.background3 = insur.game.add.image(2046,0,'background');
 
         // Cargamos los sprites de la moneda y del jugador
-        this.coin = insur.game.add.sprite(600, 300, 'coins');
+        this.coin = insur.game.add.sprite(1000, 300, 'coins');
         insur.player = insur.game.add.sprite(insur.game.world.width/2-200, insur.game.world.height - insur.Config.tileSize -200, 'player');
 
         insur.game.time.advancedTiming = true;
@@ -67,7 +67,7 @@ insur.Game.prototype = {
         this.plataforma = insur.game.add.group();
         this.plataforma.enableBody = true;
         for(var i=0; i<insur.Config.numtiles; i++) {
-            newItem = this.plataforma.create(i * insur.Config.tileSize, insur.game.world.height - insur.Config.tileSize - 300, 'platform');
+            newItem = this.plataforma.create(i * insur.Config.tileSize - insur.Config.paddingPlataforma, insur.game.world.height - insur.Config.tileSize - 300, 'platform');
             newItem.body.immovable = true;
             newItem.body.velocity.x = insur.Config.levelSpeed;
         }
@@ -84,8 +84,9 @@ insur.Game.prototype = {
         // Creamos las colisiones con el player, le ajustamos el tamaño, y le configuramos la física
         insur.game.physics.arcade.enable(insur.player);
         insur.player.scale.setTo(0.4);
-        insur.player.body.gravity.y = 2000;
+        insur.player.body.gravity.y = 4000;
         insur.player.body.velocity.x = -insur.Config.levelSpeed;
+        insur.player.saltando = false;
         // Animamos el sprite del jugador
         anim = insur.player.animations.add('walk');
         anim.play(10, true);
@@ -101,33 +102,47 @@ insur.Game.prototype = {
     },
 
     update: function() {
+        // Hacemos que la cámara siga al jugador
+        insur.game.camera.follow(insur.player);
         // Si se pulsta la tecla de subir
-        if (this.cursor.up.isDown) {
+        if ((this.cursor.up.isDown) && (insur.player.saltando == false)) {
             // Hacemos que el jugador salte
-            insur.player.body.y += -1;
-            insur.player.body.velocity.y = -400;
-            insur.player.body.velocity.x = 0;
+            insur.player.body.y += -3;
+            console.log(insur.player.saltando);
+            insur.player.body.velocity.y = -1600;
+            insur.player.saltando = true;
+            console.log(insur.player.saltando);
         }
+
+        if (! insur.player.body.touching.down){
+           insur.player.body.velocity.x = 0;
+        }
+
+
+        if ((insur.player.body.x + 300 < 0) || (insur.player.body.y > insur.game.world.height)){
+            this.gameOver();
+        }
+
 
         // Activamos las colisiones
         insur.game.physics.arcade.collide(insur.player, this.suelo, this.playerHit, null, this);
         insur.game.physics.arcade.collide(insur.player, this.plataforma, this.playerHit, null, this);
-        insur.game.physics.arcade.collide(this.plataforma, this.coin);
-        insur.game.physics.arcade.collide(this.suelo, this.coin);
+        insur.game.physics.arcade.collide(insur.player, this.coin, this.takeCoins, null, this);
         this.generarSuelo();
         this.generarPlataformas();
         this.generateCoins();
     },
     playerHit: function(player, blockedLayer) {
         //if hits on the right side, die
-        if(player.body.touching.right) {
-            insur.game.state.start('Game');
+        if(insur.player.body.touching.right) {
+            //insur.game.state.start('Game');
         }
 
-        if (! player.body.touching.down){
+        if (! insur.player.body.touching.down){
            insur.player.body.velocity.x = 0;
         } else {
             insur.player.body.velocity.x = -insur.Config.levelSpeed;
+           insur.player.saltando = false;
         }
     },
     generarSuelo: function(){
@@ -184,18 +199,23 @@ insur.Game.prototype = {
         if(this.coin.body.x <= -200) {
             this.coin.body.x = 1500;
         }
+        if(this.coin.body.y != 300) {
+            this.coin.body.y = 300;
+            this.coin.body.velocity.y = 0;
+        }
     },
 
-        //función para coger monedas
+    //función para coger monedas
     takeCoins: function(player, coin) {
 
         insur.game.global.puntuacion += 5;
-        this.puntuacion.text = 'puntuacion: ' + game.global.puntuacion;
-        this.coin.reset(game.rnd.integerInRange(40, 590), game.rnd.integerInRange(40, 590));
+        this.puntuacion.text = 'puntuacion: ' + insur.game.global.puntuacion;
+        this.coin.body.x = 1500;
+        this.coin.body.velocity.x = insur.Config.levelSpeed;
 
     },
     gameOver: function() {
-        insur.game.state.start('Game');
+        insur.game.state.start('GameOver');
     },
     render: function(){
     }

@@ -5,5 +5,6 @@ insur.Config = {
     maxlevel : -500,
     tileSize : 128,
     probCliff : 0.3,
-    numtiles : 16
+    numtiles : 16,
+    paddingPlataforma :1500
 };
