@@ -41,6 +41,6 @@ insur.Load.prototype = {
     },
     create: function() {
 
-        insur.game.state.start('Game');
+        insur.game.state.start('Menu');
     }
 };
