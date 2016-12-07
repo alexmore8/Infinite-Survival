@@ -85,7 +85,7 @@ Los estados del juego para esta entrega son los siguientes:
     
     \item \textbf{Death}
         \begin{itemize}
-            \item Volvemos a la pantalla de inicio para comenzar de nuevo
+            \item Se mostrará una pantalla de game over
             
 \end{itemize}
 
@@ -113,9 +113,8 @@ El personaje puede encontrarse en los siguientes estados
 
 
 \subsection{Mecánica del juego}
-En esta sección se intentará dar una aproximación de cómo se pretende que sea el uso del juego. No debe tomarse como un manual del mismo, ya que es posible que surjan cambios durante el desarrollo del proyecto, ni como descripción de controles y acciones (secciones anteriores) ni como su intefaz gráfica (secciones venideras).
 
-La mecánica del juego consistirá en una carrera continua automática sobre la que el jugador no tendrá ninguna capacidad de cambiar. Éste deberá utilizar los comandos explicados anteriormente para esquivar los problemas que se le puedan ir planteando a lo largo del juego. Así mismo, el jugador deberá cubrir la distancia más larga para conseguir una puntuación mayor así como recoger objetos que le puedan ayudar durante el juego.
+La mecánica del juego consiste en una carrera continua automática sobre la que el jugador no tendrá ninguna capacidad de cambiar. Éste debe utilizar los comandos explicados anteriormente para esquivar los problemas que se le puedan ir planteando a lo largo del juego. Así mismo, el jugador debe cubrir la distancia más larga para conseguir una puntuación mayor así como recoger objetos que le puedan ayudar durante el juego.
 
 La dificultad del juego residirá en que durante la carrera, se irán poniendo diferentes travas para que la dificultad vaya en aumento:
 
@@ -148,9 +147,6 @@ Como la mayoría de estos programas son gratuitos o se disponen de las diferente
 
 El lugar de trabajo que mas hemos empleado,han sido los laboratorios de la Escuela Politécnica Superior de la Universidad Autónoma de Madrid, ya que todos disponen en su mayoría de los requisitos de software y hardware descritos anteriormente. Así mismo, también hemos hecho uso de nuestros propios ordenadores.
 
-\section{Técnicas empleadas}
-
-
 
 \section{Recursos adicionales}
 En lo referente a recursos hemos utilizado:
@@ -181,10 +177,6 @@ Actualmente nos encontramos en la segunda entrega del proyecto, y quedaría una 
 
 	\item \textbf{Entrega final:} se entregará una versión del desarrollo completamente operativa y con todas las funcionalidades previamente descritas ya implementadas. Así mismo se entregará una memoria de todo el desarrollo del proyecto y un manual de uso del juego en el que se expondrán todos los aspectos relevantes del juego. Su entrega se preve con la finalización del plazo.
 \end{itemize}
-
-
-
-
 
 
 
@@ -224,11 +216,11 @@ Para poder proceder correctamente con la implementación del proyecto es necesar
 
 En esta sección se especificarán las implementaciones de la mayoría de los elementos descritos en la primera sección del documento, por lo que es recomendable que se consulte como referencia si en alguna parte de esta sección se tienen dudas.
 
-Todo el videojuego será controlado por una clase Juego que contendrá todo el resto de los elementos del sistema. Esta contendrá al jugador, powerups(objetos que el jugador podrá obtener), los enemigos (elementos perjudiciales para el jugador) y el mapa.
+Todo el videojuego será controlado por una clase Main que contendrá todo el resto de los elementos del sistema. Esta contendrá al jugador, powerups(objetos que el jugador podrá obtener), los enemigos (elementos perjudiciales para el jugador) y el mapa.
 
 \begin{itemize}
 	\item El jugador tendrá entidad única para el mismo debido a su diferencia con el resto de instancias del juego. Además se le podrán cambiar diferentes aspectos de su física natural en base a los objetos que pueda ir recogiendo.
-	\item Los powerups y los enemigos se proponen como objetos distintos ya que a la hora de afectar al jugador por igual se analizarán primero unos antes que otros.
+
 	\item El mapa se irá generando automáticamente o cargando de ficheros externos para poder ir dibujando todo el sistema de juego.
 \end{itemize}
 
@@ -245,11 +237,10 @@ Los elementos que se mostrarán son los que siguen:
 	\item \textbf{Barra superior:} en esta se mostrarán los principales indicadores del juego para que el jugador las pueda ver:
 		\begin{itemize}
 			\item \textbf{Distancia:} distancia (puntuación) recorrida por el personaje en la partida
-			\item \textbf{Vida:} un indicador en el que se diga la vida que le queda al jugador
+			
 		\end{itemize}
 	\item \textbf{Objetos recogidos:} se pueden ir recogiendo objetos por el juego que luego se podrán usar con diferentes acciones. Para poder conocer que objetos tienes disponibles se dispondrán en una tira en un lado de la pantalla.
 	
-	\item \textbf{Enemigos y mejoras:} durante la carrera irán apareciendo por el escenario distintos enemigos, obstáculos y objetos de mejora que el personaje tendrá que coger o esquivar.
 \end{itemize}
 
 La interfaz sería parecida a la siguiente:
@@ -299,7 +290,6 @@ Cabe destacar, que debido a la complejidad de algunos de los componentes de la p
 
 
 \newpage
-%% Apendices (ejercicios, examenes)
 \appendix
 \chapter{Planificación temporal}
 
