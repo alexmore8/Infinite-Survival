@@ -1,7 +1,0 @@
-PWD /home/alumnos/e270243/Desktop/infinite-survival/Entregas/Practica2
-INPUT /etc/texmf/web2c/texmf.cnf
-INPUT /usr/share/texmf/web2c/texmf.cnf
-INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
-INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT Proyecto_De_videojuego_2.tex
-OUTPUT Proyecto_De_videojuego_2.log

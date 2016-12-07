@@ -1,0 +1,3 @@
+El videojuego está alojado en https://manso92.github.io/infinite-survival/
+
+Además de ver el código mediante la inspección de código, si nos dejas un usuario de github podemos ponerte como participante del repositorio.
