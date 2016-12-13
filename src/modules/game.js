@@ -10,6 +10,10 @@ define(function(require, exports, module, Config) {
         this.background  = null;
         this.background2 = null;
         this.background3 = null;
+
+        this.initialx = 0;
+
+        this.life = null;
         this.coin = null;
         this.player = null;
         this.puntuacion = null;
@@ -34,9 +38,14 @@ define(function(require, exports, module, Config) {
             this.background2 = this.game.add.image(1023,0,'background');
             this.background3 = this.game.add.image(2046,0,'background');
 
+            this.life = this.game.add.image(10,10,'life').scale.setTo(0.5);
+            this.life_progress = this.game.add.image(73,26,'lifeprogress').scale.setTo(0.5);
+
             // Cargamos los sprites de la moneda y del jugador
             this.coin = this.game.add.sprite(1000, 300, 'coins');
             this.player = this.game.add.sprite(this.game.world.width/2-200, this.game.world.height - this.TILESIZE -200, 'player');
+
+            this.initialx = this.game.world.width/2-200;
 
             this.game.time.advancedTiming = true;
         },
@@ -64,7 +73,7 @@ define(function(require, exports, module, Config) {
 
 
             // Creamos una etiquetaa para la puntuación y lo colocamos
-            this.puntuacion = this.game.add.text(30, 30, 'puntuacion: 0',{ font: '50px VT323', fill: '#0000FF' });
+            this.puntuacion = this.game.add.text(30, 150, 'Puntuacion: 0',{ font: '50px Pacifico', fill: '#0000FF' });
             this.puntuacion.fixedToCamera=true;
             this.game.puntuacion = 0;
 
@@ -133,7 +142,7 @@ define(function(require, exports, module, Config) {
 
         update: function() {
             // Hacemos que la cámara siga al jugador
-            this.game.camera.follow(this.player);
+            //this.game.camera.follow(this.player);
             // Si se pulsta la tecla de subir
             if ((this.cursor.up.isDown) && (this.player.saltando == false)) {
                 // Hacemos que el jugador salte
@@ -144,12 +153,24 @@ define(function(require, exports, module, Config) {
 
             if (! this.player.body.touching.down){
                this.player.body.velocity.x = 0;
+            } else {
+                alert(this.player.body.x);
+                alert(this.game.world.width/2-200);
+                if (this.player.body.x < this.game.world.width/2-200){
+                    this.player.body.velocity.x = -(this.LEVELSPEED *1,20);
+                    alert("Aumentando velocidad");
+                } else {
+                    this.player.body.velocity.x = -this.LEVELSPEED;
+                }
             }
 
 
             if ((this.player.body.x + 300 < 0) || (this.player.body.y > this.game.world.height)){
                 this.gameOver();
             }
+
+
+
 
 
             // Activamos las colisiones
@@ -237,7 +258,7 @@ define(function(require, exports, module, Config) {
         takeCoins: function(player, coin) {
 
             this.game.puntuacion += 5;
-            this.puntuacion.text = 'puntuacion: ' + this.game.puntuacion;
+            this.puntuacion.text = 'Puntuacion: ' + this.game.puntuacion;
             this.coin.body.x = 1500;
             this.coin.body.velocity.x = this.LEVELSPEED;
 

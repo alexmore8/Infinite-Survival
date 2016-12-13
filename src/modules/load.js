@@ -25,6 +25,12 @@ define(function(require, exports, module) {
             this.game.load.image('background', 'src/assets/tiles/background.png');
             this.game.load.image('bg_menu', 'src/assets/tiles/bg_menu.png');
             this.game.load.image('button', 'src/assets/menu/button.png');
+
+
+            this.game.load.image('life', 'src/assets/menu/life.png');
+            this.game.load.image('lifeprogress', 'src/assets/menu/life_progress.png');
+
+
      
             this.game.load.spritesheet('coins', 'src/assets/monedas.png', 64, 64, 12);
             this.game.load.spritesheet('boy_dead', 'src/assets/players/adventureboy/dead.png', 588, 600);

@@ -25,7 +25,7 @@ define(function(require, exports, module) {
                 this.game.scale.maxHeight = 480;
                 this.game.scale.forceLandscape = true;
                 this.game.scale.pageAlignHorizontally = true;
-                this.game.scale.setScreenSize(true);
+                //this.game.scale.setScreenSize(true);
             }
 
 

@@ -25,7 +25,7 @@
         var Menu        = require('modules/menu');
         var Game        = require('modules/game');
         var GameOver    = require('modules/gameover');
-        var game        = new Phaser.Game(window.innerWidth , window.innerHeight, Phaser.AUTO, 'phaser-example');
+        var game        = new Phaser.Game(window.innerWidth , window.innerHeight, Phaser.AUTO, 'phaser-game');
 
         // Add game states from modules
         game.state.add('boot', Boot);
