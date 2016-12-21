@@ -1,21 +1,19 @@
-define(function(require, exports, module, Config) {
+define(function (require, exports, module, Config) {
 
     'use strict';
 
-    var _             = require('underscore');
+    var _ = require('underscore');
     var mainConstants = require('helpers/main-constants');
-    var inputEvents   = require('modules/parts/input-events');
+    var inputEvents = require('modules/parts/input-events');
+    var Phaser = require('phaser');
+
+    var player = require('sprites/player');
 
     function Game() {
-        this.background  = null;
-        this.background2 = null;
-        this.background3 = null;
-
-        this.initialx = 0;
+        this.background = null;
 
         this.life = null;
         this.coin = null;
-        this.player = null;
         this.puntuacion = null;
         this.suelo = null;
         this.floor = null;
@@ -30,26 +28,7 @@ define(function(require, exports, module, Config) {
     }
 
     Game.prototype = {
-
-        preload: function() {
-
-            // Cargamos tres fondos de pantalla para ir moviéndolos y dar una sensación de movimiento
-            this.background = this.game.add.image(0,0,'background');
-            this.background2 = this.game.add.image(1023,0,'background');
-            this.background3 = this.game.add.image(2046,0,'background');
-
-            this.life = this.game.add.image(10,10,'life').scale.setTo(0.5);
-            this.life_progress = this.game.add.image(73,26,'lifeprogress').scale.setTo(0.5);
-
-            // Cargamos los sprites de la moneda y del jugador
-            this.coin = this.game.add.sprite(1000, 300, 'coins');
-            this.player = this.game.add.sprite(this.game.world.width/2-200, this.game.world.height - this.TILESIZE -200, 'player');
-
-            this.initialx = this.game.world.width/2-200;
-
-            this.game.time.advancedTiming = true;
-        },
-        create: function() {
+        preload: function () {
 
             // Define movement constants
             _.extend(this, mainConstants);
@@ -57,149 +36,153 @@ define(function(require, exports, module, Config) {
             // Add key handlers
             _.extend(this, inputEvents);
 
-            // Hacemos que pueda chocar y la ponemos con un tamaño adecuado
-            this.game.physics.arcade.enable(this.coin);
-            this.coin.scale.setTo(2);
-            // Cambiamos las propiedades para colocarla en el punto que queremos y le añadimos velocidad
-            this.coin.body.velocity.x = this.LEVELSPEED;
-            this.coin.body.y = 600;
-            // Animamos la moneda
-            this.coin.animations.add('girar');
-            this.coin.animations.play('girar', 20, true);
+
+            this.game.time.advancedTiming = true;
+
+            this.LEVELSPEED          = -500;
+            this.MAXLEVEL            = -500;
+            this.TILESIZE            = 128;
+            this.PROBCLIFF           = 0.3;
+            this.NUMTILES            = 16;
+            this.PADDINGPLATAFORMA   = 1500;
+
+            // Cargamos tres fondos de pantalla para ir moviéndolos y dar una sensación de movimiento
+            //this.background = this.game.add.image(0, 0, 'background');
+            //this.background2 = this.game.add.image(1023, 0, 'background');
+            //this.background3 = this.game.add.image(2046, 0, 'background');
 
 
+            this.life = this.game.add.image(10, 10, 'life').scale.setTo(0.5);
+            this.life_progress = this.game.add.image(73, 26, 'lifeprogress').scale.setTo(0.5);
+        },
+        create: function () {
+            var newItem;
 
+            //game params
+            this.levelSpeed = -500;
+            this.tileSize = 128;
+            this.probCliff = 0.4;
 
-
-
-            // Creamos una etiquetaa para la puntuación y lo colocamos
-            this.puntuacion = this.game.add.text(30, 150, 'Puntuacion: 0',{ font: '50px Pacifico', fill: '#0000FF' });
-            this.puntuacion.fixedToCamera=true;
-            this.game.puntuacion = 0;
-
-
-
-
-
-
-
-            // Creamos el muro y vamos colocándolos en la pantalla
+            //initiate groups, we'll recycle elements
             this.suelo = this.game.add.group();
             this.suelo.enableBody = true;
-            for(var i=0; i<this.NUMTILES; i++) {
-                this.floor = this.suelo.create(i * this.TILESIZE, this.game.world.height - this.TILESIZE, 'floor');
-                this.floor.body.immovable = true;
-                this.floor.body.velocity.x = this.LEVELSPEED;
+
+            for (var i = 0; i < 20; i++) {
+                newItem = this.suelo.create(i * this.tileSize, this.game.world.height - this.tileSize, 'floor');
+                newItem.body.immovable = true;
+                newItem.body.velocity.x = this.levelSpeed;
+                this.game.physics.enable(newItem, Phaser.Physics.ARCADE);
             }
-            // Guardamos el último suelo y el último salto
-            this.lastFloor = this.floor;
+
+            //keep track of the last floor
+            this.lastFloor = newItem;
+
+            //keep track of the last element
             this.lastCliff = false;
 
 
+            //create player
+            this.player = this.game.add.sprite(500, 0, 'boy_run');
+            this.player.scale.setTo(1);
 
+            this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
 
+            this.player.jumping = false;
 
+            //enable physics on the player
+            //this.game.physics.arcade.enable(this.player);
 
+            //player gravity746
+            this.player.body.gravity.y = 2500;
+            this.player.body.velocity.y = - this.levelSpeed;
 
-
-            // Creamos la plataforma y vamos colocándolos en la pantalla
-            this.plataformas = this.game.add.group();
-            this.plataformas.enableBody = true;
-            for(var i=0; i<this.NUMTILES; i++) {
-                this.plataforma = this.plataformas.create(i * this.TILESIZE - this.PADDINGPLATAFORMA, this.game.world.height - this.TILESIZE - 300, 'platform');
-                this.plataforma.body.immovable = true;
-                this.plataforma.body.velocity.x = this.LEVELSPEED;
-            }
-            // Guardamos la última plataforma y el último salto de plataforma
-            this.lastPlatform = this.plataforma;
-            this.lastCliffplataforma = false;
-
-
-
-
-
-
-
-            // Creamos las colisiones con el player, le ajustamos el tamaño, y le configuramos la física
-            this.game.physics.arcade.enable(this.player);
-            this.player.scale.setTo(0.4);
-            this.player.body.gravity.y = 4000;
-            this.player.body.velocity.x = -this.LEVELSPEED;
-            this.player.saltando = false;
             // Animamos el sprite del jugador
-            var anim = this.player.animations.add('walk');
-            anim.play(10, true);
+            this.player.animations.add('walk');
+            this.player.animations.play('walk', 20, true);
+            this.player.body.collideWorldBounds = true;
 
+            //properties when the player is ducked and standing, so we can use in update()
+            var playerDuckImg = this.game.cache.getImage('boy_slide');
+            this.player.duckedDimensions = {width: playerDuckImg.width, height: playerDuckImg.height};
+            this.player.standDimensions = {width: this.player.width, height: this.player.height};
+            this.player.anchor.setTo(0.5, 1);
 
-
-
-
-            // Capturamos las teclas del teclado
-            this.cursor = this.game.input.keyboard.createCursorKeys();
-            // Hacemos que la cámara siga al jugador
+            //the camera will follow the player in the world
             this.game.camera.follow(this.player);
+
+
+            //init game controller
+            this.initGameController();
+
+
         },
 
-        update: function() {
-            // Hacemos que la cámara siga al jugador
-            //this.game.camera.follow(this.player);
-            // Si se pulsta la tecla de subir
-            if ((this.cursor.up.isDown) && (this.player.saltando == false)) {
-                // Hacemos que el jugador salte
-                this.player.body.y += -3;
-                this.player.body.velocity.y = -1600;
-                this.player.saltando = true;
-            }
 
-            if (! this.player.body.touching.down){
-               this.player.body.velocity.x = 0;
-            } else {
-                alert(this.player.body.x);
-                alert(this.game.world.width/2-200);
-                if (this.player.body.x < this.game.world.width/2-200){
-                    this.player.body.velocity.x = -(this.LEVELSPEED *1,20);
-                    alert("Aumentando velocidad");
-                } else {
-                    this.player.body.velocity.x = -this.LEVELSPEED;
+        update: function () {
+            //collision
+            this.game.physics.arcade.collide(this.player, this.suelo, this.playerHit, null, this);
+
+            this.game.debug.text(this.game.time.fps, 1000, 100, 'white');
+
+            //only respond to keys and keep the speed if the player is alive
+            if (this.player.alive) {
+
+                if (this.player.body.touching.down) {
+                    this.player.body.velocity.x = -this.levelSpeed;
+                    if (this.player.jumping == true) {
+                        this.player.loadTexture('boy_run');
+                        this.player.animations.play('walk', 10, true);
+                        this.player.jumping = false;
+                    }
+                }
+                else {
+                    this.player.body.velocity.x = 0;
+                    if (this.player.jumping == false) {
+                        /*this.player.loadTexture('boy_jump');
+                        this.player.animations.add('jump');
+                        this.player.animations.play('jump', 10, true);
+                        */this.player.jumping = true;
+                    }
+                }
+
+
+                if (this.cursors.up.isDown) {
+                    this.playerJump();
+                }
+                else if (this.cursors.down.isDown) {
+                    this.playerDuck();
+                }
+
+                if (!this.cursors.down.isDown && this.player.isDucked && !this.pressingDown) {
+                    //alert();
+
+                    //this.player.loadTexture('boy_run');
+                    //this.player.animations.play('walk', 10, true);
+                    //change image and update the body size for the physics engine
+                    //this.player.loadTexture('boy_run');
+                    //this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
+                    //this.player.isDucked = false;
+                }
+
+                //restart the game if reaching the edge
+                if (this.player.x <= -this.tileSize) {
+                    this.game.state.start('game');
+                }
+                if (this.player.y >= this.game.world.height + this.tileSize) {
+                    this.game.state.start('game');
                 }
             }
 
+            //generate further terrain
+            this.generateTerrain();
 
-            if ((this.player.body.x + 300 < 0) || (this.player.body.y > this.game.world.height)){
-                this.gameOver();
-            }
-
-
-
-
-
-            // Activamos las colisiones
-            this.game.physics.arcade.collide(this.player, this.suelo, this.playerHit, null, this);
-            this.game.physics.arcade.collide(this.player, this.plataformas, this.playerHit, null, this);
-            this.game.physics.arcade.collide(this.player, this.coin, this.takeCoins, null, this);
-            this.generarSuelo();
-            this.generarPlataformas();
-            this.generateCoins();
         },
-        playerHit: function(player, blockedLayer) {
-            //if hits on the right side, die
-            if(this.player.body.touching.right) {
-                //this.game.state.start('Game');
-            }
-
-            if (! this.player.body.touching.down){
-               this.player.body.velocity.x = 0;
-            } else {
-                this.player.body.velocity.x = -this.LEVELSPEED;
-               this.player.saltando = false;
-            }
-        },
-        generarSuelo: function(){
+        generateTerrain: function () {
             var i, salto = 0;
-            for(i = 0; i < this.NUMTILES; i++) {
-                if(this.suelo.getAt(i).body.x <= -this.TILESIZE) {
+            for (i = 0; i < this.NUMTILES; i++) {
+                if (this.suelo.getAt(i).body.x <= -this.TILESIZE) {
 
-                    if((Math.random() < this.PROBCLIFF) && !this.lastCliff) {
+                    if ((Math.random() < this.PROBCLIFF) && !this.lastCliff) {
                         salto = 1;
                         this.lastCliff = true;
                     }
@@ -207,9 +190,9 @@ define(function(require, exports, module, Config) {
                         this.lastCliff = false;
 
                     this.suelo.getAt(i).body.x = this.lastFloor.body.x + this.TILESIZE + salto * this.TILESIZE * 2.5;
-                    if (salto == 1){
+                    if (salto == 1) {
                         this.suelo.getAt(i).loadTexture('floorl');
-                        var j = i==0 ? this.NUMTILES-1 : i-1;
+                        var j = i == 0 ? this.NUMTILES - 1 : i - 1;
                         this.suelo.getAt(j).loadTexture('floorr');
                     } else {
                         this.suelo.getAt(i).loadTexture('floor');
@@ -219,52 +202,51 @@ define(function(require, exports, module, Config) {
                 }
             }
         },
-        generarPlataformas: function(){
-            var i, salto = 0;
-            for(i = 0; i < this.NUMTILES; i++) {
-                if(this.plataformas.getAt(i).body.x <= -this.TILESIZE) {
+        /*playerHit: function (player, blockedLayer) {
+            //if hits on the right side, die
+            if (player.body.touching.right) {
 
-                    if((Math.random() < this.PROBCLIFF*2) && !this.lastCliffplataforma) {
-                        salto = 1;
-                        this.lastCliffplataforma = true;
-                    }
-                    else
-                        this.lastCliffplataforma = false;
+                //set to dead (this doesn't affect rendering)
+                this.player.alive = false;
 
-                    this.plataformas.getAt(i).body.x = this.lastPlatform.body.x + this.TILESIZE + salto * this.TILESIZE * 7.5;
-                    if (salto == 1){
-                        this.plataformas.getAt(i).loadTexture('platforml');
-                        var j = i==0 ? this.NUMTILES-1 : i-1;
-                        this.plataformas.getAt(j).loadTexture('platformr');
-                    } else {
-                        this.plataformas.getAt(i).loadTexture('platform');
-                    }
-                    this.lastPlatform = this.plataformas.getAt(i);
-                    break;
-                }
+                //stop moving to the right
+                this.player.body.velocity.x = 0;
+
+                //change sprite image
+                this.player.loadTexture('boy_dead');
+
+                //go to gameover after a few miliseconds
+                this.game.time.events.add(1500, this.gameOver, this);
             }
-        },
-        generateCoins: function(){
-            if(this.coin.body.x <= -200) {
-                this.coin.body.x = 1500;
-            }
-            if(this.coin.body.y != 300) {
-                this.coin.body.y = 300;
-                this.coin.body.velocity.y = 0;
-            }
-        },
+        },*/
+        initGameController: function () {
 
-        //función para coger monedas
-        takeCoins: function(player, coin) {
+            //move player with cursor keys
+            this.cursors = this.game.input.keyboard.createCursorKeys();
+            var upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+            // When the 'upKey' is pressed, it will call the 'start' function once
+            upKey.onDown.add(this.playerJump, this);
+            var downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+            // When the 'upKey' is pressed, it will call the 'start' function once
+            downKey.onDown.add(this.playerDuck, this);
 
-            this.game.puntuacion += 5;
-            this.puntuacion.text = 'Puntuacion: ' + this.game.puntuacion;
-            this.coin.body.x = 1500;
-            this.coin.body.velocity.x = this.LEVELSPEED;
 
         },
-        gameOver: function() {
-            this.game.state.start('gameover');
+        gameOver: function () {
+            this.game.state.start('game');
+        },
+        playerJump: function () {
+            if (this.player.body.touching.down) {
+                this.player.body.velocity.y -= 900;
+            }
+        },
+        playerDuck: function () {
+            this.player.loadTexture('boy_slide');
+            this.player.animations.add('slide');
+            this.player.animations.play('slide', 30, true);
+            this.player.isDucked = true;
+        },
+        render: function () {
         }
 
     };

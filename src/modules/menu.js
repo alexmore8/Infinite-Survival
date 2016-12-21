@@ -10,7 +10,6 @@ define(function(require, exports, module) {
     }
 
     Menu.prototype = {
-
         create: function () {
             this.background = this.game.add.image(0,0,'bg_menu');
             this.loadingLabel = this.game.add.text(this.game.world.centerX, 150, 'Infinite Survival',{ font: '100px Pacifico',  fill: '#000000' });
