@@ -1,6 +1,7 @@
 (function () {
     'use strict';
 
+    // Configuramos requirejs y todos los componentes que utilizaremos
     requirejs.config({
         baseUrl: "src/",
 
@@ -16,20 +17,23 @@
         }
     });
 
+    // Iniciamos el lanzamiento del juego
     define(function(require, exports, module) {
 
+        // Cargamos Phaser y creamos el juego
         var Phaser      = require('phaser');
-        var Boot        = require('modules/boot');
-        var Load        = require('modules/load');
-        var Menu        = require('modules/menu');
-        var Game        = require('modules/game');
         var game        = new Phaser.Game(window.innerWidth , window.innerHeight, Phaser.AUTO, 'phaser-game');
 
-        // Add game states from modules
-        game.state.add('boot', Boot);
-        game.state.add('load', Load);
-        game.state.add('menu', Menu);
-        game.state.add('game', Game);
+        // Añadimos al juego los parámetros
+        var _ = require('underscore');
+        var mainConstants = require('helpers/main-constants');
+        _.extend(game, mainConstants);
+
+        // Añadimos los diferentes niveles al juego
+        game.state.add('boot', require('modules/boot'));
+        game.state.add('load', require('modules/load'));
+        game.state.add('menu', require('modules/menu'));
+        game.state.add('game', require('modules/game'));
         game.state.start('boot');
     });
 }());

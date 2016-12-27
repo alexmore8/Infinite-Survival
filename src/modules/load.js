@@ -33,11 +33,10 @@ define(function(require, exports, module) {
 
 
             this.game.load.spritesheet('coins', 'src/assets/monedas.png', 64, 64, 12);
-            this.game.load.spritesheet('boy_dead', 'src/assets/players/adventureboy/dead.png', 235, 240);
-            this.game.load.spritesheet('boy_idle', 'src/assets/players/adventureboy/idle.png', 127, 194);
+            this.game.load.spritesheet('boy_dead', 'src/assets/players/adventureboy/dead.png', 235, 214);
             this.game.load.spritesheet('boy_jump', 'src/assets/players/adventureboy/jump.png', 162, 214);
-            this.game.load.spritesheet('boy_run', 'src/assets/players/adventureboy/run.png', 165, 202);
-            this.game.load.spritesheet('boy_slide', 'src/assets/players/adventureboy/slide.png', 156,154);
+            this.game.load.spritesheet('boy_run', 'src/assets/players/adventureboy/run.png', 165, 214);
+            this.game.load.spritesheet('boy_slide', 'src/assets/players/adventureboy/slide.png', 156,214);
 
 
             //TODO

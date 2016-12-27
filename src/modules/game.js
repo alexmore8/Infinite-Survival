@@ -7,7 +7,9 @@ define(function (require, exports, module, Config) {
     var inputEvents = require('modules/parts/input-events');
     var Phaser = require('phaser');
 
-    var player = require('sprites/player');
+    var Player = require('sprites/player');
+    var Bloque = require('sprites/bloque');
+    var Muro = require('sprites/muros');
 
     function Game() {
         this.background = null;
@@ -39,13 +41,6 @@ define(function (require, exports, module, Config) {
 
             this.game.time.advancedTiming = true;
 
-            this.LEVELSPEED          = -500;
-            this.MAXLEVEL            = -500;
-            this.TILESIZE            = 128;
-            this.PROBCLIFF           = 0.3;
-            this.NUMTILES            = 16;
-            this.PADDINGPLATAFORMA   = 1500;
-
             // Cargamos tres fondos de pantalla para ir moviéndolos y dar una sensación de movimiento
             //this.background = this.game.add.image(0, 0, 'background');
             //this.background2 = this.game.add.image(1023, 0, 'background');
@@ -58,63 +53,34 @@ define(function (require, exports, module, Config) {
         create: function () {
             var newItem;
 
-            //game params
-            this.levelSpeed = -500;
-            this.tileSize = 128;
-            this.probCliff = 0.4;
 
-            //initiate groups, we'll recycle elements
-            this.suelo = this.game.add.group();
+
+            this.suelo = new Muro(this.game, 'suelo');
+            /*this.suelo = this.game.add.group();
             this.suelo.enableBody = true;
 
-            for (var i = 0; i < 20; i++) {
-                newItem = this.suelo.create(i * this.tileSize, this.game.world.height - this.tileSize, 'floor');
-                newItem.body.immovable = true;
-                newItem.body.velocity.x = this.levelSpeed;
-                this.game.physics.enable(newItem, Phaser.Physics.ARCADE);
+            for (var i = 0; i < this.NUMTILES; i++) {
+                this.suelo.add(new Bloque(this.game, i * this.TILESIZE, this.game.world.height - this.TILESIZE, 'floor'));
             }
-
-            //keep track of the last floor
-            this.lastFloor = newItem;
-
-            //keep track of the last element
-            this.lastCliff = false;
+            this.lastFloor = this.suelo.getAt(this.NUMTILES - 1);
+            this.lastCliff = false;*/
 
 
-            //create player
-            this.player = this.game.add.sprite(500, 0, 'boy_run');
-            this.player.scale.setTo(1);
 
-            this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
 
-            this.player.jumping = false;
-
-            //enable physics on the player
-            //this.game.physics.arcade.enable(this.player);
-
-            //player gravity746
-            this.player.body.gravity.y = 2500;
-            this.player.body.velocity.y = - this.levelSpeed;
-
-            // Animamos el sprite del jugador
+            this.player = new Player(this.game, 500, 0, 'boy_run');
             this.player.animations.add('walk');
             this.player.animations.play('walk', 20, true);
-            this.player.body.collideWorldBounds = true;
-
-            //properties when the player is ducked and standing, so we can use in update()
             var playerDuckImg = this.game.cache.getImage('boy_slide');
             this.player.duckedDimensions = {width: playerDuckImg.width, height: playerDuckImg.height};
             this.player.standDimensions = {width: this.player.width, height: this.player.height};
             this.player.anchor.setTo(0.5, 1);
 
-            //the camera will follow the player in the world
+
+
+
             this.game.camera.follow(this.player);
-
-
-            //init game controller
             this.initGameController();
-
-
         },
 
 
@@ -128,7 +94,7 @@ define(function (require, exports, module, Config) {
             if (this.player.alive) {
 
                 if (this.player.body.touching.down) {
-                    this.player.body.velocity.x = -this.levelSpeed;
+                    this.player.body.velocity.x = -this.LEVELSPEED;
                     if (this.player.jumping == true) {
                         this.player.loadTexture('boy_run');
                         this.player.animations.play('walk', 10, true);
@@ -148,6 +114,7 @@ define(function (require, exports, module, Config) {
 
                 if (this.cursors.up.isDown) {
                     this.playerJump();
+                    this.player.jump();
                 }
                 else if (this.cursors.down.isDown) {
                     this.playerDuck();
@@ -173,36 +140,8 @@ define(function (require, exports, module, Config) {
                 }
             }
 
-            //generate further terrain
-            this.generateTerrain();
-
         },
-        generateTerrain: function () {
-            var i, salto = 0;
-            for (i = 0; i < this.NUMTILES; i++) {
-                if (this.suelo.getAt(i).body.x <= -this.TILESIZE) {
-
-                    if ((Math.random() < this.PROBCLIFF) && !this.lastCliff) {
-                        salto = 1;
-                        this.lastCliff = true;
-                    }
-                    else
-                        this.lastCliff = false;
-
-                    this.suelo.getAt(i).body.x = this.lastFloor.body.x + this.TILESIZE + salto * this.TILESIZE * 2.5;
-                    if (salto == 1) {
-                        this.suelo.getAt(i).loadTexture('floorl');
-                        var j = i == 0 ? this.NUMTILES - 1 : i - 1;
-                        this.suelo.getAt(j).loadTexture('floorr');
-                    } else {
-                        this.suelo.getAt(i).loadTexture('floor');
-                    }
-                    this.lastFloor = this.suelo.getAt(i);
-                    break;
-                }
-            }
-        },
-        /*playerHit: function (player, blockedLayer) {
+        playerHit: function (player, blockedLayer) {
             //if hits on the right side, die
             if (player.body.touching.right) {
 
@@ -218,7 +157,7 @@ define(function (require, exports, module, Config) {
                 //go to gameover after a few miliseconds
                 this.game.time.events.add(1500, this.gameOver, this);
             }
-        },*/
+        },
         initGameController: function () {
 
             //move player with cursor keys
