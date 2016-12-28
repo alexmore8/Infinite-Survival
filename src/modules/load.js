@@ -11,17 +11,13 @@ define(function(require, exports, module) {
     Load.prototype = {
 
         preload: function() {
-
-            // Add a 'loading...' label on the screen
             this.loadingLabel = this.game.add.text(this.game.world.centerX, 150, 'loading...',{ font: '30px VT323',  fill: '#ffffff' });
             this.loadingLabel.anchor.setTo(0.5, 0.5);
 
-            // Display the progress bar
             this.progressBar = this.game.add.sprite(this.game.world.centerX, 200, 'progress');
             this.progressBar.anchor.setTo(0.5, 0.5);
             this.game.load.setPreloadSprite(this.progressBar);
 
-            // Load a new asset that we will use in the menu state
             this.game.load.image('background', 'src/assets/tiles/background.png');
             this.game.load.image('bg_menu', 'src/assets/tiles/bg_menu.png');
             this.game.load.image('button', 'src/assets/menu/button.png');

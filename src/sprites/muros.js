@@ -4,7 +4,6 @@ define(function (require, exports, module, Config) {
 
     var _ = require('underscore');
     var mainConstants = require('helpers/main-constants');
-    var inputEvents = require('modules/parts/input-events');
     var Bloque = require('sprites/bloque');
     var Phaser = require('phaser');
 
@@ -12,24 +11,7 @@ define(function (require, exports, module, Config) {
     function Muro(game, name) {
         Phaser.Group.call(this, game, null, name);
         game.add.existing(this);
-
-
-
-        // Define movement constants
         _.extend(this, mainConstants);
-
-        /*this.enableBody = true;
-
-        for (var i = 0; i < 20; i++) {
-            this.newItem = new Bloque(game, i * 128, this.game.world.height - 128, 'floor');
-            this.newItem.body.immovable = true;
-            this.newItem.body.velocity.x = this.LEVELSPEED;
-            this.add(this.newItem);
-            game.physics.enable(this.newItem, Phaser.Physics.ARCADE);
-        }
-
-        this.lastFloor = newItem;
-        this.lastCliff = false;*/
 
 
          this.enableBody = true;

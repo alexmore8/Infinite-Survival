@@ -1,10 +1,6 @@
 define(function (require, exports, module, Config) {
 
     'use strict';
-
-    var _ = require('underscore');
-    var mainConstants = require('helpers/main-constants');
-    var inputEvents = require('modules/parts/input-events');
     var Phaser = require('phaser');
 
 
