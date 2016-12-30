@@ -9,6 +9,7 @@ define(function (require, exports, module, Config) {
 
     var Player = require('sprites/player');
     var Muro = require('sprites/muros');
+    var Background = require('sprites/background');
 
     function Game() {
         this.background = null;
@@ -32,6 +33,7 @@ define(function (require, exports, module, Config) {
             this.life_progress = this.game.add.image(73, 26, 'lifeprogress').scale.setTo(0.5);
         },
         create: function () {
+            this.background = new Background(this.game, this.LEVELSPEED/100);
             this.suelo = new Muro(this.game, 'suelo');
             this.player = new Player(this.game, 500, 0, 'boy_run');
             this.game.camera.follow(this.player);
@@ -46,7 +48,7 @@ define(function (require, exports, module, Config) {
 
 
                 if (this.player.body.touching.down) {
-                    this.player.body.velocity.x = -this.LEVELSPEED;
+                    this.player.body.velocity.x = this.LEVELSPEED;
                     if (this.player.jumping == true)
                         this.player.walk();
                 }

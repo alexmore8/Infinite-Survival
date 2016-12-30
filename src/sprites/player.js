@@ -18,7 +18,7 @@ define(function (require, exports, module, Config) {
 
 
         this.body.gravity.y = 2500;
-        this.body.velocity.y = - game.LEVELSPEED;
+        this.body.velocity.y = game.LEVELSPEED;
         this.walk();
     };
 

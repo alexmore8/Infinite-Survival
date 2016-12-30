@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         TILESIZE            : 128,
 
         // Configuración del juego
-        LEVELSPEED          : -500,
+        LEVELSPEED          : 500,
         MAXLEVEL            : -500,
         PROBCLIFF           : 0.3,
         NUMTILES            : 20

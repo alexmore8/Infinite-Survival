@@ -11,7 +11,7 @@ define(function (require, exports, module, Config) {
         game.physics.enable(this, Phaser.Physics.ARCADE);
 
         this.body.immovable = true;
-        this.body.velocity.x = game.LEVELSPEED;
+        this.body.velocity.x = -game.LEVELSPEED;
     };
 
     Bloque.prototype = Object.create(Phaser.Sprite.prototype);
