@@ -7,3 +7,4 @@ src/bower_components/
 # Ignorar ficheros de diseño
 *.ai
 *.svg
+*.zip

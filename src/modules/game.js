@@ -7,9 +7,10 @@ define(function (require, exports, module, Config) {
     var inputEvents = require('modules/parts/input-events');
     var Phaser = require('phaser');
 
+    var Background = require('sprites/background');
     var Player = require('sprites/player');
     var Muro = require('sprites/muros');
-    var Background = require('sprites/background');
+    var Coin = require('sprites/coin');
 
     function Game() {
         this.background = null;
@@ -29,14 +30,16 @@ define(function (require, exports, module, Config) {
 
             this.game.time.advancedTiming = true;
 
-            this.life = this.game.add.image(10, 10, 'life').scale.setTo(0.5);
-            this.life_progress = this.game.add.image(73, 26, 'lifeprogress').scale.setTo(0.5);
         },
         create: function () {
             this.background = new Background(this.game, this.LEVELSPEED/100);
             this.suelo = new Muro(this.game, 'suelo');
             this.player = new Player(this.game, 500, 0, 'boy_run');
-            this.game.camera.follow(this.player);
+            this.coin = new Coin(this.game, 1000, 280);
+
+
+            this.life = this.game.add.image(10, 10, 'life').scale.setTo(0.5);
+            this.life_progress = this.game.add.image(73, 26, 'lifeprogress').scale.setTo(0.5);
             this.initGameController();
         },
 
@@ -47,16 +50,16 @@ define(function (require, exports, module, Config) {
             this.game.debug.text(this.game.time.fps, 1000, 100, 'white');
 
 
-                if (this.player.body.touching.down) {
-                    this.player.body.velocity.x = this.LEVELSPEED;
-                    if (this.player.jumping == true)
-                        this.player.walk();
-                }
-                else {
-                    this.player.body.velocity.x = 0;
-                    if (this.player.jumping == false)
-                        this.player.jump();
-                }
+            if (this.player.body.touching.down) {
+                this.player.body.velocity.x = this.LEVELSPEED;
+                if (this.player.jumping == true)
+                    this.player.walk();
+            }
+            else {
+                this.player.body.velocity.x = 0;
+                if (this.player.jumping == false)
+                    this.player.jump();
+            }
 
 
         },

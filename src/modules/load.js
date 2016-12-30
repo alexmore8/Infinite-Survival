@@ -28,7 +28,9 @@ define(function(require, exports, module) {
 
 
 
-            this.game.load.spritesheet('coins', 'src/assets/monedas.png', 64, 64, 12);
+            this.game.load.spritesheet('coin_gold', 'src/assets/coins/coin_gold.png', 85.71, 86, 14);
+            this.game.load.spritesheet('coin_silver', 'src/assets/coins/coin_silver.png', 85.71, 86, 14);
+            this.game.load.spritesheet('coin_bronze', 'src/assets/coins/coin_bronze.png', 85.71, 86, 14);
             this.game.load.spritesheet('boy_dead', 'src/assets/players/adventureboy/dead.png', 235, 214);
             this.game.load.spritesheet('boy_jump', 'src/assets/players/adventureboy/jump.png', 162, 214);
             this.game.load.spritesheet('boy_run', 'src/assets/players/adventureboy/run.png', 165, 214);

@@ -15,6 +15,7 @@ define(function (require, exports, module, Config) {
 		Phaser.Sprite.call(this, game, x, y, 'boy_run');
         game.add.existing(this);
         game.physics.enable(this, Phaser.Physics.ARCADE);
+        game.camera.follow(this);
 
 
         this.body.gravity.y = 2500;
