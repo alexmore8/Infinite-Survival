@@ -12,6 +12,12 @@ define(function (require, exports, module, Config) {
     var Muro = require('sprites/muros');
     var Coin = require('sprites/coin');
 
+
+
+    var ProgresStatus = require('sprites/game/progress_status');
+    var ProgresData = require('sprites/game/progress_data');
+
+
     function Game() {
         this.background = null;
 
@@ -36,10 +42,16 @@ define(function (require, exports, module, Config) {
             this.suelo = new Muro(this.game, 'suelo');
             this.player = new Player(this.game, 500, 0, 'boy_run');
             this.coin = new Coin(this.game, 1000, 280);
+            this.life = new ProgresData(this.game, "left", 0, "coins", "0");
+            this.life = new ProgresStatus(this.game, "right", 1, "shield",50);
+            this.life = new ProgresStatus(this.game, "left", 2, "power",50);
+            this.life = new ProgresData(this.game, "right", 0, "coins", "00");
+            this.life = new ProgresData(this.game, "left", 1, "coins", "000");
+            this.life = new ProgresData(this.game, "right", 2, "gems", "0000");
+
+            //this.game.add.text(-1000, 200, this.game.time.fps, { font: '100px IMFellEnglishSC',  fill: '#000000' });
 
 
-            this.life = this.game.add.image(10, 10, 'life').scale.setTo(0.5);
-            this.life_progress = this.game.add.image(73, 26, 'lifeprogress').scale.setTo(0.5);
             this.initGameController();
         },
 
