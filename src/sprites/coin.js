@@ -14,7 +14,7 @@ define(function (require, exports, module, Config) {
         this.valor = prob < this.PROBGOLD ? this.GOLDVALUE : prob < this.PROBGOLD+this.PROBSILVER ? this.SILVERVALUE : this.BRONZEVALUE;
         this.sprite = "coin_" + this.coin;
 
-        console.log(prob);
+        //console.log(prob);
 
 
 		Phaser.Sprite.call(this, game, x, y, this.sprite);

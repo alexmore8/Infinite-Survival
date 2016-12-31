@@ -5,7 +5,7 @@ define(function (require, exports, module, Config) {
     var _ = require('underscore');
     var Phaser = require('phaser');
 
-    function ProgressData(game, corner, order, type, texto) {
+    function ProgressData(game, corner, order, type, _texto) {
 
         Phaser.Group.call(this, game);
         game.add.existing(this);
@@ -25,7 +25,7 @@ define(function (require, exports, module, Config) {
         }
 
         this.add(new Phaser.Sprite(game, x, y, type));
-        this.add(new Phaser.Text(game, this.xdata, y, this._texto, { font: '40px IMFellEnglishSC',  fill: '#ffffff' }));
+        this.add(new Phaser.Text(game, this.xdata, y, _texto, { font: '40px IMFellEnglishSC',  fill: '#ffffff' }));
         if (corner == "right"){
             this.getAt(0).scale.setTo(-1,1);
         }
@@ -35,10 +35,20 @@ define(function (require, exports, module, Config) {
     ProgressData.prototype = Object.create(Phaser.Group.prototype);
     ProgressData.prototype.constructor = ProgressData;
 
-    ProgressData.prototype.texto = function (texto) {
-        this.getAt(1).text = texto;
+    ProgressData.prototype.texto = function (valor) {
+        this.getAt(1).text = valor;
         this.fitText();
     };
+
+    ProgressData.prototype.numero = function (valor) {
+        if (valor == undefined){
+            return parseInt(this.getAt(1).text);
+        }
+        this.getAt(1).text = valor;
+        this.fitText();
+    };
+
+
 
     ProgressData.prototype.fitText = function () {
         this.getAt(1).x = this.xdata - (this.getAt(1).width / 2 );

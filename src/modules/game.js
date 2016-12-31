@@ -42,12 +42,14 @@ define(function (require, exports, module, Config) {
             this.suelo = new Muro(this.game, 'suelo');
             this.player = new Player(this.game, 500, 0, 'boy_run');
             this.coin = new Coin(this.game, 1000, 280);
-            this.life = new ProgresData(this.game, "left", 0, "coins", "0");
-            this.life = new ProgresStatus(this.game, "right", 1, "shield",50);
-            this.life = new ProgresStatus(this.game, "left", 2, "power",50);
-            this.life = new ProgresData(this.game, "right", 0, "coins", "00");
-            this.life = new ProgresData(this.game, "left", 1, "coins", "000");
-            this.life = new ProgresData(this.game, "right", 2, "gems", "0000");
+
+
+
+            this.coins = new ProgresData(this.game, "right", 0, "coins", 0);
+            this.gems = new ProgresData(this.game, "right", 1, "gems", 0);
+
+            this.life = new ProgresStatus(this.game, "left", 0, "life",100);
+            this.power = new ProgresStatus(this.game, "left", 1, "power", 0);
 
             //this.game.add.text(-1000, 200, this.game.time.fps, { font: '100px IMFellEnglishSC',  fill: '#000000' });
 
@@ -58,10 +60,9 @@ define(function (require, exports, module, Config) {
 
         update: function () {
             this.game.physics.arcade.collide(this.player, this.suelo, this.playerHit, null, this);
+            this.game.physics.arcade.collide(this.player, this.coin, this.takeCoin, null, this);
 
             this.game.debug.text(this.game.time.fps, 1000, 100, 'white');
-
-
             if (this.player.body.touching.down) {
                 this.player.body.velocity.x = this.LEVELSPEED;
                 if (this.player.jumping == true)
@@ -82,6 +83,11 @@ define(function (require, exports, module, Config) {
                 this.player.loadTexture('boy_dead');
                 this.game.time.events.add(1500, this.gameOver, this);
             }
+        },
+        takeCoin: function (player, coin) {
+            this.coins.numero(this.coins.numero() + this.coin.valor);
+            this.coin.destroy();
+            this.coin = new Coin(this.game, this.game.world.width + this.game.world.width*Math.random(), 280);
         },
         initGameController: function () {
             this.game.input.keyboard.createCursorKeys();
