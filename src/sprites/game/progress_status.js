@@ -1,32 +1,24 @@
-define(function (require, exports, module, Config) {
+define(function (require) {
 
     'use strict';
 
     var _ = require('underscore');
     var Phaser = require('phaser');
 
-    function ProgresStatus(game, corner, order, type, porcentaje) {
+    function ProgresStatus(game, x, y, type, porcentaje ,inverse) {
 
         Phaser.Group.call(this, game);
         game.add.existing(this);
 
         this._porcentaje = porcentaje;
-        this.corner = corner;
-        this.tipo = type;
-        this.order = order;
+        this.espejado = inverse;
 
-        var y = 10 + order * 70;
-        if (corner == "left") {
-            var x = 10;
+        if ((inverse == undefined) || (inverse == false)){
             this.cornerfactor = 1;
-        }
-        if (corner == "right"){
-            var x = this.game.world.width -10;
+        }else {
             this.cornerfactor = -1;
         }
         var xprogress = x+(this.cornerfactor * 63);
-
-
 
         this.add(new Phaser.Sprite(game, x, y, type));
         this.add(new Phaser.Sprite(game, xprogress, y+16, type+"progress"));
@@ -45,7 +37,7 @@ define(function (require, exports, module, Config) {
 
 
     ProgresStatus.prototype.porcentaje = function (porcentaje) {
-        this._porcentaje = porcentaje;
+        this._porcentaje = porcentaje > 100 ? 100 : porcentaje < 0 ? 0 : porcentaje;
         this.fitSizes();
     };
 
