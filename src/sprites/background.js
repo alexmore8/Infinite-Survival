@@ -13,7 +13,7 @@ define(function (require, exports, module, Config) {
 
 
         for (var i = 0; i < 3; i++) {
-            this.add(new Phaser.Sprite(game, i*1023, 0, 'background'));
+            this.add(new Phaser.Sprite(game, i*1023, 0, 'bg_game'));
         }
     };
 
