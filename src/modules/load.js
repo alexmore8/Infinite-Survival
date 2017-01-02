@@ -39,6 +39,7 @@ define(function(require, exports, module) {
             this.game.load.image('shieldprogress',     'src/assets/menu/progress/shield_progress.png');
             this.game.load.image('coins',              'src/assets/menu/progress/coins.png');
             this.game.load.image('gems',               'src/assets/menu/progress/gems.png');
+            this.game.load.image('distance',           'src/assets/menu/progress/distance.png');
 
             // Monedas y gemas del juego
             this.game.load.spritesheet('coin_gold', 'src/assets/coins/coin_gold.png', 85.71, 86, 14);

@@ -15,6 +15,7 @@ define(function (require, exports, module, Config) {
 
 
 
+    var ButtonGroup = require('sprites/game/button_group');
     var ProgresStatus = require('sprites/game/progress_status');
     var ProgresData = require('sprites/game/progress_data');
 
@@ -41,10 +42,16 @@ define(function (require, exports, module, Config) {
 
 
             this.coins = new ProgresData(this.game, "right", 0, "coins", 0);
-            this.gems = new ProgresData(this.game, "right", 1, "gems", 0);
+            this.distance = new ProgresData(this.game, "right", 1, "distance", 0);
 
             this.life = new ProgresStatus(this.game, "left", 0, "life",100);
             this.power = new ProgresStatus(this.game, "left", 1, "power", 0);
+
+            this.buttons = new ButtonGroup(this.game,this.game.world.centerX,10, "center");
+            this.buttons.addButtton("pause", null, null);
+            this.buttons.addButtton("sound", null, null);
+            this.buttons.addButtton("settings", null, null);
+
             this.initGameController();
             this.inicio = Moment();
         },
@@ -64,7 +71,7 @@ define(function (require, exports, module, Config) {
                 if (this.player.jumping == false) this.player.jump();
             }
 
-            this.gems.numero((Moment().diff(this.inicio))/500);
+            this.distance.numero((Moment().diff(this.inicio))/500);
             //console.log((Moment().diff(this.inicio)));
 
         },

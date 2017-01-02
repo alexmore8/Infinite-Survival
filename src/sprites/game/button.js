@@ -5,7 +5,7 @@ define(function (require, exports, module, Config) {
     var Phaser = require('phaser');
 
     function Button(game, x, y, key, callback,context) {
-        Phaser.Button.call(this,game, x, y, "btn_"+key, callback, this, 1, 0, 3, 0)
+        Phaser.Button.call(this,game, x, y, "btn_"+key, callback, this, 2, 0, 1, 3);
         game.add.existing(this);
         this.scale.setTo(0.5);
     };

@@ -2,7 +2,6 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    var ButtonGroup = require('sprites/game/button_group');
 
     function Menu() {
         this.background = null;
