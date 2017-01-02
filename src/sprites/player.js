@@ -17,7 +17,7 @@ define(function (require, exports, module, Config) {
         game.physics.enable(this, Phaser.Physics.ARCADE);
         game.camera.follow(this);
 
-
+        this.checkWorldBounds = true;
         this.body.gravity.y = 2500;
         this.body.velocity.y = game.LEVELSPEED;
         this.walk();
@@ -52,6 +52,14 @@ define(function (require, exports, module, Config) {
         this.animations.play('slide', 10, true);
         this.jumping = false;
         this.sliding = true;
+    };
+
+    Player.prototype.dead = function () {
+        this.loadTexture('boy_dead');
+        this.animations.add('dead');
+        this.animations.play('dead', 10, true);
+        this.alive = false;
+        this.body.velocity.x = 0;
     };
 
     return Player;

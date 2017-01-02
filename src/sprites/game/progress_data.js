@@ -44,7 +44,7 @@ define(function (require, exports, module, Config) {
         if (valor == undefined){
             return parseInt(this.getAt(1).text);
         }
-        this.getAt(1).text = valor;
+        this.getAt(1).text = Math.floor(valor);
         this.fitText();
     };
 

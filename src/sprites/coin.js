@@ -21,8 +21,9 @@ define(function (require, exports, module, Config) {
         game.add.existing(this);
         game.physics.enable(this, Phaser.Physics.ARCADE);
 
-        this.body.immovable = true;
+        //this.body.immovable = true;
         this.body.velocity.x = -game.LEVELSPEED;
+        this.checkWorldBounds = true;
 
         this.animations.add('turn');
         this.animations.play('turn', 15, true);

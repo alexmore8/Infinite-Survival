@@ -17,7 +17,8 @@ define(function(require, exports, module) {
         PROBSILVER          : 0.2,
         BRONZEVALUE         : 1,
         SILVERVALUE         : 2,
-        GOLDVALUE           : 5
+        GOLDVALUE           : 5,
+        COINHEIGHT          : 250
     };
     return constants;
 });
