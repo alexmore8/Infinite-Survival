@@ -2,7 +2,6 @@ define(function (require, exports, module, Config) {
 
     'use strict';
 
-    var _ = require('underscore');
     var Phaser = require('phaser');
 
     function Player(game, x, y) {

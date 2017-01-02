@@ -19,9 +19,16 @@ define(function(require, exports, module) {
             this.game.load.setPreloadSprite(this.progressBar);
 
             // Cargando los fondos de pantalla
-            this.game.load.image('background', 'src/assets/tiles/background.png');
-            this.game.load.image('bg_menu', 'src/assets/tiles/bg_menu.png');
-            this.game.load.image('button', 'src/assets/menu/button.png');
+            this.game.load.image('bg_game', 'src/assets/backgrounds/bg_game.png');
+            this.game.load.image('bg_menu', 'src/assets/backgrounds/bg_menu.png');
+
+
+            //botones
+            this.game.load.image('button', 'src/assets/menu/buttons/button.png');
+            this.game.load.spritesheet('btn_pause', 'src/assets/menu/buttons/btn_pause.png', 176, 176);
+            this.game.load.spritesheet('btn_settings', 'src/assets/menu/buttons/btn_settings.png', 176, 176);
+            this.game.load.spritesheet('btn_sound', 'src/assets/menu/buttons/btn_sound.png', 176, 176);
+            this.game.load.spritesheet('btn_nosounds', 'src/assets/menu/buttons/btn_nosounds.png', 176, 176);
 
             // Barras de estado para los progresos del juego
             this.game.load.image('life',               'src/assets/menu/progress/life.png');
@@ -55,7 +62,7 @@ define(function(require, exports, module) {
             this.game.load.image('platforml', 'src/assets/tiles/14.png');
         },
         create: function() {
-            this.state.start('game');
+            this.state.start('menu');
         }
     };
 
