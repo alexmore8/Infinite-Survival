@@ -12,7 +12,8 @@
     "dependencies": {
         "requirejs": "latest",
         "underscore" : "latest",
-        "phaser": "latest"
+        "phaser": "latest",
+        "moment" : "latest"
     },
 
     "ignore": [

@@ -7,7 +7,8 @@
 
         paths: {
             phaser:   'bower_components/phaser/build/phaser.min',
-            underscore: 'bower_components/underscore/underscore-min'
+            underscore: 'bower_components/underscore/underscore-min',
+            moment: 'bower_components/moment/min/moment.min'
         },
 
         shim: {
