@@ -6,6 +6,7 @@ define(function (require, exports, module, Config) {
     var mainConstants = require('helpers/main-constants');
     var Phaser = require('phaser');
     var Button = require('sprites/game/button');
+    var ButtonText = require('sprites/game/button_text');
 
 
     function ButtonGroup(game, x, y, float) {
@@ -24,6 +25,11 @@ define(function (require, exports, module, Config) {
 
     ButtonGroup.prototype.addButtton = function (key, callback,context) {
         this.add(new Button(this.game, 0, 0, key, callback,context));
+        this.alignButtons();
+    };
+
+    ButtonGroup.prototype.addButttonText = function (callback,context, text) {
+        this.add(new ButtonText(this.game, 0, 0,callback,context, text));
         this.alignButtons();
     };
 

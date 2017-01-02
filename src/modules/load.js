@@ -24,11 +24,15 @@ define(function(require, exports, module) {
 
 
             //botones
-            this.game.load.image('button', 'src/assets/menu/buttons/button.png');
+            this.game.load.spritesheet('btn_corto', 'src/assets/menu/buttons/btn_corto.png', 363,178);
+            this.game.load.spritesheet('btn_normal', 'src/assets/menu/buttons/btn_normal.png', 503, 178);
+            this.game.load.spritesheet('btn_largo', 'src/assets/menu/buttons/btn_largo.png', 691, 178);
             this.game.load.spritesheet('btn_pause', 'src/assets/menu/buttons/btn_pause.png', 176, 176);
             this.game.load.spritesheet('btn_settings', 'src/assets/menu/buttons/btn_settings.png', 176, 176);
+            this.game.load.spritesheet('btn_music', 'src/assets/menu/buttons/btn_music.png', 176, 176);
+            this.game.load.spritesheet('btn_nomusic', 'src/assets/menu/buttons/btn_nomusic.png', 176, 176);
             this.game.load.spritesheet('btn_sound', 'src/assets/menu/buttons/btn_sound.png', 176, 176);
-            this.game.load.spritesheet('btn_nosounds', 'src/assets/menu/buttons/btn_nosounds.png', 176, 176);
+            this.game.load.spritesheet('btn_nosound', 'src/assets/menu/buttons/btn_nosound.png', 176, 176);
 
             // Barras de estado para los progresos del juego
             this.game.load.image('life',               'src/assets/menu/progress/life.png');
