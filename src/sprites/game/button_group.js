@@ -1,4 +1,4 @@
-define(function (require, exports, module, Config) {
+define(function (require) {
 
     'use strict';
 
@@ -9,7 +9,7 @@ define(function (require, exports, module, Config) {
     var ButtonText = require('sprites/game/button_text');
 
 
-    function ButtonGroup(game, x, y, float) {
+    function ButtonGroup(game, x, y, float, orientacion) {
         Phaser.Group.call(this, game);
         game.add.existing(this);
         _.extend(this, mainConstants);
@@ -17,7 +17,8 @@ define(function (require, exports, module, Config) {
         this.posx = x;
         this.posy = y;
         this.float = float;
-        this.game = game
+        this.orientacion = orientacion;
+        this.game = game;
     };
 
     ButtonGroup.prototype = Object.create(Phaser.Group.prototype);
@@ -28,17 +29,19 @@ define(function (require, exports, module, Config) {
         this.alignButtons();
     };
 
-    ButtonGroup.prototype.addButttonText = function (callback,context, text) {
+    ButtonGroup.prototype.addButttonText = function (text,callback,context) {
         this.add(new ButtonText(this.game, 0, 0,callback,context, text));
         this.alignButtons();
     };
 
     ButtonGroup.prototype.alignButtons = function () {
-        var width = 0;
-        for (var i=0 ; i<this.length ; i++){
-            this.getAt(i).x = width;
-            this.getAt(i).y = 0;
-            width += this.getAt(i).width + 10;
+        switch  (this.orientacion){
+            case "horizontal":
+                this.alignHorizontal();    break;
+            case "vertical":
+                this.alignVertical();      break;
+            default:
+                break;
         }
         switch(this.float) {
             case "right":
@@ -49,6 +52,32 @@ define(function (require, exports, module, Config) {
                 this.alignCenter();      break;
             default:
                 this.alignCenter();      break;
+        }
+    };
+
+    ButtonGroup.prototype.alignHorizontal = function () {
+        var width = 0;
+        for (var i=0 ; i<this.length ; i++){
+            if (this.getAt(i).espejado){
+                this.getAt(i).x = width + this.getAt(i).width;
+            } else {
+                this.getAt(i).x = width;
+            }
+            this.getAt(i).y = 0;
+            width += this.getAt(i).width + 10;
+        }
+    };
+
+    ButtonGroup.prototype.alignVertical = function () {
+        var height = 0;
+        for (var i=0 ; i<this.length ; i++){
+            if (this.getAt(i).espejado){
+                this.getAt(i).x = + this.getAt(i).width;
+            } else {
+                this.getAt(i).x = 0;
+            }
+            this.getAt(i).y = height;
+            height += this.getAt(i).height + 10;
         }
     };
     ButtonGroup.prototype.alignLeft = function () {

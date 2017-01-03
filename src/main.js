@@ -8,7 +8,8 @@
         paths: {
             phaser:   'bower_components/phaser/build/phaser.min',
             underscore: 'bower_components/underscore/underscore-min',
-            moment: 'bower_components/moment/min/moment.min'
+            moment: 'bower_components/moment/min/moment.min',
+            firebase: 'helpers/firebase'
         },
 
         shim: {

@@ -1,4 +1,4 @@
-define(function (require, exports, module, Config) {
+define(function (require) {
 
     'use strict';
 
@@ -26,6 +26,18 @@ define(function (require, exports, module, Config) {
 
     Muro.prototype = Object.create(Phaser.Group.prototype);
     Muro.prototype.constructor = Muro;
+
+    Muro.prototype.parar = function () {
+        for (var i = 0; i < this.NUMTILES; i++) {
+            this.getAt(i).parar();
+        }
+    };
+
+    Muro.prototype.reanudar = function () {
+        for (var i = 0; i < this.NUMTILES; i++) {
+            this.getAt(i).reanudar();
+        }
+    };
 
     Muro.prototype.update = function () {
         var i, salto = 0;

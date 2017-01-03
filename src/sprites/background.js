@@ -1,4 +1,4 @@
-define(function (require, exports, module, Config) {
+define(function (require) {
 
     'use strict';
 
@@ -12,6 +12,7 @@ define(function (require, exports, module, Config) {
         this.background_vel = speed;
 
 
+
         for (var i = 0; i < 3; i++) {
             this.add(new Phaser.Sprite(game, i*1023, 0, 'bg_game'));
         }
@@ -21,6 +22,7 @@ define(function (require, exports, module, Config) {
     Background.prototype.constructor = Background;
 
     Background.prototype.update = function () {
+        if (this.running)
         for (var i = 0; i < 3; i++) {
              this.getAt(i).x =
                  (this.getAt(i).x <= -1024) ?
@@ -28,6 +30,15 @@ define(function (require, exports, module, Config) {
                      this.getAt(i).x - this.background_vel;
 
         }
+    };
+
+
+    Background.prototype.parar = function () {
+        this.running = false;
+    };
+
+    Background.prototype.reanudar = function () {
+        this.running = true;
     };
 
     return Background;

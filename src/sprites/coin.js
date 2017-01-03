@@ -1,4 +1,4 @@
-define(function (require, exports, module, Config) {
+define(function (require) {
 
     'use strict';
 
@@ -31,6 +31,16 @@ define(function (require, exports, module, Config) {
 
     Coin.prototype = Object.create(Phaser.Sprite.prototype);
     Coin.prototype.constructor = Coin;
+
+    Coin.prototype.parar = function () {
+        this._velocidad = this.body.velocity;
+        this.body.velocity = 0;
+    };
+
+    Coin.prototype.reanudar = function () {
+        this.body.velocity = this._velocidad;
+        this._velocidad = null;
+    };
 
 
 

@@ -17,6 +17,18 @@
 
     <!--link href="https://fonts.googleapis.com/css?family=Sacramento|Satisfy|VT323" rel="stylesheet"-->
     <link href="src/css/fonts.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB0aeKeqS1kD1GxmyYhw7uCSN_DRFk2iQQ",
+            authDomain: "infinite-survival.firebaseapp.com",
+            databaseURL: "https://infinite-survival.firebaseio.com",
+            storageBucket: "infinite-survival.appspot.com",
+            messagingSenderId: "757868006769"
+        };
+        firebase.initializeApp(config);
+    </script>
     <script data-main="src/main" src="src/bower_components/requirejs/require.js"></script>
 
     <style>body { padding: 0; margin: 0; }</style>

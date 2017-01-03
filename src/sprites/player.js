@@ -1,4 +1,4 @@
-define(function (require, exports, module, Config) {
+define(function (require) {
 
     'use strict';
 
@@ -6,10 +6,14 @@ define(function (require, exports, module, Config) {
 
     function Player(game, x, y) {
 
-        this.life = 0;
+        this.health = 100;
+        this.power = 0;
+        this.distancia = 0;
         this.jumping = false;
         this.sliding = false;
 
+
+        this.updating = true;
 
 		Phaser.Sprite.call(this, game, x, y, 'boy_run');
         game.add.existing(this);
@@ -24,6 +28,29 @@ define(function (require, exports, module, Config) {
 
     Player.prototype = Object.create(Phaser.Sprite.prototype);
     Player.prototype.constructor = Player;
+
+    Player.prototype.update = function () {
+        if (this.updating) {
+            this.distancia += 1 / 20
+            this.power = this.power > 100 ? 100 : this.power + 1 / 20;
+        }
+    };
+
+    Player.prototype.parar = function () {
+        this._velocidad = this.body.velocity;
+        this.body.velocity = 0;
+        this._gravedad = this.body.gravity;
+        this.body.gravity = 0;
+        this.updating = false;
+    };
+
+    Player.prototype.reanudar = function () {
+        this.body.velocity = this._velocidad;
+        this._velocidad = null;
+        this.body.gravity = this._gravedad;
+        this._gravedad = null;
+        this.updating = true;
+    };
 
     Player.prototype.walk = function () {
         this.loadTexture('boy_run');

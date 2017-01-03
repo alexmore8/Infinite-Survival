@@ -1,4 +1,4 @@
-define(function (require, exports, module, Config) {
+define(function (require) {
 
     'use strict';
     var Phaser = require('phaser');
@@ -17,7 +17,15 @@ define(function (require, exports, module, Config) {
     Bloque.prototype = Object.create(Phaser.Sprite.prototype);
     Bloque.prototype.constructor = Bloque;
 
+    Bloque.prototype.parar = function () {
+        this._velocidad = this.body.velocity;
+        this.body.velocity = 0;
+    };
 
+    Bloque.prototype.reanudar = function () {
+        this.body.velocity  = this._velocidad;
+        this._velocidad = null;
+    };
 
     return Bloque;
 });

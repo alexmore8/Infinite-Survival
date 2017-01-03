@@ -21,7 +21,7 @@ define(function(require, exports, module) {
             this.loadingLabel.anchor.setTo(0.5, 0.5);
 
             this.buttonstart = new ButtonGroup(this.game ,this.game.world.centerX, 500, "center");
-            this.buttonstart.addButttonText(this.changebutton, this, "Startaa");
+            this.buttonstart.addButttonText("Start", this.changebutton, this);
         },
         changebutton: function(){
             this.game.state.start('game');
