@@ -25,6 +25,11 @@ define(function(require, exports, module) {
             this.buttonstart.addButttonText("Start", this.changebutton, this);
             this.helpbutton = new ButtonGroup(this.game ,this.game.world.width-10, 10, "right");
             this.helpbutton.addButtton("help", this.helpmenu, this);
+
+            if (this.game.music == undefined) {
+                this.game.music = this.game.add.audio('music_game');
+                this.game.music.play("",0,0.2,true);
+            }
         },
         changebutton: function(){
             this.game.state.start('game');

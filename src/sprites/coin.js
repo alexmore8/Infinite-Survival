@@ -8,14 +8,14 @@ define(function (require) {
 
     function Coin(game, x, y) {
         _.extend(this, mainConstants);
+        this.coinsound = game.add.audio("sound_coin");
 
         var prob = Math.random();
         this.coin = prob < this.PROBGOLD ? "gold" : prob < this.PROBGOLD+this.PROBSILVER ? "silver" : "bronze";
         this.valor = prob < this.PROBGOLD ? this.GOLDVALUE : prob < this.PROBGOLD+this.PROBSILVER ? this.SILVERVALUE : this.BRONZEVALUE;
         this.sprite = "coin_" + this.coin;
 
-        //console.log(prob);
-
+        this.game = game;
 
 		Phaser.Sprite.call(this, game, x, y, this.sprite);
         game.add.existing(this);
@@ -42,6 +42,10 @@ define(function (require) {
         this.body.velocity = this._velocidad;
         this._velocidad = null;
     };
+
+    Coin.prototype.takeCoin = function () {
+        this.coinsound.play("",0,this.game.effectsvolume);
+    }
 
 
 

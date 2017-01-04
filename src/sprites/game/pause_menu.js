@@ -5,10 +5,7 @@ define(function (require) {
     var _ = require('underscore');
     var mainConstants = require('helpers/main-constants');
     var Phaser = require('phaser');
-    var Button = require('sprites/game/button');
-    var ButtonText = require('sprites/game/button_text');
     var ButtonGroup = require('sprites/game/button_group');
-    var ProgressStatus = require('sprites/game/progress_status');
     var ProgressData = require('sprites/game/progress_data');
     var ProgressGroup = require('sprites/game/progress_group');
 
@@ -56,61 +53,13 @@ define(function (require) {
             var win = window.open("https://plus.google.com/share?url=https%3A//manso92.github.io/infinite-survival", '_blank');
             win.focus();
         }, this);
-        /*this.add(new ProgresData(game,"right", 0, "distance", playeritems.distancia));
-        this.getAt(this.length -1).x = 0;
-        this.getAt(this.length -1).y = 0;
-        this.getAt(this.length -1).x = this.width - this.getAt(this.length -1).width;
-        console.log(this.width - this.getAt(this.length -1).width);
-        this.getAt(this.length -1).y = this.height - this.getAt(this.length -1).height;
-        console.log(this.height - this.getAt(this.length -1).height);
-*/
+
 
 
     };
 
     PauseMenu.prototype = Object.create(Phaser.Group.prototype);
     PauseMenu.prototype.constructor = PauseMenu;
-
-    /*PauseMenu.prototype.addButtton = function (key, callback,context) {
-        this.add(new Button(this.game, 0, 0, key, callback,context));
-        this.alignButtons();
-    };
-
-    PauseMenu.prototype.addButttonText = function (callback,context, text) {
-        this.add(new ButtonText(this.game, 0, 0,callback,context, text));
-        this.alignButtons();
-    };
-
-    PauseMenu.prototype.alignButtons = function () {
-        var width = 0;
-        for (var i=0 ; i<this.length ; i++){
-            this.getAt(i).x = width;
-            this.getAt(i).y = 0;
-            width += this.getAt(i).width + 10;
-        }
-        switch(this.float) {
-            case "right":
-                this.alignRight();       break;
-            case "left":
-                this.alignLeft();        break;
-            case "center":
-                this.alignCenter();      break;
-            default:
-                this.alignCenter();      break;
-        }
-    };
-    PauseMenu.prototype.alignLeft = function () {
-        this.x = this.posx;
-        this.y = this.posy;
-    };
-    PauseMenu.prototype.alignCenter = function () {
-        this.x = this.posx - (this.width/2);
-        this.y = this.posy;
-    };
-    PauseMenu.prototype.alignRight = function () {
-        this.x = this.posx - (this.width);
-        this.y = this.posy;
-    };*/
 
 
     return PauseMenu;

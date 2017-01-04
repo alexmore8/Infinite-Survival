@@ -6,14 +6,19 @@ define(function (require) {
 
     function Player(game, x, y) {
 
+        this.game = game;
+
         this.health = 100;
         this.power = 0;
         this.distancia = 0;
         this.jumping = false;
         this.sliding = false;
-
-
         this.updating = true;
+
+        this.sounds = {
+            jump : game.add.audio("sound_player_jump"),
+            dead: game.add.audio("sound_player_dead")
+        };
 
 		Phaser.Sprite.call(this, game, x, y, 'boy_run');
         game.add.existing(this);
@@ -65,6 +70,7 @@ define(function (require) {
 
         if (this.body.touching.down) {
             this.body.velocity.y -= 900;
+            this.sounds.jump.play("",0,this.game.effectsvolume);
         }
         this.loadTexture('boy_jump');
         this.animations.add('jump');
@@ -84,6 +90,7 @@ define(function (require) {
     };
 
     Player.prototype.dead = function () {
+        this.sounds.dead.play("",0,this.game.effectsvolume);
         this.loadTexture('boy_dead');
         this.animations.add('dead');
         this.animations.play('dead', 10, true);

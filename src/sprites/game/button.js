@@ -13,5 +13,13 @@ define(function (require) {
     Button.prototype = Object.create(Phaser.Button.prototype);
     Button.prototype.constructor = Button;
 
+
+    Button.prototype.basicbuttons = function () {
+        this.setFrames(2, 0, 1)
+    };
+    Button.prototype.extrabuttons = function () {
+        this.setFrames(6, 4, 5);
+    };
+
     return Button;
 });

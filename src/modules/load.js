@@ -49,8 +49,6 @@ define(function(require, exports, module) {
                 "home",
                 "leftarrow",
                 "music",
-                "nomusic",
-                "nosound",
                 "pause",
                 "play",
                 "reboot",
@@ -94,6 +92,17 @@ define(function(require, exports, module) {
             this.game.load.image('platform', 'src/assets/tiles/15.png');
             this.game.load.image('platformr', 'src/assets/tiles/16.png');
             this.game.load.image('platforml', 'src/assets/tiles/14.png');
+
+
+
+
+            // Game sounds
+            this.game.load.audio('sound_coin',        'src/assets/sounds/8bit/344520__jeremysykes__coin05.wav');
+            this.game.load.audio('sound_player_jump', 'src/assets/sounds/8bit/344501__jeremysykes__jump04.wav');
+            this.game.load.audio('sound_player_dead', 'src/assets/sounds/8bit/341239__jeremysykes__explosion00.wav');
+            this.game.load.audio('music_game',        'src/assets/sounds/Kevin_MacLeod_-_Call_to_Adventure.mp3');
+            this.game.effectsvolume = this.MUSICVOLUME;
+            this.game.musicvolume = this.MUSICVOLUME;
         },
         create: function() {
             this.state.start('menu');

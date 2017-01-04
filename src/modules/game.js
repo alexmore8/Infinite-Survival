@@ -51,8 +51,32 @@ define(function (require) {
 
             this.buttons = new ButtonGroup(this.game,this.game.world.centerX,10, "center", "horizontal");
             this.buttons.addButtton("pause", this.pausa, this);
-            this.buttons.addButtton("sound", function () {
-            }, this);
+            var effectsbutton = this.buttons.addButtton("sound", function () {
+                if (this.game.effectsvolume == 0){
+                    this.game.effectsvolume = this.game.EFFECTVOLUME;
+                    this.basicbuttons();
+                } else {
+                    this.game.effectsvolume = 0;
+                    this.extrabuttons();
+                }
+            }, null);
+            if (this.game.effectsvolume == 0){
+                effectsbutton.extrabuttons();
+            }
+            var soundbutton = this.buttons.addButtton("music", function () {
+                if (this.game.musicvolume == 0){
+                    this.game.musicvolume = this.game.MUSICVOLUME;
+                    this.game.music.volume = this.game.musicvolume;
+                    this.basicbuttons();
+                } else {
+                    this.game.musicvolume = 0;
+                    this.game.music.volume = 0;
+                    this.extrabuttons();
+                }
+            }, null);
+            if (this.game.musicvolume == 0){
+                soundbutton.extrabuttons();
+            }
             this.buttons.addButtton("reboot", function () {
                 this.game.state.start('game');
             }, null);
@@ -100,6 +124,7 @@ define(function (require) {
         },
         takeCoin: function (player, coin) {
             this.coins.numero(this.coins.numero() + this.coin.valor);
+            this.coin.takeCoin();
             this.newCoin();
         },
         newCoin: function () {

@@ -25,13 +25,15 @@ define(function (require) {
     ButtonGroup.prototype.constructor = ButtonGroup;
 
     ButtonGroup.prototype.addButtton = function (key, callback,context) {
-        this.add(new Button(this.game, 0, 0, key, callback,context));
+        var button = this.add(new Button(this.game, 0, 0, key, callback,context));
         this.alignButtons();
+        return button;
     };
 
     ButtonGroup.prototype.addButttonText = function (text,callback,context) {
-        this.add(new ButtonText(this.game, 0, 0,callback,context, text));
+        var button = this.add(new ButtonText(this.game, 0, 0,callback,context, text));
         this.alignButtons();
+        return button;
     };
 
     ButtonGroup.prototype.alignButtons = function () {
