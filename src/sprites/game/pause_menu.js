@@ -21,7 +21,7 @@ define(function (require) {
         this.game = game;
 
 
-        this.add(new Phaser.Sprite(game, 0, 0, "pause_menu"));
+        this.add(new Phaser.Sprite(game, 0, 0, "menu_vertical"));
         this.getAt(this.length -1).scale.setTo(0.8);
         this.x = this.game.world.centerX - (this.getAt(this.length -1).width/2);
         this.y = this.game.world.centerY - (this.getAt(this.length -1).height/2);
