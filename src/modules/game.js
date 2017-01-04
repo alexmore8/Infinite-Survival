@@ -16,7 +16,7 @@ define(function (require) {
 
 
     var ButtonGroup = require('sprites/game/button_group');
-    var ProgresGroup = require('sprites/game/progress_group');
+    var ProgressGroup = require('sprites/game/progress_group');
     var PauseMenu = require('sprites/game/pause_menu');
 
 
@@ -40,11 +40,11 @@ define(function (require) {
             this.coin.events.onOutOfBounds.addOnce(this.newCoin, this);
 
 
-            this.powers = new ProgresGroup(this.game, 10, 10, "left", "vertical");
+            this.powers = new ProgressGroup(this.game, 10, 10, "left", "vertical");
             this.life = this.powers.addProgressStatus("life", this.player.health);
             this.power = this.powers.addProgressStatus("power", this.player.power);
 
-            this.achievments = new ProgresGroup(this.game, this.game.world.width -10, 10, "right", "vertical");
+            this.achievments = new ProgressGroup(this.game, this.game.world.width -10, 10, "right", "vertical");
             this.coins = this.achievments.addProgressData("coins", 0, true);
             this.distance = this.achievments.addProgressData("distance", 0, true);
 
@@ -85,6 +85,13 @@ define(function (require) {
                 this.distance.numero(this.player.distancia);
             }
         },
+        render: function () {
+            if (this.DEBUG && this.running) {
+                //this.game.debug.bodyInfo(this.player, 32, 32);
+                this.game.debug.body(this.player);
+                this.game.debug.body(this.coin);
+            }
+        },
         playerHit: function (player, blockedLayer) {
             if (player.body.touching.right) {
                 this.player.dead();
@@ -111,7 +118,9 @@ define(function (require) {
         gameOver: function () {
             var database = new Firebase();
             database.insertDistance("manso92", this.player.distancia);
-            this.game.state.start('game');
+            this.game.state.states['gameover'].monedas = this.coins.numero();
+            this.game.state.states['gameover'].distancia = parseInt(this.player.distancia);
+            this.game.state.start('gameover');
         },
         pausa: function(){
             if(! this.running){

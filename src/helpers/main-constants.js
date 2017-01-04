@@ -2,6 +2,8 @@
 define(function(require, exports, module) {
     'use strict';
     var constants = {
+        DEBUG               : false,
+
         // Dimensiones de elementos del juego
         TILESIZE            : 128,
 

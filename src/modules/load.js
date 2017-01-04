@@ -19,13 +19,19 @@ define(function(require, exports, module) {
             this.game.load.setPreloadSprite(this.progressBar);
 
             // Cargando los fondos de pantalla
-            this.game.load.image('bg_game', 'src/assets/backgrounds/bg_game.png');
-            this.game.load.image('bg_menu', 'src/assets/backgrounds/bg_menu.png');
+            var fondos =   ["game",
+                            "menu",
+                            "scores",
+                            "settings"];
+            for (var i = 0 ; i < fondos.length ; i++)
+                this.game.load.image('bg_'+fondos[i], 'src/assets/backgrounds/bg_'+fondos[i]+'.png');
 
 
             // Menu images
-            this.game.load.image('pause_menu',               'src/assets/menu/pause_menu.png');
+            this.game.load.image('menu_horizontal',          'src/assets/menu/menu_horizontal.png');
+            this.game.load.image('menu_vertical',            'src/assets/menu/menu_vertical.png');
             this.game.load.image('black_background',         'src/assets/menu/black_background.png');
+            this.game.load.image('help_text',                'src/assets/menu/help/help_text.png');
 
 
             //botones
@@ -34,18 +40,25 @@ define(function(require, exports, module) {
             this.game.load.spritesheet('btn_largo', 'src/assets/menu/buttons/btn_largo.png', 691, 178);
 
 
-            var botones =  ["facebook",
-                            "google",
-                            "home",
-                            "music",
-                            "nomusic",
-                            "nosound",
-                            "pause",
-                            "play",
-                            "reboot",
-                            "settings",
-                            "sound",
-                            "twitter"];
+            var botones =
+                ["close",
+                "downarrow",
+                "facebook",
+                "google",
+                "help",
+                "home",
+                "leftarrow",
+                "music",
+                "nomusic",
+                "nosound",
+                "pause",
+                "play",
+                "reboot",
+                "rightarrow",
+                "settings",
+                "sound",
+                "twitter",
+                "uparrow"];
             for (var i = 0 ; i < botones.length ; i++)
                 this.game.load.spritesheet('btn_'+botones[i], 'src/assets/menu/buttons/btn_'+botones[i]+'.png', 176, 176);
 
@@ -83,7 +96,7 @@ define(function(require, exports, module) {
             this.game.load.image('platforml', 'src/assets/tiles/14.png');
         },
         create: function() {
-            this.state.start('game');
+            this.state.start('menu');
         }
     };
 

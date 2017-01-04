@@ -56,6 +56,7 @@ define(function (require) {
         this.loadTexture('boy_run');
         this.animations.add('walk');
         this.animations.play('walk', 10, true);
+        this.body.setSize(100, 180, 35, 25);
         this.jumping = false;
         this.sliding = false;
     };
@@ -68,6 +69,7 @@ define(function (require) {
         this.loadTexture('boy_jump');
         this.animations.add('jump');
         this.animations.play('jump', 10, true);
+        this.body.setSize(100, 180, 35, 25);
         this.jumping = true;
         this.sliding = false;
     };
@@ -76,6 +78,7 @@ define(function (require) {
         this.loadTexture('boy_slide');
         this.animations.add('slide');
         this.animations.play('slide', 10, true);
+        this.body.setSize(110, 140, 25, 65);
         this.jumping = false;
         this.sliding = true;
     };

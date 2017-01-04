@@ -23,6 +23,7 @@ define(function (require) {
 
         //this.body.immovable = true;
         this.body.velocity.x = -game.LEVELSPEED;
+        this.body.setCircle(37);
         this.checkWorldBounds = true;
 
         this.animations.add('turn');
