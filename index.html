@@ -16,7 +16,9 @@
     <meta property="og:description" content="Cuando todo lo que te queda es correr para escapar, el desierto no va a ponertelo fácil. Una carrera interminable de acción, recompensas y viajes interdimensionales." />
 
     <!--link href="https://fonts.googleapis.com/css?family=Sacramento|Satisfy|VT323" rel="stylesheet"-->
-    <link href="src/css/fonts.css" rel="stylesheet">
+    <link href="src/css/fonts.css" rel="stylesheet" type="text/css"/>
+    <link href="src/bower_components/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css"/>
+
     <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -29,6 +31,7 @@
         };
         firebase.initializeApp(config);
     </script>
+    <script type="text/javascript"  src="src/bower_components/sweetalert/dist/sweetalert.min.js"></script>
     <script data-main="src/main" src="src/bower_components/requirejs/require.js"></script>
 
     <style>body { padding: 0; margin: 0; }</style>
