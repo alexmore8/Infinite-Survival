@@ -23,19 +23,52 @@ define(function(require, exports, module) {
 
             this.buttonstart = new ButtonGroup(this.game ,this.game.world.centerX, 500, "center");
             this.buttonstart.addButttonText("Start", this.changebutton, this);
-            this.helpbutton = new ButtonGroup(this.game ,this.game.world.width-10, 10, "right");
-            this.helpbutton.addButtton("help", this.helpmenu, this);
+
+
+            this.buttons = new ButtonGroup(this.game ,this.game.world.width - 10, 10, "right", "horizontal");
+            var effectsbutton = this.buttons.addButtton("sound", function () {
+                if (this.game.effectsvolume == 0){
+                    this.game.effectsvolume = this.game.EFFECTVOLUME;
+                    this.basicbuttons();
+                } else {
+                    this.game.effectsvolume = 0;
+                    this.extrabuttons();
+                }
+            }, null);
+            if (this.game.effectsvolume == 0){
+                effectsbutton.extrabuttons();
+            }
+            var soundbutton = this.buttons.addButtton("music", function () {
+                if (this.game.musicvolume == 0){
+                    this.game.musicvolume = this.game.MUSICVOLUME;
+                    this.game.music.volume = this.game.musicvolume;
+                    this.basicbuttons();
+                } else {
+                    this.game.musicvolume = 0;
+                    this.game.music.volume = 0;
+                    this.extrabuttons();
+                }
+            }, null);
+            if (this.game.musicvolume == 0){
+                soundbutton.extrabuttons();
+            }
+            this.buttons.addButtton("help", this.helpmenu, this);
+
+            Arbiter.subscribe('closehelpmenu', this.closehelpmenu, null, this);
 
             if (this.game.music == undefined) {
                 this.game.music = this.game.add.audio('music_game');
                 this.game.music.play("",0,0.2,true);
+            }
+            if ((localStorage.getItem('firstuse') == null) || (localStorage.getItem('firstuse') == "true")){
+                this.menu = new HelpMenu(this.game);
+                localStorage.setItem("firstuse", false)
             }
         },
         changebutton: function(){
             this.game.state.start('game');
         },
         helpmenu: function(){
-            Arbiter.subscribe('closehelpmenu', this.closehelpmenu, null, this);
             this.menu = new HelpMenu(this.game);
         },
         closehelpmenu: function () {

@@ -133,12 +133,17 @@ define(function (require) {
         },
         initGameController: function () {
             this.game.input.keyboard.createCursorKeys();
+            var spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            spaceKey.onDown.add(this.player.jump, this.player);
             var upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
             upKey.onDown.add(this.player.jump, this.player);
             var downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
             downKey.onDown.add(this.player.slide, this.player);
             var powerKey = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
             powerKey.onDown.add(function () { this.poder = 0;   this.pausa(); }, this);
+            this.game.input.onDown.add(this.player.jump, this.player);
+            //this.game.input.mouse.mouseDownCallback() = true;
+            //1this.game.
         },
         gameOver: function () {
             var database = new Firebase();
