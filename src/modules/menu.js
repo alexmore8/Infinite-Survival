@@ -26,42 +26,20 @@ define(function(require, exports, module) {
 
 
             this.buttons = new ButtonGroup(this.game ,this.game.world.width - 10, 10, "right", "horizontal");
-            var effectsbutton = this.buttons.addButtton("sound", function () {
-                if (this.game.effectsvolume == 0){
-                    this.game.effectsvolume = this.game.EFFECTVOLUME;
-                    this.basicbuttons();
-                } else {
-                    this.game.effectsvolume = 0;
-                    this.extrabuttons();
-                }
-            }, null);
-            if (this.game.effectsvolume == 0){
-                effectsbutton.extrabuttons();
-            }
-            var soundbutton = this.buttons.addButtton("music", function () {
-                if (this.game.musicvolume == 0){
-                    this.game.musicvolume = this.game.MUSICVOLUME;
-                    this.game.music.volume = this.game.musicvolume;
-                    this.basicbuttons();
-                } else {
-                    this.game.musicvolume = 0;
-                    this.game.music.volume = 0;
-                    this.extrabuttons();
-                }
-            }, null);
-            if (this.game.musicvolume == 0){
-                soundbutton.extrabuttons();
-            }
+            var effectsbutton = this.buttons.addButtton("sound", this.changesound, null);
+            if (this.game.effectsvolume == 0) effectsbutton.extrabuttons();
+            var soundbutton = this.buttons.addButtton("music", this.changemusic, null);
+            if (this.game.musicvolume == 0)   soundbutton.extrabuttons();
             this.buttons.addButtton("help", this.helpmenu, this);
 
             Arbiter.subscribe('closehelpmenu', this.closehelpmenu, null, this);
 
             if (this.game.music == undefined) {
                 this.game.music = this.game.add.audio('music_game');
-                this.game.music.play("",0,0.2,true);
+                this.game.music.play("",0,this.game.musicvolume,true);
             }
             if ((localStorage.getItem('firstuse') == null) || (localStorage.getItem('firstuse') == "true")){
-                this.menu = new HelpMenu(this.game);
+                this.helpmenu();
                 localStorage.setItem("firstuse", false)
             }
         },
@@ -69,10 +47,39 @@ define(function(require, exports, module) {
             this.game.state.start('game');
         },
         helpmenu: function(){
-            this.menu = new HelpMenu(this.game);
+            //if (this.backgrounblack != null && this.menu != null) {
+                this.backgrounblack = this.game.add.image(0, 0, "black_background");
+                this.backgrounblack.alpha = 0.6;
+                this.menu = new HelpMenu(this.game);
+            //}
         },
         closehelpmenu: function () {
             this.menu.destroy();
+            this.backgrounblack.destroy();
+        },
+        changesound: function () {
+            if (this.game.effectsvolume == 0){
+                this.game.effectsvolume = this.game.EFFECTVOLUME;
+                localStorage.removeItem("effectsvolume");
+                this.basicbuttons();
+            } else {
+                this.game.effectsvolume = 0;
+                localStorage.setItem("effectsvolume", false);
+                this.extrabuttons();
+            }
+        },
+        changemusic: function () {
+            if (this.game.musicvolume == 0){
+                this.game.musicvolume = this.game.MUSICVOLUME;
+                this.game.music.volume = this.game.musicvolume;
+                localStorage.removeItem("musicvolume");
+                this.basicbuttons();
+            } else {
+                this.game.musicvolume = 0;
+                this.game.music.volume = 0;
+                localStorage.setItem("musicvolume", false);
+                this.extrabuttons();
+            }
         }
     };
 

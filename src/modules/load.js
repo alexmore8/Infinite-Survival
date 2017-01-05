@@ -101,8 +101,8 @@ define(function(require, exports, module) {
             this.game.load.audio('sound_player_jump', 'src/assets/sounds/8bit/344501__jeremysykes__jump04.wav');
             this.game.load.audio('sound_player_dead', 'src/assets/sounds/8bit/341239__jeremysykes__explosion00.wav');
             this.game.load.audio('music_game',        'src/assets/sounds/Kevin_MacLeod_-_Call_to_Adventure.mp3');
-            this.game.effectsvolume = this.MUSICVOLUME;
-            this.game.musicvolume = this.MUSICVOLUME;
+            this.game.effectsvolume = localStorage.getItem("effectsvolume") == null ? this.EFFECTVOLUME : 0;
+            this.game.musicvolume = localStorage.getItem("musicvolume") == null ? this.MUSICVOLUME : 0;
         },
         create: function() {
             this.state.start('menu');

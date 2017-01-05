@@ -51,38 +51,15 @@ define(function (require) {
 
             this.buttons = new ButtonGroup(this.game,this.game.world.centerX,10, "center", "horizontal");
             this.buttons.addButtton("pause", this.pausa, this);
-            var effectsbutton = this.buttons.addButtton("sound", function () {
-                if (this.game.effectsvolume == 0){
-                    this.game.effectsvolume = this.game.EFFECTVOLUME;
-                    this.basicbuttons();
-                } else {
-                    this.game.effectsvolume = 0;
-                    this.extrabuttons();
-                }
-            }, null);
-            if (this.game.effectsvolume == 0){
-                effectsbutton.extrabuttons();
-            }
-            var soundbutton = this.buttons.addButtton("music", function () {
-                if (this.game.musicvolume == 0){
-                    this.game.musicvolume = this.game.MUSICVOLUME;
-                    this.game.music.volume = this.game.musicvolume;
-                    this.basicbuttons();
-                } else {
-                    this.game.musicvolume = 0;
-                    this.game.music.volume = 0;
-                    this.extrabuttons();
-                }
-            }, null);
-            if (this.game.musicvolume == 0){
-                soundbutton.extrabuttons();
-            }
-            this.buttons.addButtton("reboot", function () {
-                this.game.state.start('game');
-            }, null);
+            var effectsbutton = this.buttons.addButtton("sound", this.changesound, null);
+            if (this.game.effectsvolume == 0) effectsbutton.extrabuttons();
+            var soundbutton = this.buttons.addButtton("music", this.changemusic, null);
+            if (this.game.musicvolume == 0)   soundbutton.extrabuttons();
+            this.buttons.addButtton("reboot", function () { this.game.state.start('game'); }, null);
+
+
 
             this.initGameController();
-
         },
 
 
@@ -141,9 +118,7 @@ define(function (require) {
             downKey.onDown.add(this.player.slide, this.player);
             var powerKey = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
             powerKey.onDown.add(function () { this.poder = 0;   this.pausa(); }, this);
-            this.game.input.onDown.add(this.player.jump, this.player);
-            //this.game.input.mouse.mouseDownCallback() = true;
-            //1this.game.
+            //this.game.touch.onDown.add(this.player.jump, this.player);
         },
         gameOver: function () {
             var database = new Firebase();
@@ -161,7 +136,6 @@ define(function (require) {
             } else {
                 this.running = false;
                 this.stopSprites();
-
                 this.backgrounblack = this.game.add.image(0, 0, "black_background");
                 this.backgrounblack.alpha = 0.6;
                 this.menupausa = new PauseMenu(this.game, this, this.pausa);
@@ -179,6 +153,30 @@ define(function (require) {
             this.coin.parar();
 
             this.background.parar();
+        },
+        changesound: function () {
+            if (this.game.effectsvolume == 0){
+                this.game.effectsvolume = this.game.EFFECTVOLUME;
+                localStorage.removeItem("effectsvolume");
+                this.basicbuttons();
+            } else {
+                this.game.effectsvolume = 0;
+                localStorage.setItem("effectsvolume", false);
+                this.extrabuttons();
+            }
+        },
+        changemusic: function () {
+            if (this.game.musicvolume == 0){
+                this.game.musicvolume = this.game.MUSICVOLUME;
+                this.game.music.volume = this.game.musicvolume;
+                localStorage.removeItem("musicvolume");
+                this.basicbuttons();
+            } else {
+                this.game.musicvolume = 0;
+                this.game.music.volume = 0;
+                localStorage.setItem("musicvolume", false);
+                this.extrabuttons();
+            }
         }
     };
     return Game;
