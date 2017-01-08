@@ -24,13 +24,13 @@ define(function (require) {
     ButtonGroup.prototype = Object.create(Phaser.Group.prototype);
     ButtonGroup.prototype.constructor = ButtonGroup;
 
-    ButtonGroup.prototype.addButtton = function (key, callback,context) {
+    ButtonGroup.prototype.addButton = function (key, callback,context) {
         var button = this.add(new Button(this.game, 0, 0, key, callback,context));
         this.alignButtons();
         return button;
     };
 
-    ButtonGroup.prototype.addButttonText = function (text,callback,context) {
+    ButtonGroup.prototype.addButtonText = function (text,callback,context) {
         var button = this.add(new ButtonText(this.game, 0, 0,callback,context, text));
         this.alignButtons();
         return button;

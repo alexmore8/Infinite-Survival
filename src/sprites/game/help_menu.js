@@ -31,13 +31,13 @@ define(function (require) {
         this.loadedScreen = this.firstScreen();
 
         this.buttons = this.add(new ButtonGroup(game, (this.width/2), this.height-130, "center", "horizontal"));
-        this.buttons.addButtton("leftarrow", function () {
+        this.buttons.addButton("leftarrow", function () {
             this.nextScreen();
         }, this);
-        this.buttons.addButtton("close", function () {
+        this.buttons.addButton("close", function () {
             Arbiter.publish('closehelpmenu');
         }, this);
-        this.buttons.addButtton("rightarrow", function () {
+        this.buttons.addButton("rightarrow", function () {
             this.previousScreen();
         }, this);
 
@@ -79,8 +79,8 @@ define(function (require) {
         this.firstScreenItems.y = this.ycontent;
         this.firstScreenItems.add(new Phaser.Image(this.game, 0, 0, 'help_text'));
         this.buttons = this.firstScreenItems.add(new ButtonGroup(this.game, 0, this.firstScreenItems.height+20, "left", "vertical"));
-        this.buttons.addButtton("uparrow");
-        this.buttons.addButtton("downarrow");
+        this.buttons.addButton("uparrow");
+        this.buttons.addButton("downarrow");
 
         this.firstScreenItems.add(new Phaser.Text(this.game, this.buttons.x + 100, this.buttons.y + this.buttons.getAt(0).y, "Saltar", { font: '50px IMFellEnglishSC',  fill: '#000000' }));
         this.firstScreenItems.add(new Phaser.Text(this.game, this.buttons.x + 100, this.buttons.y + this.buttons.getAt(1).y, "Agacharse", { font: '50px IMFellEnglishSC',  fill: '#000000' }));

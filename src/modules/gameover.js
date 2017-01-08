@@ -2,22 +2,13 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    var _ = require('underscore');
-    var mainConstants = require('helpers/main-constants');
-    var inputEvents = require('modules/parts/input-events');
-    var Phaser = require('phaser');
-    var Moment = require('moment');
     var Firebase = require('firebase');
-
-    var Background = require('sprites/background');
-    var Player = require('sprites/player');
-    var Muro = require('sprites/muros');
-    var Coin = require('sprites/coin');
-
-
+    var Arbiter = require ('arbiter');
+    var RRSS = require('rrss');
     var ButtonGroup = require('sprites/game/button_group');
     var ProgressGroup = require('sprites/game/progress_group');
-    var PauseMenu = require('sprites/game/pause_menu');
+    var LeaderBoard = require('sprites/game/leaderboard');
+    var Name = require('sprites/game/leaderboard_name');
 
 
     function GameOver() {
@@ -29,8 +20,18 @@ define(function(require, exports, module) {
 
     GameOver.prototype = {
         create: function () {
+            Arbiter.subscribe('coins', this.bestCoins, null, this);
+            Arbiter.subscribe('distance', this.bestDistance, null, this);
+            Arbiter.subscribe('coinLeaderboard', this.coinLeaderboard, null, this);
+            Arbiter.subscribe('distanceLeaderboard', this.distanceLeaderboard, null, this);
+            this.firebase = new Firebase(this.game.username);
+            this.firebase.bestData();
+
+            this.game.puntuation = undefined;
             this.monedas = this.monedas == undefined ? 0 : this.monedas;
             this.distancia = this.distancia == undefined ? 0 : this.distancia;
+
+
             this.game.add.image(0,0,'bg_scores');
             this.menu = this.game.add.image(0, 0, "menu_horizontal");
             this.menu.scale.set(0.8);
@@ -47,28 +48,40 @@ define(function(require, exports, module) {
 
 
             this.buttons = new ButtonGroup(this.game, 480, 350, "center", "horizontal");
-            this.buttons.addButtton("home", function () { this.game.state.start('menu') } , this);
-            this.buttons.addButtton("reboot", function () { this.game.state.start('game') } , this);
+            this.buttons.addButton("home",   function () { Arbiter.unsubscribe(''); this.game.state.start('menu'); } , this);
+            this.buttons.addButton("reboot", function () { Arbiter.unsubscribe(''); this.game.state.start('game'); } , this);
 
             this.buttons = new ButtonGroup(this.game, 515, 530, "center", "horizontal");
-            this.buttons.addButtton("facebook", function () {
-                var win = window.open("https://www.facebook.com/sharer/sharer.php?u=https%3A//manso92.github.io/infinite-survival", '_blank');
-                win.focus();
-            }, this);
-
-            this.buttons.addButtton("twitter", function () {
-                var win = window.open("https://twitter.com/home?status=Acabo%20de%20probar%20Infinite%20Survival,%20%C2%BFpuedes%20superarme?%20https%3A//manso92.github.io/infinite-survival", '_blank');
-                win.focus();
-            } , this);
-            this.buttons.addButtton("google", function () {
-                var win = window.open("https://plus.google.com/share?url=https%3A//manso92.github.io/infinite-survival", '_blank');
-                win.focus();
-            }, this);
+            this.buttons.addButton("facebook", function () {(new RRSS).facebook();}, this);
+            this.buttons.addButton("twitter", function () {(new RRSS).twitter();}, this);
+            this.buttons.addButton("google", function () {(new RRSS).google();}, this);
             this.buttons.scale.setTo(0.7);
+
+            this.leaderBoard = new LeaderBoard(this.game, 610 , 180, "distance");
 
         },
         changebutton: function(){
             this.game.state.start('game');
+        },
+        distanceLeaderboard: function () {
+            this.leaderBoard.destroy();
+            this.leaderBoard = new LeaderBoard(this.game, 610 , 180, "distance");
+            this.leaderBoard.setData(this.game.distanceLeaderboard);
+        },
+        coinLeaderboard: function () {
+            this.leaderBoard.destroy();
+            this.leaderBoard = new LeaderBoard(this.game, 610 , 180, "coins");
+            this.leaderBoard.setData(this.game.coinLeaderboard);
+        },
+        bestDistance: function (data) {
+            this.game.distanceLeaderboard = data;
+            if (this.leaderBoard.type == "distance")
+                this.distanceLeaderboard();
+        },
+        bestCoins: function (data) {
+            this.game.coinLeaderboard = data;
+            if (this.leaderBoard.type == "coins")
+                this.distanceLeaderboard();
         }
     };
 

@@ -22,15 +22,15 @@ define(function(require, exports, module) {
             this.game.add.text(this.game.world.centerX, 150, 'Infinite Survival',{ font: '100px IMFellEnglishSC',  fill: '#000000' }).anchor.setTo(0.5, 0.5);
 
             this.buttonstart = new ButtonGroup(this.game ,this.game.world.centerX, 500, "center");
-            this.buttonstart.addButttonText("Start", this.changebutton, this);
+            this.buttonstart.addButtonText("Start", this.changebutton, this);
 
 
             this.buttons = new ButtonGroup(this.game ,this.game.world.width - 10, 10, "right", "horizontal");
-            var effectsbutton = this.buttons.addButtton("sound", this.changesound, null);
+            var effectsbutton = this.buttons.addButton("sound", this.changesound, null);
             if (this.game.effectsvolume == 0) effectsbutton.extrabuttons();
-            var soundbutton = this.buttons.addButtton("music", this.changemusic, null);
+            var soundbutton = this.buttons.addButton("music", this.changemusic, null);
             if (this.game.musicvolume == 0)   soundbutton.extrabuttons();
-            this.buttons.addButtton("help", this.helpmenu, this);
+            this.buttons.addButton("help", this.helpmenu, this);
 
             Arbiter.subscribe('closehelpmenu', this.closehelpmenu, null, this);
 
@@ -44,6 +44,7 @@ define(function(require, exports, module) {
             }
         },
         changebutton: function(){
+            Arbiter.unsubscribe('');
             this.game.state.start('game');
         },
         helpmenu: function(){

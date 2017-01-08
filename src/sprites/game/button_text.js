@@ -20,8 +20,6 @@ define(function (require) {
             this.add(new Button(game,0,0,"largo", callback,context));
         }
 
-        console.log(this.getAt(0).width);
-
         var xtext = (this.getAt(1).width/2) - (this.getAt(0).width/2);
         var ytext = (this.getAt(1).height/2) - (this.getAt(0).height/2);
         this.add(new Phaser.Text(game, xtext, ytext, text, { font: '50px IMFellEnglishSC',  fill: '#000000' }));

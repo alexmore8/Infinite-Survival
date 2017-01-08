@@ -6,6 +6,7 @@ define(function (require) {
     var mainConstants = require('helpers/main-constants');
     var inputEvents = require('modules/parts/input-events');
     var Phaser = require('phaser');
+    var Arbiter = require ('arbiter');
     var Moment = require('moment');
     var Firebase = require('firebase');
 
@@ -36,7 +37,7 @@ define(function (require) {
             this.suelo = new Muro(this.game, 'suelo');
             this.coin = new Coin(this.game, 1000, this.COINHEIGHT);
             this.player = new Player(this.game, 500, 0, 'boy_run');
-            this.player.events.onOutOfBounds.add(this.gameOver, this);
+            this.player.events.onOutOfBounds.add(this.playerDead, this);
             this.coin.events.onOutOfBounds.addOnce(this.newCoin, this);
 
 
@@ -50,12 +51,12 @@ define(function (require) {
 
 
             this.buttons = new ButtonGroup(this.game,this.game.world.centerX,10, "center", "horizontal");
-            this.buttons.addButtton("pause", this.pausa, this);
-            var effectsbutton = this.buttons.addButtton("sound", this.changesound, null);
+            this.buttons.addButton("pause", this.pausa, this);
+            var effectsbutton = this.buttons.addButton("sound", this.changesound, null);
             if (this.game.effectsvolume == 0) effectsbutton.extrabuttons();
-            var soundbutton = this.buttons.addButtton("music", this.changemusic, null);
+            var soundbutton = this.buttons.addButton("music", this.changemusic, null);
             if (this.game.musicvolume == 0)   soundbutton.extrabuttons();
-            this.buttons.addButtton("reboot", function () { this.game.state.start('game'); }, null);
+            this.buttons.addButton("reboot", function () { this.game.state.start('game'); }, null);
 
 
 
@@ -88,15 +89,19 @@ define(function (require) {
         },
         render: function () {
             if (this.DEBUG && this.running) {
-                //this.game.debug.bodyInfo(this.player, 32, 32);
+                this.suelo.debug();
                 this.game.debug.body(this.player);
                 this.game.debug.body(this.coin);
             }
         },
         playerHit: function (player, blockedLayer) {
-            if (player.body.touching.right) {
+            if (this.player.body.touching.right)
+                this.game.time.events.add(1500, this.playerDead, this);
+        },
+        playerDead: function () {
+            if (this.player.alive){
                 this.player.dead();
-                this.game.time.events.add(1500, this.gameOver, this);
+                this.gameOver();
             }
         },
         takeCoin: function (player, coin) {
@@ -118,11 +123,74 @@ define(function (require) {
             downKey.onDown.add(this.player.slide, this.player);
             var powerKey = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
             powerKey.onDown.add(function () { this.poder = 0;   this.pausa(); }, this);
+            var killKey = this.game.input.keyboard.addKey(Phaser.Keyboard.K);
+            killKey.onDown.add(function () { this.gameOver(); }, this);
             //this.game.touch.onDown.add(this.player.jump, this.player);
         },
+        destroGameController: function () {
+            this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
+            this.game.input.keyboard.removeKey(Phaser.Keyboard.UP);
+            this.game.input.keyboard.removeKey(Phaser.Keyboard.DOWN);
+            this.game.input.keyboard.removeKey(Phaser.Keyboard.P);
+            this.game.input.keyboard.removeKey(Phaser.Keyboard.K);
+            this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
+        },
         gameOver: function () {
-            var database = new Firebase();
-            database.insertDistance("manso92", this.player.distancia);
+            this.stopgame();
+            this.destroGameController();
+            Arbiter.unsubscribe('');
+            Arbiter.subscribe('gameovermenu', this.toGameOverMenu, null, this);
+            if (localStorage.getItem("username") == undefined) {
+                swal({
+                        title: "Usuario",
+                        text: "Escribe tu nombre de usuario",
+                        type: "input",
+                        closeOnConfirm: false,
+                        animation: "slide-from-top",
+                        inputPlaceholder: "nombrechulo63"
+                    },
+                    function (inputValue) {
+                        function testAlfaNumerico(texto) {
+                            var numeros = "0123456789abcdefghyjklmnñopqrstuvwxyz";
+                            if ((numeros.indexOf(texto.charAt(0), 0) > -1) && (numeros.indexOf(texto.charAt(0), 0) < 10)) return 1;
+                            for (var i = 0; i < texto.length; i++) {
+                                if (numeros.indexOf(texto.charAt(i), 0) == -1) return 1;
+                            }
+                            return 0;
+                        }
+
+                        if (inputValue === false) return false;
+
+                        if (inputValue === "") {
+                            swal.showInputError("Necesitas escribir algo.");
+                            return false
+                        }
+
+                        if (testAlfaNumerico(inputValue) == 1) {
+                            swal.showInputError("Solo puede contener letras minusculas y numeros. Debe comenzar con una letra.");
+                            return false;
+                        }
+
+                        if (inputValue > 12) {
+                            swal.showInputError("El nombre de usuario será de 12 caracteres como máximo.");
+                            return false;
+                        }
+
+                        localStorage.setItem("username", inputValue);
+
+                        Arbiter.publish('gameovermenu');
+                        swal.close();
+                    });
+            } else {
+                this.toGameOverMenu()
+            }
+        },
+        toGameOverMenu: function(){
+            this.game.puntuation = true;
+            Arbiter.unsubscribe('');
+            this.game.username = localStorage.getItem("username");
+            var database = new Firebase(this.game.username);
+            database.updateData(this.coins.numero(), parseInt(this.player.distancia));
             this.game.state.states['gameover'].monedas = this.coins.numero();
             this.game.state.states['gameover'].distancia = parseInt(this.player.distancia);
             this.game.state.start('gameover');
@@ -131,15 +199,23 @@ define(function (require) {
             if(! this.running){
                 this.menupausa.destroy();
                 this.backgrounblack.destroy();
-                this.running = true;
-                this.startSprites();
+                Arbiter.unsubscribe("playGame");
+                this.playgame();
             } else {
-                this.running = false;
-                this.stopSprites();
+                this.stopgame();
                 this.backgrounblack = this.game.add.image(0, 0, "black_background");
                 this.backgrounblack.alpha = 0.6;
-                this.menupausa = new PauseMenu(this.game, this, this.pausa);
+                Arbiter.subscribe("playGame", this.pausa,null,  this);
+                this.menupausa = new PauseMenu(this.game, this);
             }
+        },
+        stopgame : function () {
+            this.running = false;
+            this.stopSprites();
+        },
+        playgame : function () {
+            this.running = true;
+            this.startSprites();
         },
         startSprites: function () {
             this.player.reanudar();

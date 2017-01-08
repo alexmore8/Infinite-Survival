@@ -15,6 +15,7 @@ define(function (require) {
 
 
          this.enableBody = true;
+         this.game = game;
 
          for (var i = 0; i < game.NUMTILES; i++) {
              this.add(new Bloque(game, i * this.TILESIZE, game.world.height - this.TILESIZE, 'floor'));
@@ -62,6 +63,12 @@ define(function (require) {
                 this.lastFloor = this.getAt(i);
                 break;
             }
+        }
+    };
+    
+    Muro.prototype.debug = function () {
+        for (var i=0 ; i< this.NUMTILES ; i++){
+            this.game.debug.body(this.getAt(i));
         }
     };
 

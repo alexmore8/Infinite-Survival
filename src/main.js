@@ -10,6 +10,7 @@
             underscore: 'bower_components/underscore/underscore-min',
             moment: 'bower_components/moment/min/moment.min',
             firebase: 'helpers/firebase',
+            rrss: 'helpers/rrss',
             arbiter: 'bower_components/promissory-arbiter/src/promissory-arbiter'
         },
 
@@ -26,10 +27,6 @@
         // Cargamos Phaser y creamos el juego
         var Phaser      = require('phaser');
         var game        = new Phaser.Game(1366 ,700, Phaser.AUTO, 'phaser-game');
-        console.log(window.innerWidth);
-        console.log(window.innerHeight);
-        console.log(1366);
-        console.log((1366*window.innerHeight)/window.innerWidth);
 
         // Añadimos al juego los parámetros
         var _ = require('underscore');

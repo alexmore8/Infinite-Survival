@@ -69,7 +69,7 @@ define(function (require) {
     Player.prototype.jump = function () {
 
         if (this.body.touching.down) {
-            this.body.velocity.y -= 900;
+            this.body.velocity.y = -900;
             this.sounds.jump.play("",0,this.game.effectsvolume);
         }
         this.loadTexture('boy_jump');
@@ -97,6 +97,11 @@ define(function (require) {
         this.alive = false;
         this.body.velocity.x = 0;
     };
+
+    Player.prototype.stopSprites = function () {
+        this.animations.stop(null, true);
+    };
+
 
     return Player;
 });

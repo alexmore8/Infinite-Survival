@@ -34,6 +34,10 @@ define(function(require, exports, module) {
             this.game.load.image('help_text',                'src/assets/menu/help/help_text.png');
 
 
+            // LeaderBoard
+            this.game.load.image('leaderboard_name',          'src/assets/menu/scoreboard/names.png');
+
+
             //botones
             this.game.load.spritesheet('btn_corto', 'src/assets/menu/buttons/btn_corto.png', 363,178);
             this.game.load.spritesheet('btn_normal', 'src/assets/menu/buttons/btn_normal.png', 503, 178);
@@ -41,7 +45,9 @@ define(function(require, exports, module) {
 
 
             var botones =
-                ["close",
+                ["coin",
+                "close",
+                "distance",
                 "downarrow",
                 "facebook",
                 "google",
