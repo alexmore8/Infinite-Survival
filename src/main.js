@@ -11,12 +11,16 @@
             moment: 'bower_components/moment/min/moment.min',
             firebase: 'helpers/firebase',
             rrss: 'helpers/rrss',
-            arbiter: 'bower_components/promissory-arbiter/src/promissory-arbiter'
+            arbiter: 'bower_components/promissory-arbiter/src/promissory-arbiter',
+            facebook: '//connect.facebook.net/es_ES/sdk'
         },
 
         shim: {
             'phaser': {
                 exports: 'Phaser'
+            },
+            'facebook' : {
+                exports: 'FB'
             }
         }
     });
