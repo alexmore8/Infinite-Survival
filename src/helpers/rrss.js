@@ -23,8 +23,9 @@ define(['facebook'],function (require) {
                     name: title,
                     link: 'https://manso92.github.io/infinite-survival/',
                     picture: 'https://manso92.github.io/infinite-survival/src/assets/share.png',
-                    caption: 'Infinte Survival on Github.io Documentation',
-                    description: 'Cuando todo lo que te queda es correr para escapar, el desierto no va a ponertelo fácil. Una carrera interminable de acción, recompensas y viajes interdimensionales.'
+                    caption: 'Infinte Survival on Github.io',
+                    description: 'Cuando todo lo que te queda es correr para escapar, el desierto no va a ponertelo fácil. Una carrera interminable de acción, recompensas y viajes interdimensionales.',
+                    message: '¿Te ves capaz de superarme?'
                 },
                 function(response) {}
             );
