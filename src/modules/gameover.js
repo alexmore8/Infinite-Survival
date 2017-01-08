@@ -43,7 +43,7 @@ define(function(require, exports, module) {
 
 
             this.powers = new ProgressGroup(this.game, 480, 200, "center", "vertical");
-            this.coins = this.powers.addProgressData("coins", this.distancia);
+            this.coins = this.powers.addProgressData("coins", this.monedas);
             this.distance = this.powers.addProgressData("distance", this.distancia);
 
 
@@ -52,7 +52,7 @@ define(function(require, exports, module) {
             this.buttons.addButton("reboot", function () { Arbiter.unsubscribe(''); this.game.state.start('game'); } , this);
 
             this.buttons = new ButtonGroup(this.game, 515, 530, "center", "horizontal");
-            this.buttons.addButton("facebook", function () {(new RRSS).facebook(this.monedas);}, this);
+            this.buttons.addButton("facebook", function () {(new RRSS).facebook(this.distancia);}, this);
             this.buttons.addButton("twitter", function () {(new RRSS).twitter();}, this);
             this.buttons.addButton("google", function () {(new RRSS).google();}, this);
             this.buttons.scale.setTo(0.7);
