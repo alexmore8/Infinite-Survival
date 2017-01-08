@@ -6,24 +6,28 @@ define(['facebook'],function (require) {
     }
 
     RRSS.prototype = {
-        facebook: function () {
-
+        facebook: function (distancia) {
+            if (distancia == undefined)
+                var title = "¿Cúanto te atreves a avanzar? - Infinite Survival";
+            else
+                var title = "He llegado a recorrer " + distancia + "m. ¿Crees que puedes superarme?";
             FB.init({
                 appId      : '1838137776462936',
                 xfbml      : true,
                 version    : 'v2.8'
             });
 
-            FB.ui({
-                method: 'share',
-                href: 'https://manso92.github.io/infinite-survival',
-            }, function(response){});
-
-            FB.ui({
-                method: 'feed',
-                link: 'https://manso92.github.io/infinite-survival',
-                caption: 'La puntuación obtenida es...',
-            }, function(response){});
+            FB.ui(
+                {
+                    method: 'feed',
+                    name: title,
+                    link: 'https://manso92.github.io/infinite-survival/',
+                    picture: 'https://manso92.github.io/infinite-survival/src/assets/share.png',
+                    caption: 'Infinte Survival on Github.io Documentation',
+                    description: 'Cuando todo lo que te queda es correr para escapar, el desierto no va a ponertelo fácil. Una carrera interminable de acción, recompensas y viajes interdimensionales.'
+                },
+                function(response) {}
+            );
             //var win = window.open("https://www.facebook.com/sharer/sharer.php?u=https%3A//manso92.github.io/infinite-survival", '_blank');
             //win.focus()
         },
