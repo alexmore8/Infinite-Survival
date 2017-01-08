@@ -171,7 +171,7 @@ define(function (require) {
                             return false;
                         }
 
-                        if (inputValue > 12) {
+                        if (inputValue.length > 12) {
                             swal.showInputError("El nombre de usuario será de 12 caracteres como máximo.");
                             return false;
                         }
