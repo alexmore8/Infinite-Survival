@@ -43,7 +43,7 @@ define(function(require, exports, module) {
 
 
             this.powers = new ProgressGroup(this.game, 480, 200, "center", "vertical");
-            this.coins = this.powers.addProgressData("coins", this.monedas);
+            this.coins = this.powers.addProgressData("coins", this.distancia);
             this.distance = this.powers.addProgressData("distance", this.distancia);
 
 
