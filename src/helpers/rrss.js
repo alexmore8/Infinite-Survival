@@ -8,7 +8,7 @@ define(['facebook'],function (require) {
     RRSS.prototype = {
         facebook: function (distancia) {
             if (distancia == undefined)
-                var title = "¿Cúanto te atreves a avanzar? - Infinite Survival";
+                var title = "¿Cuánto te atreves a avanzar? - Infinite Survival";
             else
                 var title = "He llegado a recorrer " + distancia + "m. ¿Crees que puedes superarme?";
             FB.init({
@@ -32,8 +32,13 @@ define(['facebook'],function (require) {
             //var win = window.open("https://www.facebook.com/sharer/sharer.php?u=https%3A//manso92.github.io/infinite-survival", '_blank');
             //win.focus()
         },
-        twitter: function () {
-            var win = window.open("https://twitter.com/home?status=Acabo%20de%20probar%20Infinite%20Survival,%20%C2%BFpuedes%20superarme?%20https%3A//manso92.github.io/infinite-survival", '_blank');
+        twitter: function (distancia) {
+            var url = 'https://manso92.github.io/infinite-survival/';
+            if (distancia == undefined)
+                var message = "¿Cuánto te atreves a avanzar? Empieza ya la aventura " + url;
+            else
+                var message = "He llegado a recorrer " + distancia + "m. ¿Crees que puedes superarme? " + url;
+            var win = window.open("https://twitter.com/home?status=" + message, '_blank');
             win.focus();
         },
         google: function () {
