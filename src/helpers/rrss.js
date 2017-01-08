@@ -10,12 +10,19 @@ define(['facebook'],function (require) {
 
             FB.init({
                 appId      : '1838137776462936',
+                xfbml      : true,
                 version    : 'v2.8'
             });
 
             FB.ui({
                 method: 'share',
-                href: 'https://developers.facebook.com/docs/',
+                href: 'https://manso92.github.io/infinite-survival',
+            }, function(response){});
+
+            FB.ui({
+                method: 'feed',
+                link: 'https://manso92.github.io/infinite-survival',
+                caption: 'La puntuación obtenida es...',
             }, function(response){});
             //var win = window.open("https://www.facebook.com/sharer/sharer.php?u=https%3A//manso92.github.io/infinite-survival", '_blank');
             //win.focus()
