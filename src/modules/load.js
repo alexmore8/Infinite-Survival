@@ -125,7 +125,7 @@ define(function(require, exports, module) {
             this.game.load.image('platforml', 'src/assets/tiles/14.png');
         },
         create: function() {
-            this.state.start('game');
+            this.state.start('menu');
         }
     };
 
