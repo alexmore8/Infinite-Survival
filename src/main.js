@@ -20,6 +20,15 @@
             bloque: 'sprites/bloque',
             muros: 'sprites/muros',
             coin: 'sprites/coin',
+            enemie: 'sprites/enemies/enemie',
+            enemie_bomba: 'sprites/enemies/enemie_bomba',
+            enemie_calavera: 'sprites/enemies/enemie_calavera',
+            enemie_nitro: 'sprites/enemies/enemie_nitro',
+            enemie_pinchos: 'sprites/enemies/enemie_pinchos',
+            enemie_skeleton: 'sprites/enemies/enemie_skeleton',
+            enemie_stone: 'sprites/enemies/enemie_stone',
+            enemie_tnt: 'sprites/enemies/enemie_tnt',
+
 
             buttongroup: 'sprites/game/buttons/button_group',
             button: 'sprites/game/buttons/button',

@@ -101,6 +101,17 @@ define(function(require, exports, module) {
             this.game.load.spritesheet('boy_run', 'src/assets/players/adventureboy/run.png', 165, 214);
             this.game.load.spritesheet('boy_slide', 'src/assets/players/adventureboy/slide.png', 156,214);
 
+            // Sprites de los enemigos
+            this.game.load.image('bomba', 'src/assets/enemies/bomba.png');
+            this.game.load.image('calavera', 'src/assets/enemies/calavera.png');
+            this.game.load.image('nitro', 'src/assets/enemies/Nitro.png');
+            this.game.load.image('pinchos', 'src/assets/enemies/pinchos.png');
+            this.game.load.image('skeleton', 'src/assets/enemies/Skeleton.png');
+            this.game.load.image('stone', 'src/assets/enemies/Stone.png');
+            this.game.load.image('tnt', 'src/assets/enemies/tnt.png');
+
+
+
 
             // Sprites de los bloques del juego
             this.game.load.image('floor', 'src/assets/tiles/2.png');
@@ -112,7 +123,7 @@ define(function(require, exports, module) {
             this.game.load.image('platforml', 'src/assets/tiles/14.png');
         },
         create: function() {
-            this.state.start('menu');
+            this.state.start('game');
         }
     };
 
