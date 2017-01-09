@@ -5,7 +5,6 @@ define(function(require, exports, module) {
     function Load() {
         this.loadingLabel = null;
         this.progressBar = null;
-        this.ready = false;
     }
 
     Load.prototype = {
@@ -17,6 +16,19 @@ define(function(require, exports, module) {
             this.progressBar = this.game.add.sprite(this.game.world.centerX, 200, 'game_progress');
             this.progressBar.anchor.setTo(0.5, 0.5);
             this.game.load.setPreloadSprite(this.progressBar);
+
+
+
+
+            // Game sounds
+            this.game.load.audio('sound_coin',        'src/assets/sounds/8bit/344520__jeremysykes__coin05.wav');
+            this.game.load.audio('sound_player_jump', 'src/assets/sounds/8bit/344501__jeremysykes__jump04.wav');
+            this.game.load.audio('sound_player_dead', 'src/assets/sounds/8bit/341239__jeremysykes__explosion00.wav');
+            this.game.load.audio('music_game',        'src/assets/sounds/Kevin_MacLeod_-_Call_to_Adventure.mp3');
+            this.game.effectsvolume = localStorage.getItem("effectsvolume") == null ? this.EFFECTVOLUME : 0;
+            this.game.musicvolume =   localStorage.getItem("musicvolume") == null ? this.MUSICVOLUME : 0;
+
+
 
             // Cargando los fondos de pantalla
             var fondos =   ["game",
@@ -98,17 +110,6 @@ define(function(require, exports, module) {
             this.game.load.image('platform', 'src/assets/tiles/15.png');
             this.game.load.image('platformr', 'src/assets/tiles/16.png');
             this.game.load.image('platforml', 'src/assets/tiles/14.png');
-
-
-
-
-            // Game sounds
-            this.game.load.audio('sound_coin',        'src/assets/sounds/8bit/344520__jeremysykes__coin05.wav');
-            this.game.load.audio('sound_player_jump', 'src/assets/sounds/8bit/344501__jeremysykes__jump04.wav');
-            this.game.load.audio('sound_player_dead', 'src/assets/sounds/8bit/341239__jeremysykes__explosion00.wav');
-            this.game.load.audio('music_game',        'src/assets/sounds/Kevin_MacLeod_-_Call_to_Adventure.mp3');
-            this.game.effectsvolume = localStorage.getItem("effectsvolume") == null ? this.EFFECTVOLUME : 0;
-            this.game.musicvolume = localStorage.getItem("musicvolume") == null ? this.MUSICVOLUME : 0;
         },
         create: function() {
             this.state.start('menu');

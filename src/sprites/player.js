@@ -26,17 +26,17 @@ define(function (require) {
         game.camera.follow(this);
 
         this.checkWorldBounds = true;
-        this.body.gravity.y = 2500;
+        this.body.gravity.y = game.GRAVITY;
         this.body.velocity.y = game.LEVELSPEED;
         this.walk();
-    };
+    }
 
     Player.prototype = Object.create(Phaser.Sprite.prototype);
     Player.prototype.constructor = Player;
 
     Player.prototype.update = function () {
         if (this.updating) {
-            this.distancia += 1 / 20
+            this.distancia += 1 / 20;
             this.power = this.power > 100 ? 100 : this.power + 1 / 20;
         }
     };
@@ -58,32 +58,25 @@ define(function (require) {
     };
 
     Player.prototype.walk = function () {
-        this.loadTexture('boy_run');
-        this.animations.add('walk');
-        this.animations.play('walk', 10, true);
+        this.loadAnimation('run');
         this.body.setSize(100, 180, 35, 25);
         this.jumping = false;
         this.sliding = false;
     };
 
     Player.prototype.jump = function () {
-
         if (this.body.touching.down) {
             this.body.velocity.y = -900;
             this.sounds.jump.play("",0,this.game.effectsvolume);
         }
-        this.loadTexture('boy_jump');
-        this.animations.add('jump');
-        this.animations.play('jump', 10, true);
+        this.loadAnimation("jump");
         this.body.setSize(100, 180, 35, 25);
         this.jumping = true;
         this.sliding = false;
     };
 
     Player.prototype.slide = function () {
-        this.loadTexture('boy_slide');
-        this.animations.add('slide');
-        this.animations.play('slide', 10, true);
+        this.loadAnimation("slide");
         this.body.setSize(110, 140, 25, 65);
         this.jumping = false;
         this.sliding = true;
@@ -91,11 +84,15 @@ define(function (require) {
 
     Player.prototype.dead = function () {
         this.sounds.dead.play("",0,this.game.effectsvolume);
-        this.loadTexture('boy_dead');
-        this.animations.add('dead');
-        this.animations.play('dead', 10, true);
+        this.loadAnimation("dead");
         this.alive = false;
         this.body.velocity.x = 0;
+    };
+
+    Player.prototype.loadAnimation = function (animation) {
+        this.loadTexture('boy_'+animation);
+        this.animations.add(animation);
+        this.animations.play(animation, 10, true);
     };
 
     Player.prototype.stopSprites = function () {

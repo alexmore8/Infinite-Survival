@@ -11,8 +11,28 @@
             moment: 'bower_components/moment/min/moment.min',
             firebase: 'helpers/firebase',
             rrss: 'helpers/rrss',
+            mainconstants: 'helpers/main-constants',
             arbiter: 'bower_components/promissory-arbiter/src/promissory-arbiter',
-            facebook: '//connect.facebook.net/es_ES/sdk'
+            facebook: '//connect.facebook.net/es_ES/sdk',
+
+            background: 'sprites/background',
+            player: 'sprites/player',
+            bloque: 'sprites/bloque',
+            muros: 'sprites/muros',
+            coin: 'sprites/coin',
+
+            buttongroup: 'sprites/game/buttons/button_group',
+            button: 'sprites/game/buttons/button',
+            buttontext: 'sprites/game/buttons/button_text',
+
+            progressgroup: 'sprites/game/progress/progress_group',
+            progressstatus: 'sprites/game/progress/progress_status',
+            progressdata: 'sprites/game/progress/progress_data',
+
+            pausemenu: 'sprites/game/menu/pause_menu',
+            help_menu: 'sprites/game/menu/help_menu',
+            leaderboard: 'sprites/game/menu/leaderboard',
+            leaderboardname: 'sprites/game/menu/leaderboard_name'
         },
 
         shim: {
@@ -30,11 +50,11 @@
 
         // Cargamos Phaser y creamos el juego
         var Phaser      = require('phaser');
-        var game        = new Phaser.Game(1366 ,700, Phaser.AUTO, 'phaser-game');
+        var game        = new Phaser.Game(1366 ,670, Phaser.AUTO, 'phaser-game');
 
         // Añadimos al juego los parámetros
         var _ = require('underscore');
-        var mainConstants = require('helpers/main-constants');
+        var mainConstants = require('mainconstants');
         _.extend(game, mainConstants);
 
         // Añadimos los diferentes niveles al juego

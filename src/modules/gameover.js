@@ -5,10 +5,9 @@ define(function(require, exports, module) {
     var Firebase = require('firebase');
     var Arbiter = require ('arbiter');
     var RRSS = require('rrss');
-    var ButtonGroup = require('sprites/game/button_group');
-    var ProgressGroup = require('sprites/game/progress_group');
-    var LeaderBoard = require('sprites/game/leaderboard');
-    var Name = require('sprites/game/leaderboard_name');
+    var ButtonGroup = require('buttongroup');
+    var ProgressGroup = require('progressgroup');
+    var LeaderBoard = require('leaderboard');
 
 
     function GameOver() {
@@ -24,13 +23,10 @@ define(function(require, exports, module) {
             Arbiter.subscribe('distance', this.bestDistance, null, this);
             Arbiter.subscribe('coinLeaderboard', this.coinLeaderboard, null, this);
             Arbiter.subscribe('distanceLeaderboard', this.distanceLeaderboard, null, this);
-            this.firebase = new Firebase(this.game.username);
-            this.firebase.bestData();
+            (new Firebase(this.game.username)).bestData();
 
-            this.game.puntuation = undefined;
             this.monedas = this.monedas == undefined ? 0 : this.monedas;
             this.distancia = this.distancia == undefined ? 0 : this.distancia;
-
 
             this.game.add.image(0,0,'bg_scores');
             this.menu = this.game.add.image(0, 0, "menu_horizontal");
@@ -41,15 +37,13 @@ define(function(require, exports, module) {
             this.title = this.game.add.text(0, this.menu.y+14, "GameOver", { font: '50px IMFellEnglishSC',  fill: '#000000' });
             this.title.x = this.game.world.centerX - this.title.width/2;
 
-
             this.powers = new ProgressGroup(this.game, 480, 200, "center", "vertical");
-            this.coins = this.powers.addProgressData("coins", this.monedas);
-            this.distance = this.powers.addProgressData("distance", this.distancia);
-
+            this.powers.addProgressData("coins",    this.monedas);
+            this.powers.addProgressData("distance", this.distancia);
 
             this.buttons = new ButtonGroup(this.game, 480, 350, "center", "horizontal");
-            this.buttons.addButton("home",   function () { Arbiter.unsubscribe(''); this.game.state.start('menu'); } , this);
-            this.buttons.addButton("reboot", function () { Arbiter.unsubscribe(''); this.game.state.start('game'); } , this);
+            this.buttons.addButton("home",   function () { Arbiter.unsubscribe(''); this.game.state.start('menu'); }, this);
+            this.buttons.addButton("reboot", function () { Arbiter.unsubscribe(''); this.game.state.start('game'); }, this);
 
             this.buttons = new ButtonGroup(this.game, 515, 530, "center", "horizontal");
             this.buttons.addButton("facebook", function () {(new RRSS).facebook(this.distancia);}, this);
@@ -59,9 +53,6 @@ define(function(require, exports, module) {
 
             this.leaderBoard = new LeaderBoard(this.game, 610 , 180, "distance");
 
-        },
-        changebutton: function(){
-            this.game.state.start('game');
         },
         distanceLeaderboard: function () {
             this.leaderBoard.destroy();
@@ -75,13 +66,11 @@ define(function(require, exports, module) {
         },
         bestDistance: function (data) {
             this.game.distanceLeaderboard = data;
-            if (this.leaderBoard.type == "distance")
-                this.distanceLeaderboard();
+            if (this.leaderBoard.type == "distance")   this.distanceLeaderboard();
         },
         bestCoins: function (data) {
             this.game.coinLeaderboard = data;
-            if (this.leaderBoard.type == "coins")
-                this.distanceLeaderboard();
+            if (this.leaderBoard.type == "coins")      this.distanceLeaderboard();
         }
     };
 

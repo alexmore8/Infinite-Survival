@@ -3,7 +3,7 @@ define(function (require) {
     'use strict';
 
     var _ = require('underscore');
-    var mainConstants = require('helpers/main-constants');
+    var mainConstants = require('mainconstants');
     var Phaser = require('phaser');
 
     function Coin(game, x, y) {
@@ -45,9 +45,7 @@ define(function (require) {
 
     Coin.prototype.takeCoin = function () {
         this.coinsound.play("",0,this.game.effectsvolume);
-    }
-
-
+    };
 
     return Coin;
 });

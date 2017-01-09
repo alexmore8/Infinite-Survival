@@ -1,4 +1,3 @@
-
 define(function(require, exports, module) {
     'use strict';
     var constants = {
@@ -10,6 +9,7 @@ define(function(require, exports, module) {
         TILESIZE            : 128,
 
         // Configuración del juego
+        GRAVITY             : 2500,
         LEVELSPEED          : 500,
         MAXLEVEL            : -500,
         PROBCLIFF           : 0.3,

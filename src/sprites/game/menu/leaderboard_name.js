@@ -3,7 +3,7 @@ define(function (require) {
     'use strict';
 
     var _ = require('underscore');
-    var mainConstants = require('helpers/main-constants');
+    var mainConstants = require('mainconstants');
     var Phaser = require('phaser');
 
 

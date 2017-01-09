@@ -3,13 +3,11 @@ define(function (require) {
     'use strict';
 
     var Phaser = require('phaser');
-    var Button = require('sprites/game/button');
+    var Button = require('button');
 
     function ButtonText(game, x, y, callback, context, text) {
         Phaser.Group.call(this, game);
         game.add.existing(this);
-
-
 
         this.add(new Phaser.Text(game, 0, 0, text, { font: '50px IMFellEnglishSC',  fill: '#000000' }));
         if (this.getAt(0).width < 120){

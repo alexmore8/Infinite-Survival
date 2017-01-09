@@ -3,13 +3,13 @@ define(function (require) {
     'use strict';
 
     var _ = require('underscore');
-    var mainConstants = require('helpers/main-constants');
+    var mainConstants = require('mainconstants');
     var Phaser = require('phaser');
-    var ProgressStatus = require('sprites/game/progress_status');
-    var ProgressData = require('sprites/game/progress_data');
+    var Button = require('button');
+    var ButtonText = require('buttontext');
 
 
-    function ProgressGroup(game, x, y, float, orientacion) {
+    function ButtonGroup(game, x, y, float, orientacion) {
         Phaser.Group.call(this, game);
         game.add.existing(this);
         _.extend(this, mainConstants);
@@ -21,22 +21,22 @@ define(function (require) {
         this.game = game;
     };
 
-    ProgressGroup.prototype = Object.create(Phaser.Group.prototype);
-    ProgressGroup.prototype.constructor = ProgressGroup;
+    ButtonGroup.prototype = Object.create(Phaser.Group.prototype);
+    ButtonGroup.prototype.constructor = ButtonGroup;
 
-    ProgressGroup.prototype.addProgressData = function (type, texto, inverse) {
-        this.add(new ProgressData(this.game, 0, 0, type, texto, inverse));
-        this.alignBars();
-        return this.getAt(this.length -1);
+    ButtonGroup.prototype.addButton = function (key, callback,context) {
+        var button = this.add(new Button(this.game, 0, 0, key, callback,context));
+        this.alignButtons();
+        return button;
     };
 
-    ProgressGroup.prototype.addProgressStatus = function (type, porcentaje, inverse) {
-        this.add(new ProgressStatus(this.game, 0, 0, type, porcentaje, inverse));
-        this.alignBars();
-        return this.getAt(this.length -1);
+    ButtonGroup.prototype.addButtonText = function (text,callback,context) {
+        var button = this.add(new ButtonText(this.game, 0, 0,callback,context, text));
+        this.alignButtons();
+        return button;
     };
 
-    ProgressGroup.prototype.alignBars = function () {
+    ButtonGroup.prototype.alignButtons = function () {
         switch  (this.orientacion){
             case "horizontal":
                 this.alignHorizontal();    break;
@@ -57,7 +57,7 @@ define(function (require) {
         }
     };
 
-    ProgressGroup.prototype.alignHorizontal = function () {
+    ButtonGroup.prototype.alignHorizontal = function () {
         var width = 0;
         for (var i=0 ; i<this.length ; i++){
             if (this.getAt(i).espejado){
@@ -70,7 +70,7 @@ define(function (require) {
         }
     };
 
-    ProgressGroup.prototype.alignVertical = function () {
+    ButtonGroup.prototype.alignVertical = function () {
         var height = 0;
         for (var i=0 ; i<this.length ; i++){
             if (this.getAt(i).espejado){
@@ -82,19 +82,19 @@ define(function (require) {
             height += this.getAt(i).height + 10;
         }
     };
-    ProgressGroup.prototype.alignLeft = function () {
+    ButtonGroup.prototype.alignLeft = function () {
         this.x = this.posx;
         this.y = this.posy;
     };
-    ProgressGroup.prototype.alignCenter = function () {
+    ButtonGroup.prototype.alignCenter = function () {
         this.x = this.posx - (this.width/2);
         this.y = this.posy;
     };
-    ProgressGroup.prototype.alignRight = function () {
+    ButtonGroup.prototype.alignRight = function () {
         this.x = this.posx - (this.width);
         this.y = this.posy;
     };
 
 
-    return ProgressGroup;
+    return ButtonGroup;
 });

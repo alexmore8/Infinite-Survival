@@ -2,7 +2,6 @@ define(function (require) {
 
     'use strict';
 
-    var _ = require('underscore');
     var Phaser = require('phaser');
 
     function ProgressData(game, x, y,  type, _texto, inverse) {

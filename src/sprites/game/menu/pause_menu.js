@@ -3,12 +3,12 @@ define(function (require) {
     'use strict';
 
     var _ = require('underscore');
-    var mainConstants = require('helpers/main-constants');
+    var mainConstants = require('mainconstants');
     var Phaser = require('phaser');
     var RRSS = require('rrss');
-    var ButtonGroup = require('sprites/game/button_group');
-    var ProgressData = require('sprites/game/progress_data');
-    var ProgressGroup = require('sprites/game/progress_group');
+    var ButtonGroup = require('buttongroup');
+    var ProgressData = require('progressdata');
+    var ProgressGroup = require('progressgroup');
     var Arbiter = require ('arbiter');
 
 

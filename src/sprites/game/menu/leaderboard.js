@@ -3,10 +3,10 @@ define(function (require) {
     'use strict';
 
     var _ = require('underscore');
-    var mainConstants = require('helpers/main-constants');
+    var mainConstants = require('mainconstants');
     var Phaser = require('phaser');
-    var ButtonGroup = require('sprites/game/button_group');
-    var Name = require('sprites/game/leaderboard_name');
+    var ButtonGroup = require('buttongroup');
+    var Name = require('leaderboardname');
     var Arbiter = require ('arbiter');
 
 

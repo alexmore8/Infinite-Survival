@@ -3,8 +3,8 @@ define(function (require) {
     'use strict';
 
     var _ = require('underscore');
-    var mainConstants = require('helpers/main-constants');
-    var Bloque = require('sprites/bloque');
+    var mainConstants = require('mainconstants');
+    var Bloque = require('bloque');
     var Phaser = require('phaser');
 
 

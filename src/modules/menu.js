@@ -2,17 +2,14 @@ define(function(require, exports, module) {
 
     'use strict';
 
-
-    var HelpMenu = require('sprites/game/help_menu');
-    var ButtonGroup = require('sprites/game/button_group');
-    var Phaser = require('phaser');
+    var HelpMenu = require('help_menu');
+    var ButtonGroup = require('buttongroup');
     var Arbiter = require ('arbiter');
 
     function Menu() {
         this.background = null;
         this.loadingLabel = null;
         this.buttonstart = null;
-        this.startLabel = null;
     }
 
     Menu.prototype = {
@@ -48,11 +45,9 @@ define(function(require, exports, module) {
             this.game.state.start('game');
         },
         helpmenu: function(){
-            //if (this.backgrounblack != null && this.menu != null) {
-                this.backgrounblack = this.game.add.image(0, 0, "black_background");
-                this.backgrounblack.alpha = 0.6;
-                this.menu = new HelpMenu(this.game);
-            //}
+            this.backgrounblack = this.game.add.image(0, 0, "black_background");
+            this.backgrounblack.alpha = 0.6;
+            this.menu = new HelpMenu(this.game);
         },
         closehelpmenu: function () {
             this.menu.destroy();

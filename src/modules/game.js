@@ -3,22 +3,19 @@ define(function (require) {
     'use strict';
 
     var _ = require('underscore');
-    var mainConstants = require('helpers/main-constants');
-    var inputEvents = require('modules/parts/input-events');
+    var mainConstants = require('mainconstants');
     var Phaser = require('phaser');
     var Arbiter = require ('arbiter');
-    var Moment = require('moment');
     var Firebase = require('firebase');
 
-    var Background = require('sprites/background');
-    var Player = require('sprites/player');
-    var Muro = require('sprites/muros');
-    var Coin = require('sprites/coin');
+    var Background = require('background');
+    var Player = require('player');
+    var Muro = require('muros');
+    var Coin = require('coin');
 
-
-    var ButtonGroup = require('sprites/game/button_group');
-    var ProgressGroup = require('sprites/game/progress_group');
-    var PauseMenu = require('sprites/game/pause_menu');
+    var ButtonGroup = require('buttongroup');
+    var ProgressGroup = require('progressgroup');
+    var PauseMenu = require('pausemenu');
 
 
     function Game() {
@@ -27,7 +24,6 @@ define(function (require) {
     Game.prototype = {
         preload: function () {
             _.extend(this, mainConstants);
-            _.extend(this, inputEvents);
 
             this.game.time.advancedTiming = true;
             this.running = true;
@@ -125,7 +121,6 @@ define(function (require) {
             powerKey.onDown.add(function () { this.poder = 0;   this.pausa(); }, this);
             var killKey = this.game.input.keyboard.addKey(Phaser.Keyboard.K);
             killKey.onDown.add(function () { this.gameOver(); }, this);
-            //this.game.touch.onDown.add(this.player.jump, this.player);
         },
         destroGameController: function () {
             this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
@@ -138,62 +133,52 @@ define(function (require) {
         gameOver: function () {
             this.stopgame();
             this.destroGameController();
-            Arbiter.unsubscribe('');
-            Arbiter.subscribe('gameovermenu', this.toGameOverMenu, null, this);
-            if (localStorage.getItem("username") == undefined) {
-                swal({
-                        title: "Usuario",
-                        text: "Escribe tu nombre de usuario",
-                        type: "input",
-                        closeOnConfirm: false,
-                        animation: "slide-from-top",
-                        inputPlaceholder: "nombrechulo63"
-                    },
-                    function (inputValue) {
-                        function testAlfaNumerico(texto) {
-                            var numeros = "0123456789abcdefghyjklmnñopqrstuvwxyz";
-                            if ((numeros.indexOf(texto.charAt(0), 0) > -1) && (numeros.indexOf(texto.charAt(0), 0) < 10)) return 1;
-                            for (var i = 0; i < texto.length; i++) {
-                                if (numeros.indexOf(texto.charAt(i), 0) == -1) return 1;
-                            }
-                            return 0;
-                        }
-
-                        if (inputValue === false) return false;
-
-                        if (inputValue === "") {
-                            swal.showInputError("Necesitas escribir algo.");
-                            return false
-                        }
-
-                        if (testAlfaNumerico(inputValue) == 1) {
-                            swal.showInputError("Solo puede contener letras minusculas y numeros. Debe comenzar con una letra.");
-                            return false;
-                        }
-
-                        if (inputValue.length > 12) {
-                            swal.showInputError("El nombre de usuario será de 12 caracteres como máximo.");
-                            return false;
-                        }
-
-                        localStorage.setItem("username", inputValue);
-
-                        Arbiter.publish('gameovermenu');
-                        swal.close();
-                    });
-            } else {
-                this.toGameOverMenu()
-            }
+            if (localStorage.getItem("username") == undefined)
+                this.askForUsername();
+            else
+                this.toGameOverMenu();
         },
         toGameOverMenu: function(){
             this.game.puntuation = true;
             Arbiter.unsubscribe('');
             this.game.username = localStorage.getItem("username");
-            var database = new Firebase(this.game.username);
-            database.updateData(this.coins.numero(), parseInt(this.player.distancia));
+            (new Firebase(this.game.username)).updateData(this.coins.numero(), parseInt(this.player.distancia));
             this.game.state.states['gameover'].monedas = this.coins.numero();
             this.game.state.states['gameover'].distancia = parseInt(this.player.distancia);
             this.game.state.start('gameover');
+        },
+        askForUsername: function () {
+            Arbiter.unsubscribe('');
+            Arbiter.subscribe('gameovermenu', this.toGameOverMenu, null, this);
+            swal({
+                    title: "Usuario",
+                    text: "Escribe tu nombre de usuario",
+                    type: "input",
+                    closeOnConfirm: false,
+                    animation: "slide-from-top",
+                    inputPlaceholder: "nombrechulo63"
+                },
+                function (inputValue) {
+                    function testAlfaNumerico(texto) {
+                        var numeros = "0123456789abcdefghyjklmnñopqrstuvwxyz";
+                        if ((numeros.indexOf(texto.charAt(0), 0) > -1) && (numeros.indexOf(texto.charAt(0), 0) < 10)) return 1;
+                        for (var i = 0; i < texto.length; i++) {
+                            if (numeros.indexOf(texto.charAt(i), 0) == -1) return 1;
+                        }
+                        return 0;
+                    }
+
+                    if (inputValue === false) return false;
+                    if (inputValue === "") { swal.showInputError("Necesitas escribir algo."); return false; }
+                    if (testAlfaNumerico(inputValue) == 1) {
+                        swal.showInputError("Solo puede contener letras minusculas y numeros. Debe comenzar con una letra.");
+                        return false;
+                    }
+                    if (inputValue.length > 12) { swal.showInputError("El nombre de usuario será de 12 caracteres como máximo."); return false; }
+                    localStorage.setItem("username", inputValue);
+                    Arbiter.publish('gameovermenu');
+                    swal.close();
+                });
         },
         pausa: function(){
             if(! this.running){

@@ -4,10 +4,10 @@ define(function (require) {
 
     var _ = require('underscore');
     var Arbiter = require('arbiter');
-    var mainConstants = require('helpers/main-constants');
+    var mainConstants = require('mainconstants');
     var Phaser = require('phaser');
-    var ButtonGroup = require('sprites/game/button_group');
-    var ProgressGroup = require('sprites/game/progress_group');
+    var ButtonGroup = require('buttongroup');
+    var ProgressGroup = require('progressgroup');
 
 
     function HelpMenu(game, onclose, context) {

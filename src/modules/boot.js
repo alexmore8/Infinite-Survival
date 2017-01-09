@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 
     Boot.prototype = {
         preload: function () {
-            this.load.image('game_progress', 'src/assets/menu/progress/game_progress.png');
+            this.game.load.image('game_progress', 'src/assets/menu/progress/game_progress.png');
         },
         create: function () {
             this.game.stage.backgroundColor = '#000000';
