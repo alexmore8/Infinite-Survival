@@ -23,11 +23,11 @@ define(function (require) {
 
         //this.body.immovable = true;
         this.body.velocity.x = -game.LEVELSPEED;
-        this.body.setCircle(37);
+        this.body.setCircle(37,5,8);
         this.checkWorldBounds = true;
 
-        this.animations.add('turn');
-        this.animations.play('turn', 15, true);
+        //this.animations.add('turn');
+        //this.animations.play('turn', 15, true);
     };
 
     Coin.prototype = Object.create(Phaser.Sprite.prototype);

@@ -13,7 +13,7 @@ define(function(require, exports, module) {
         LEVELSPEED          : 500,
         MAXLEVEL            : -500,
         PROBCLIFF           : 0.3,
-        NUMTILES            : 20,
+        NUMTILES            : 50,
 
 
         // Configuración de las monedas

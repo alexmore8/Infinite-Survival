@@ -20,6 +20,9 @@ define(function (require) {
             dead: game.add.audio("sound_player_dead")
         };
 
+        this.powerup = false;
+        this.root = "boy_";
+
 		Phaser.Sprite.call(this, game, x, y, 'boy_run');
         game.add.existing(this);
         game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -77,7 +80,7 @@ define(function (require) {
 
     Player.prototype.slide = function () {
         this.loadAnimation("slide");
-        this.body.setSize(110, 140, 25, 65);
+        this.body.setSize(90, 140, 25, 65);
         this.jumping = false;
         this.sliding = true;
     };
@@ -90,7 +93,7 @@ define(function (require) {
     };
 
     Player.prototype.loadAnimation = function (animation) {
-        this.loadTexture('boy_'+animation);
+        this.loadTexture(this.root+animation);
         this.animations.add(animation);
         this.animations.play(animation, 10, true);
     };

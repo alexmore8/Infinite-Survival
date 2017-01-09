@@ -11,6 +11,7 @@ define(function (require) {
         game.physics.enable(this, Phaser.Physics.ARCADE);
 
         this.body.immovable = true;
+        this.corner = "middle";
         this.body.velocity.x = -game.LEVELSPEED;
     };
 

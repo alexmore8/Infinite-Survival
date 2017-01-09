@@ -10,8 +10,7 @@ define(function (require) {
         game.add.existing(this);
 
         this.background_vel = speed;
-
-
+        this.running = true;
 
         for (var i = 0; i < 3; i++) {
             this.add(new Phaser.Sprite(game, i*1023, 0, 'bg_game'));

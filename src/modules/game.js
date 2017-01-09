@@ -12,6 +12,7 @@ define(function (require) {
     var Player = require('player');
     var Muro = require('muros');
     var Coin = require('coin');
+    var EnemyManager = require('enemymanager');
 
     var ButtonGroup = require('buttongroup');
     var ProgressGroup = require('progressgroup');
@@ -32,6 +33,7 @@ define(function (require) {
             this.background = new Background(this.game, this.LEVELSPEED/100);
             this.suelo = new Muro(this.game, 'suelo');
             this.coin = new Coin(this.game, 1000, this.COINHEIGHT);
+            this.enemymanager = (new EnemyManager(this.game, this, "enemigos"));
             this.player = new Player(this.game, 500, 0, 'boy_run');
             this.player.events.onOutOfBounds.add(this.playerDead, this);
             this.coin.events.onOutOfBounds.addOnce(this.newCoin, this);
@@ -88,6 +90,7 @@ define(function (require) {
                 this.suelo.debug();
                 this.game.debug.body(this.player);
                 this.game.debug.body(this.coin);
+                //this.game.debug.body(this.enemymanager);
             }
         },
         playerHit: function (player, blockedLayer) {
@@ -108,6 +111,7 @@ define(function (require) {
         newCoin: function () {
             this.coin.destroy();
             this.coin = new Coin(this.game, this.game.world.width + this.game.world.width*Math.random(), this.COINHEIGHT);
+            //this.enemy = this.enemymanager.nuevoEnemigo();
         },
         initGameController: function () {
             this.game.input.keyboard.createCursorKeys();
@@ -206,12 +210,14 @@ define(function (require) {
             this.player.reanudar();
             this.suelo.reanudar();
             this.coin.reanudar();
+            this.enemymanager.reanudar();
             this.background.reanudar();
         },
         stopSprites: function () {
             this.player.parar();
             this.suelo.parar();
             this.coin.parar();
+            this.enemymanager.parar();
 
             this.background.parar();
         },
