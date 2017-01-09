@@ -36,12 +36,9 @@ define(function (require) {
     Enemy_manager.prototype.reanudar = function () {  this.callAll('reanudar'); };
 
     Enemy_manager.prototype.update = function () {
-        for (var i = 0; i< this.length; i++){
-            if (this.getAt(i).x + this.getAt(i).width < 0){
-                this.getAt(i).destroy();
-                this.nuevoEnemigo();
-                i--;
-            }
+        if (this.getAt(0).x + this.getAt(0).width < 0){
+            this.getAt(0).destroy();
+            this.nuevoEnemigo();
         }
     };
 
@@ -57,42 +54,12 @@ define(function (require) {
             if (randomDistance == -1) return;
             var enemy = new Enemy[randomEnemy](this.game, randomDistance, height);
             enemy.x -= enemy.width/2;
-        } while (this.game.physics.arcade.distanceToXY(this.level.coin,enemy.x,this.level.coin.y) < 100);
+        } while (this.game.physics.arcade.distanceBetween(this.level.coin,enemy) < 100);
         this.add(enemy);
-        console.log(this.length);
-        /*enemy = undefined;
-        do {
-            if (enemy != undefined) enemy.destroy();
-            var enemy = new Enemy[randomEnemy](this.game, randomDistance, height);
-            var distance = this.game.physics.arcade.distanceBetween(enemy,this.level.coin);
-            var onFloor = this.level.suelo.isOn(enemy);
-        } while (distance < 100 || onFloor == false);
-        this.add(enemy);
-        enemy = undefined;
-        do {
-            if (enemy != undefined) enemy.destroy();
-            var enemy = new Enemy[randomEnemy](this.game, randomDistance, height);
-            var distance = this.game.physics.arcade.distanceBetween(enemy,this.level.coin);
-            var onFloor = this.level.suelo.isOn(enemy);
-        } while (distance < 100 || onFloor == false);
-        this.add(enemy);
-        enemy = undefined;
 
-        this.getAt(0).destroy();
-        console.log(this.getAt(0));
-        console.log(this.getAt(1));
-        console.log();
-
-        /*var i = 0;
-        this.add(new Enemy[i](this.game, 100, "floor"));
-        return this.add(new Enemy[i](this.game, 500, "air"));*/
     };
 
-    Enemy_manager.prototype.debug = function () {
-        for (var i=0 ; i< this.lenght ; i++){
-            this.game.debug.body(this.getAt(i));
-        }
-    };
+    Enemy_manager.prototype.debug = function () {this.callAll('debug');};
 
     return Enemy_manager;
 });

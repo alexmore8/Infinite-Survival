@@ -11,6 +11,7 @@ define(function (require) {
         if (position == "floor"){
             this.y = game.world.height-(this.height+game.TILESIZE)+12;
         }
+        this.golpe = 66;
     };
 
     Enemy_nitro.prototype = Object.create(Enemy.prototype);

@@ -14,6 +14,7 @@ define(function (require) {
         if (position == "floor"){
             this.y = this.game.world.height - (this.TILESIZE+this.height) + 10;
         }
+        this.golpe = 33;
     };
 
     Enemy_bomba.prototype = Object.create(Enemy.prototype);

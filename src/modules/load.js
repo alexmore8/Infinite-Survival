@@ -24,6 +24,7 @@ define(function(require, exports, module) {
             this.game.load.audio('sound_coin',        'src/assets/sounds/8bit/344520__jeremysykes__coin05.wav');
             this.game.load.audio('sound_player_jump', 'src/assets/sounds/8bit/344501__jeremysykes__jump04.wav');
             this.game.load.audio('sound_player_dead', 'src/assets/sounds/8bit/341239__jeremysykes__explosion00.wav');
+            this.game.load.audio('sound_explosion',   'src/assets/sounds/bangsandexplosions/268550__cydon__bang-004.mp3');
             this.game.load.audio('music_game',        'src/assets/sounds/Kevin_MacLeod_-_Call_to_Adventure.mp3');
             this.game.effectsvolume = localStorage.getItem("effectsvolume") == null ? this.EFFECTVOLUME : 0;
             this.game.musicvolume =   localStorage.getItem("musicvolume") == null ? this.MUSICVOLUME : 0;
@@ -102,13 +103,14 @@ define(function(require, exports, module) {
             this.game.load.spritesheet('boy_slide', 'src/assets/players/adventureboy/slide.png', 156,214);
 
             // Sprites de los enemigos
-            this.game.load.image('bomba', 'src/assets/enemies/bomba.png');
-            this.game.load.image('calavera', 'src/assets/enemies/calavera.png');
-            this.game.load.image('nitro', 'src/assets/enemies/Nitro.png');
-            this.game.load.image('pinchos', 'src/assets/enemies/pinchos.png');
-            this.game.load.image('skeleton', 'src/assets/enemies/Skeleton.png');
-            this.game.load.image('stone', 'src/assets/enemies/Stone.png');
-            this.game.load.image('tnt', 'src/assets/enemies/tnt.png');
+            this.game.load.image('bomba',     'src/assets/enemies/bomba.png');
+            this.game.load.image('calavera',  'src/assets/enemies/calavera.png');
+            this.game.load.image('nitro',     'src/assets/enemies/Nitro.png');
+            this.game.load.image('pinchos',   'src/assets/enemies/pinchos.png');
+            this.game.load.image('skeleton',  'src/assets/enemies/Skeleton.png');
+            this.game.load.image('stone',     'src/assets/enemies/Stone.png');
+            this.game.load.image('tnt',       'src/assets/enemies/tnt.png');
+            this.game.load.spritesheet('explosion', 'src/assets/enemies/explosion.png', 220,247);
 
 
 

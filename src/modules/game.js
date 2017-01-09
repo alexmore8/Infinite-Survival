@@ -56,33 +56,38 @@ define(function (require) {
             if (this.game.musicvolume == 0)   soundbutton.extrabuttons();
             this.buttons.addButton("reboot", function () { this.game.state.start('game'); }, null);
 
-
-
             this.initGameController();
         },
 
 
         update: function () {
-            this.game.physics.arcade.collide(this.player, this.suelo, this.playerHit, null, this);
+            this.game.physics.arcade.collide(this.player, this.suelo, this.playerGround, null, this);
+            this.game.physics.arcade.collide(this.player, this.enemymanager, this.playerHit, null, this);
             this.game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
 
             if (this.running) {
                 this.game.debug.text(this.game.time.fps, 1000, 100, 'white');
-                if (this.player.body.touching.down) {
-                    this.player.body.velocity.x = this.LEVELSPEED;
-                    if (this.player.jumping == true) this.player.walk();
-                }
-                else {
-                    this.player.body.velocity.x = 0;
-                    if (this.player.jumping == false) this.player.jump();
+                if (this.player.alive) {
+                    if (this.player.body.touching.down) {
+                        this.player.body.velocity.x = this.LEVELSPEED;
+                        if (this.player.jumping == true) this.player.walk();
+                    }
+                    else {
+                        this.player.body.velocity.x = 0;
+                        if (this.player.jumping == false) this.player.jump();
+                    }
                 }
 
                 if (this.coin.body.x + this.coin.width < 0)
                     this.newCoin();
 
 
+                this.life.porcentaje(this.player.health);
                 this.power.porcentaje(this.player.power);
                 this.distance.numero(this.player.distancia);
+
+                if (this.player.health <= 0)
+                    this.playerDead();
             }
         },
         render: function () {
@@ -90,17 +95,19 @@ define(function (require) {
                 this.suelo.debug();
                 this.game.debug.body(this.player);
                 this.game.debug.body(this.coin);
-                //this.game.debug.body(this.enemymanager);
+                this.enemymanager.debug();
             }
         },
         playerHit: function (player, blockedLayer) {
-            if (this.player.body.touching.right)
-                this.game.time.events.add(1500, this.playerDead, this);
+             this.player.health -= blockedLayer.golpe;
+             blockedLayer.explode();
+             this.enemymanager.nuevoEnemigo();
         },
+        playerGround: function (player, blockedLayer) {},
         playerDead: function () {
             if (this.player.alive){
                 this.player.dead();
-                this.gameOver();
+                this.game.time.events.add(1500, this.gameOver, this);
             }
         },
         takeCoin: function (player, coin) {
@@ -111,7 +118,6 @@ define(function (require) {
         newCoin: function () {
             this.coin.destroy();
             this.coin = new Coin(this.game, this.game.world.width + this.game.world.width*Math.random(), this.COINHEIGHT);
-            //this.enemy = this.enemymanager.nuevoEnemigo();
         },
         initGameController: function () {
             this.game.input.keyboard.createCursorKeys();
@@ -218,7 +224,6 @@ define(function (require) {
             this.suelo.parar();
             this.coin.parar();
             this.enemymanager.parar();
-
             this.background.parar();
         },
         changesound: function () {

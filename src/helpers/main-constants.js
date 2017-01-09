@@ -10,6 +10,7 @@ define(function(require, exports, module) {
 
         // Configuración del juego
         GRAVITY             : 2500,
+        JUMPVEL             : 1000,
         LEVELSPEED          : 500,
         MAXLEVEL            : -500,
         PROBCLIFF           : 0.3,

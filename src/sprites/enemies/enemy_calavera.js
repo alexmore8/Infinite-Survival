@@ -14,6 +14,7 @@ define(function (require) {
         if (position == "floor"){
             this.y = game.world.height-(this.height+game.TILESIZE)+12;
         }
+        this.golpe = 100;
     };
 
     Enemy_calavera.prototype = Object.create(Enemy.prototype);
