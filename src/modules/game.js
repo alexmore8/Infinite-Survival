@@ -99,7 +99,7 @@ define(function (require) {
             }
         },
         playerHit: function (player, blockedLayer) {
-             this.player.health -= blockedLayer.golpe;
+             this.player.herir(blockedLayer.golpe);
              blockedLayer.explode();
              this.enemymanager.nuevoEnemigo();
         },
@@ -107,7 +107,8 @@ define(function (require) {
         playerDead: function () {
             if (this.player.alive){
                 this.player.dead();
-                this.game.time.events.add(1500, this.gameOver, this);
+                if (!this.player.powerup)
+                    this.game.time.events.add(1500, this.gameOver, this);
             }
         },
         takeCoin: function (player, coin) {
@@ -128,7 +129,7 @@ define(function (require) {
             var downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
             downKey.onDown.add(this.player.slide, this.player);
             var powerKey = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
-            powerKey.onDown.add(function () { this.poder = 0;   this.pausa(); }, this);
+            powerKey.onDown.add(function () { this.player.powerUP(); }, this);
             var killKey = this.game.input.keyboard.addKey(Phaser.Keyboard.K);
             killKey.onDown.add(function () { this.gameOver(); }, this);
         },

@@ -101,6 +101,8 @@ define(function(require, exports, module) {
             this.game.load.spritesheet('boy_jump', 'src/assets/players/adventureboy/jump.png', 162, 214);
             this.game.load.spritesheet('boy_run', 'src/assets/players/adventureboy/run.png', 165, 214);
             this.game.load.spritesheet('boy_slide', 'src/assets/players/adventureboy/slide.png', 156,214);
+            this.game.load.spritesheet('knight_jump', 'src/assets/players/knight/jumpattack.png', 198, 214);
+            this.game.load.spritesheet('knight_run', 'src/assets/players/knight/run.png', 188, 214);
 
             // Sprites de los enemigos
             this.game.load.image('bomba',     'src/assets/enemies/bomba.png');
