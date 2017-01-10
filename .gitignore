@@ -2,6 +2,8 @@
 .idea
 src/bower_components/
 
+promocion/
+src/assets/sounds/
 
 
 # Ignorar ficheros de diseño
