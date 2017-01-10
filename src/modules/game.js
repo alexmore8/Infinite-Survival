@@ -20,7 +20,11 @@ define(function (require) {
 
 
     function Game() {
+        Phaser.State.call(this);
     }
+
+    Game.prototype = Object.create(Phaser.State.prototype);
+    Game.prototype.constructor = Game;
 
     Game.prototype = {
         preload: function () {

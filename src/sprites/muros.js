@@ -41,12 +41,15 @@ define(function (require) {
 
     Muro.prototype.nuevoBloque = function () {
         var salto = 0;
-        if ((Math.random() < this.PROBCLIFF) && (this.lastCliff>3)) {
+        var mincliff = this.game.dificultad == "dificil" ? 3 : 7;
+        if ((Math.random() < this.PROBCLIFF) && (this.lastCliff > mincliff)) {
             salto = 1;
             this.lastCliff = 0;
         }
         else
             this.lastCliff++;
+
+        salto = this.game.dificultad == "facil" ? 0 : salto;
 
         var x = this.getAt(this.length-1).body.x + this.TILESIZE + salto * this.TILESIZE * 2.5;
         this.add(new Bloque(this.game, x, this.game.world.height - this.TILESIZE, 'floor'));
@@ -61,27 +64,10 @@ define(function (require) {
         }
     };
 
-    Muro.prototype.isOn = function (enemy) {
-        var prevdistance = 10000;
-        for (var i=0 ; i< this.NUMTILES ; i++){
-            var distance = this.game.physics.arcade.distanceToXY(this.getAt(i), enemy.x, this.getAt(i).y);
-
-            if (distance > prevdistance){
-                if ((i == 0) || (this.getAt(i).corner != "middle") || (this.getAt(i-1).corner != "middle")){
-                    return false;
-                }
-                else {
-                    return true;
-                }
-            }
-            prevdistance = distance;
-        }
-        return false;
-    };
-
     Muro.prototype.nextCenter = function (delay) {
         if (delay == undefined) delay = 0;
-        for (var i=1 ; i< this.NUMTILES ; i++) {
+        var i = Math.floor(delay/this.TILESIZE);
+        for (; i< this.NUMTILES ; i++) {
             //console.log(this.getAt(i).x);
             if ((this.getAt(i).corner == "middle") && (this.getAt(i - 1).corner == "middle") && (delay < this.getAt(i).x))
                 return this.getAt(i).x;

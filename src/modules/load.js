@@ -2,10 +2,16 @@ define(function(require, exports, module) {
 
     'use strict';
 
+    var Phaser = require('phaser');
+
     function Load() {
+        Phaser.State.call(this);
         this.loadingLabel = null;
         this.progressBar = null;
     }
+
+    Load.prototype = Object.create(Phaser.State.prototype);
+    Load.prototype.constructor = Load;
 
     Load.prototype = {
 
@@ -18,6 +24,11 @@ define(function(require, exports, module) {
             this.game.load.setPreloadSprite(this.progressBar);
 
 
+            // Preferencias del juego
+            this.game.dificultad = localStorage.getItem("dificultad") == null ? "facil" : localStorage.getItem("dificultad");
+            this.game.effectsvolume = localStorage.getItem("effectsvolume") == null ? this.EFFECTVOLUME : 0;
+            this.game.musicvolume =   localStorage.getItem("musicvolume") == null ? this.MUSICVOLUME : 0;
+
 
 
             // Game sounds
@@ -26,8 +37,6 @@ define(function(require, exports, module) {
             this.game.load.audio('sound_player_dead', 'src/assets/sounds/8bit/341239__jeremysykes__explosion00.wav');
             this.game.load.audio('sound_explosion',   'src/assets/sounds/bangsandexplosions/268550__cydon__bang-004.mp3');
             this.game.load.audio('music_game',        'src/assets/sounds/Kevin_MacLeod_-_Call_to_Adventure.mp3');
-            this.game.effectsvolume = localStorage.getItem("effectsvolume") == null ? this.EFFECTVOLUME : 0;
-            this.game.musicvolume =   localStorage.getItem("musicvolume") == null ? this.MUSICVOLUME : 0;
 
 
 

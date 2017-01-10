@@ -2,20 +2,26 @@ define(function(require, exports, module) {
 
     'use strict';
 
+    var Phaser = require('phaser');
     var Firebase = require('firebase');
     var Arbiter = require ('arbiter');
     var RRSS = require('rrss');
     var ButtonGroup = require('buttongroup');
     var ProgressGroup = require('progressgroup');
     var LeaderBoard = require('leaderboard');
+    var DifficultyMenu = require('difficultymenu');
 
 
     function GameOver() {
+        Phaser.State.call(this);
         this.background = null;
         this.loadingLabel = null;
         this.buttonstart = null;
         this.startLabel = null;
-    }
+    };
+
+    GameOver.prototype = Object.create(Phaser.State.prototype);
+    GameOver.prototype.constructor = GameOver;
 
     GameOver.prototype = {
         create: function () {
@@ -44,6 +50,7 @@ define(function(require, exports, module) {
             this.buttons = new ButtonGroup(this.game, 480, 350, "center", "horizontal");
             this.buttons.addButton("home",   function () { Arbiter.unsubscribe(''); this.game.state.start('menu'); }, this);
             this.buttons.addButton("reboot", function () { Arbiter.unsubscribe(''); this.game.state.start('game'); }, this);
+            this.buttons.addButton("settings", this.difficultymenu, this);
 
             this.buttons = new ButtonGroup(this.game, 515, 530, "center", "horizontal");
             this.buttons.addButton("facebook", function () {(new RRSS).facebook(this.distancia);}, this);
@@ -53,6 +60,7 @@ define(function(require, exports, module) {
 
             this.leaderBoard = new LeaderBoard(this.game, 610 , 180, "distance");
 
+            Arbiter.subscribe('closemenu', this.closemenu, null, this);
         },
         distanceLeaderboard: function () {
             this.leaderBoard.destroy();
@@ -71,7 +79,16 @@ define(function(require, exports, module) {
         bestCoins: function (data) {
             this.game.coinLeaderboard = data;
             if (this.leaderBoard.type == "coins")      this.distanceLeaderboard();
-        }
+        },
+        difficultymenu: function(){
+            this.backgrounblack = this.game.add.image(0, 0, "black_background");
+            this.backgrounblack.alpha = 0.6;
+            this.menu = new DifficultyMenu(this.game);
+        },
+        closemenu: function () {
+            this.menu.destroy();
+            this.backgrounblack.destroy();
+        },
     };
 
     return GameOver;

@@ -45,10 +45,12 @@ define(function (require) {
     Player.prototype.update = function () {
         if (this.updating) {
             this.distancia += 1 / 20;
-            if (this.powerup)
+            if (this.powerup) {
                 this.power = this.power <= 0 ? 0 : this.power - 1 / 10;
+                if(this.power == 0) this.powerUP();
+            }
             else
-            this.power = this.power >= 100 ? 100 : this.power + 1 / 20;
+                this.power = this.power >= 100 ? 100 : this.power + 1 / 20;
             this.health = this.health > 100 ? 100 : this.health + 1 / 30;
         }
     };
@@ -65,8 +67,8 @@ define(function (require) {
         if (!this.alive) return;
         this.loadAnimation('run');
         this.body.setSize(100, 180, 35, 25);
-        this.jumping = false;
-        this.sliding = false;
+        this.jumping = this.jumping == undefined ? undefined : false;
+        this.sliding = this.sliding == undefined ? undefined : false;
     };
 
     Player.prototype.jump = function () {
@@ -77,16 +79,16 @@ define(function (require) {
         }
         this.loadAnimation("jump");
         this.body.setSize(80, 180, 35, 25);
-        this.jumping = true;
-        this.sliding = false;
+        this.jumping = this.jumping == undefined ? undefined : true;
+        this.sliding = this.sliding == undefined ? undefined : false;
     };
 
     Player.prototype.slide = function () {
         if (!this.alive || this.sliding == undefined) return;
         this.loadAnimation("slide");
         this.body.setSize(90, 140, 25, 65);
-        this.jumping = false;
-        this.sliding = true;
+        this.jumping = this.jumping == undefined ? undefined : false;
+        this.sliding = this.sliding == undefined ? undefined : true;
     };
 
     Player.prototype.dead = function () {

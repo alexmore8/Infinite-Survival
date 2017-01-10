@@ -2,7 +2,14 @@ define(function(require, exports, module) {
 
     'use strict';
 
-    var Boot = function Boot(){};
+    var Phaser = require('phaser');
+
+    var Boot = function Boot(){
+        Phaser.State.call(this);
+    };
+
+    Boot.prototype = Object.create(Phaser.State.prototype);
+    Boot.prototype.constructor = Boot;
 
     Boot.prototype = {
         preload: function () {

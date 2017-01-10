@@ -13,7 +13,7 @@
             rrss: 'helpers/rrss',
             mainconstants: 'helpers/main-constants',
             arbiter: 'bower_components/promissory-arbiter/src/promissory-arbiter',
-            facebook: '//connect.facebook.net/es_ES/sdk',
+            facebook: 'helpers/facebook',
 
             background: 'sprites/background',
             player: 'sprites/player',
@@ -32,6 +32,7 @@
             progressstatus: 'sprites/game/progress/progress_status',
             progressdata: 'sprites/game/progress/progress_data',
 
+            difficultymenu: 'sprites/game/menu/difficulty_menu',
             pausemenu: 'sprites/game/menu/pause_menu',
             help_menu: 'sprites/game/menu/help_menu',
             leaderboard: 'sprites/game/menu/leaderboard',

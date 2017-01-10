@@ -34,7 +34,7 @@ define(function (require) {
             this.previousScreen();
         }, this);
         this.buttons.addButton("close", function () {
-            Arbiter.publish('closehelpmenu');
+            Arbiter.publish('closemenu');
         }, this);
         this.buttons.addButton("rightarrow", function () {
             this.nextScreen();
