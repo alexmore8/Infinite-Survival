@@ -28,22 +28,22 @@ define(function (require) {
 
         this.xcontent = 100;
         this.ycontent = 140;
-        this.loadedScreen = this.firstScreen();
 
         this.buttons = this.add(new ButtonGroup(game, (this.width/2), this.height-130, "center", "horizontal"));
         this.buttons.addButton("leftarrow", function () {
-            this.nextScreen();
+            this.previousScreen();
         }, this);
         this.buttons.addButton("close", function () {
             Arbiter.publish('closehelpmenu');
         }, this);
         this.buttons.addButton("rightarrow", function () {
-            this.previousScreen();
+            this.nextScreen();
         }, this);
 
         this.actualscreen = 1;
-        this.screenssize = 2;
+        this.screenssize = 4;
 
+        this.loadedScreen = this.loadScreen(this.actualscreen);
     };
 
     HelpMenu.prototype = Object.create(Phaser.Group.prototype);
@@ -67,6 +67,10 @@ define(function (require) {
                 return this.firstScreen();
             case 2:
                 return this.secondScreen();
+            case 3:
+                return this.thirdScreen();
+            case 4:
+                return this.fourthScreen();
         }
     };
 
@@ -90,7 +94,7 @@ define(function (require) {
 
 
 
-    HelpMenu.prototype.secondScreen = function (g) {
+    HelpMenu.prototype.secondScreen = function () {
         this.secondScreenItems = this.add(new Phaser.Group(this.game));
         this.secondScreenItems.x = this.xcontent;
         this.secondScreenItems.y = this.ycontent;
@@ -108,7 +112,54 @@ define(function (require) {
         texto = this.textos.add(new Phaser.Text(this.game, 0, texto.y + texto.height + 18, "Distancia recorrida", { font: '40px IMFellEnglishSC',  fill: '#000000' }));
 
         return this.secondScreenItems;
+    };
 
+
+
+    HelpMenu.prototype.thirdScreen = function () {
+
+        this.thirdScreenItems = this.add(new Phaser.Group(this.game));
+        this.thirdScreenItems.x = this.xcontent;
+        this.thirdScreenItems.y = this.ycontent;
+        this.thirdScreenItems.add(new Phaser.Image(this.game, 0, 0, 'help_text2'));
+        this.buttons = this.thirdScreenItems.add(new ButtonGroup(this.game, 400, this.thirdScreenItems.height-50, "left", "vertical"));
+        this.buttons.addButton("p");
+
+        this.progress = this.thirdScreenItems.add(new ProgressGroup(this.game, 0,this.thirdScreenItems.height+20,  'left', 'vertical'));
+        this.progress.addProgressStatus("power", 75);
+        this.progress.addProgressStatus("power", 100);
+        this.textos = this.thirdScreenItems.add(new Phaser.Group(this.game));
+        this.textos.x = this.progress.x + this.progress.width + 10;
+        this.textos.y = this.progress.y + 8;
+        var texto = this.textos.add(new Phaser.Text(this.game, 0, 0, "Toca esperar", { font: '40px IMFellEnglishSC',  fill: '#000000' }));
+        texto = this.textos.add(new Phaser.Text(this.game, 0, texto.y + texto.height + 18, "¡¡¡Powerup time!!!", { font: '40px IMFellEnglishSC',  fill: '#000000' }));
+
+        return this.thirdScreenItems;
+    };
+
+
+
+    HelpMenu.prototype.fourthScreen = function () {
+
+        this.thirdScreenItems = this.add(new Phaser.Group(this.game));
+        this.thirdScreenItems.add(new Phaser.Text(this.game, this.xcontent, this.ycontent, "Intenta evitar a todos estos...", { font: '40px IMFellEnglishSC',  fill: '#000000' }));
+
+        this.enemies = this.thirdScreenItems.add(new Phaser.Group(this.game));
+        this.bomba =       this.enemies.add(new Phaser.Image(this.game, 0,0, 'bomba'));
+        this.calavera =    this.enemies.add(new Phaser.Image(this.game, 150,0,'calavera'));
+        this.nitro =       this.enemies.add(new Phaser.Image(this.game, 300,0,'nitro'));
+        this.pinchos =     this.enemies.add(new Phaser.Image(this.game, 450,0,'pinchos'));
+        this.enemies.x = this.width/2 - this.enemies.width/2;
+        this.enemies.y = this.ycontent+70;
+
+
+        this.enemies2 = this.thirdScreenItems.add(new Phaser.Group(this.game));
+        this.skeleton =    this.enemies2.add(new Phaser.Image(this.game,0,0,'skeleton'));
+        this.stone =       this.enemies2.add(new Phaser.Image(this.game,190,0,'stone'));
+        this.tnt =         this.enemies2.add(new Phaser.Image(this.game,370,0,'tnt'));
+        this.enemies2.x = this.width/2 - this.enemies2.width/2 -30;
+        this.enemies2.y = this.enemies.y + this.enemies.height +50;
+        return this.thirdScreenItems;
     };
 
 

@@ -45,6 +45,7 @@ define(function(require, exports, module) {
             this.game.load.image('menu_vertical',            'src/assets/menu/menu_vertical.png');
             this.game.load.image('black_background',         'src/assets/menu/black_background.png');
             this.game.load.image('help_text',                'src/assets/menu/help/help_text.png');
+            this.game.load.image('help_text2',               'src/assets/menu/help/help_text2.png');
 
 
             // LeaderBoard
@@ -68,6 +69,7 @@ define(function(require, exports, module) {
                 "home",
                 "leftarrow",
                 "music",
+                "p",
                 "pause",
                 "play",
                 "reboot",
