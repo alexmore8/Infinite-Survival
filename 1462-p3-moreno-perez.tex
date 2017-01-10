@@ -1,0 +1,308 @@
+\documentclass[palatino]{apuntes}
+
+\title{Infinite survival}
+\author{Alejandro Moreno San Vidal \\ Pablo Pérez Manso}
+\date{Videojuegos 2016}
+
+
+
+\begin{document}
+\pagestyle{plain}
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Descripción general del proyecto}
+
+\section{Introducción}
+Este documento contiene las especificaciones de requisitos y el diseño del plan de trabajo del proyecto que se realizará por Alejandro Moreno San Vidal y Pablo Pérez Manso para la asignatura de Introducción a la Programación de Videojuegos.
+
+\section{Descripción general del producto}
+Este videojuego se desarrollará durante las prácticas de la asignatura, y su diseño y desarrollo se especifican en este documento. El videojuego será una combinación de las mecánicas que se observan en juegos tipo Endless Run, como son el caso de Zombie Tsunami o el popular Sonic, en la cual un personaje se mueve horizontalmente por la pantalla intentando recoger premios y evitando las cosas que le pueden matar.
+
+\section{Funcionalidad}
+
+El videojuego contiene actualmente las siguientes pantallas:
+\begin{itemize}
+    \item Pantalla de inicio
+    \item Pantalla de juego
+    \item Pantalla de pausa
+    \item Pantalla de gameover
+  
+\end{itemize}
+
+Cada pantalla contiene las siguientes características y funcionalidades:
+\begin{itemize}
+    \item Pantalla de inicio
+        \begin{itemize}
+            \item Logo del juego
+            \item Título del videojuego
+ 	    \item Botones de sonido
+	    \item Selección de niveles
+	    \item Boton de ayuda
+        \end{itemize}
+   
+    \item Pantalla de juego
+        \begin{itemize}
+            \item Muestra la partida que se está jugando actualmente
+            \item Los elementos que contiene esta pantalla están determinados más adelante
+        \end{itemize}
+    
+\end{itemize}
+
+
+\subsection{Acciones}
+La pantalla del videojuego constará de un personaje que se mueve horizontalmente (de forma automática) y de izquierda a derecha y las acciones que  realiza son las siguientes:
+
+\begin{itemize}
+    \item \textbf{Saltar:} se producirá el salto para evitar enemigos o para salvar las caidas al vacío que puedan aparecer.
+    \item \textbf{Agachar:} se agachará para evitar enemigos que puedan obstaculizar aereamente.
+    \item \textbf{Cortar:} Una vez tengamos el power up, seremos capaces de cortar los obstaculos que se nos presenten.
+\end{itemize}
+
+
+\subsection{Controles}
+Los controles son los siguientes:
+
+\begin{itemize}
+    \item \textbf{Saltar:}
+        \begin{itemize}
+            \item Un toque a la tecla (↑) hará que el personaje salte.
+        \end{itemize}
+    
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Agachar:}
+        \begin{itemize}
+            \item Un toque a la tecla (↓) hará que el personaje se agache.
+        \end{itemize}
+    
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Cortar:}
+        \begin{itemize}
+            \item Un toque a la tecla (↑) hará que el personaje cuando este en modo power up, corte a los enemigos.
+        \end{itemize}
+    
+\end{itemize}
+
+
+\subsection{Estados}
+
+\subsubsection{Estados del juego}
+Los estados del juego son los siguientes:
+
+\begin{itemize}
+    \item \textbf{Menú inicial}
+        \begin{itemize}
+            \item Es el estado inicial de nuestro juego
+            \item Desde este menú se pueden acceder al resto de las pantallas: juegos, opciones, niveles...
+        \end{itemize}
+    \item \textbf{Menú pausa}
+        \begin{itemize}
+            \item Es el estado pausado de nuestro juego
+            \item Desde este menú se puede reanudar el juego o bien volver a comenzar desde el principio.
+        \end{itemize}
+    \item \textbf{Pantalla de juego}
+        \begin{itemize}
+            \item En esta pantalla se producen todas las acciones del juego y su historia. Se muestra la pantalla de juego (véase 3.3 Interfaz de videojuego)
+	    \item Desde esta pantalla podremos acceder al menú de pausa o bien al gameover.
+        \end{itemize}
+
+   \item \textbf{Power up}
+        \begin{itemize}
+            \item Cambio de personaje, con el cual podemos utilizar la habilidad especial de cortar por un tiempo limitado.
+        \end{itemize}
+    
+    \item \textbf{Death}
+        \begin{itemize}
+            \item Se muestra una pantalla de game over, que nos permite reiniciar la partida o bien regresar al menú principal.
+            \item Desde esta pantalla, podremos compartir nuestro mejor record mediante las redes sociales.
+        \end{itemize}
+            
+\end{itemize}
+
+
+\subsubsection{Estados del personaje}
+El personaje puede encontrarse en los siguientes estados
+
+\begin{itemize}
+    \item Corriendo
+    \begin{itemize}
+        \item Es el estado que se mantendrá la mayor parte del tiempo
+        \item Desde este estado se puede llegar a cualquiera de los otros
+    \end{itemize}
+    \item Saltando
+    \begin{itemize}
+        \item Se entra en este estado cuando se presiona la tecla de saltar
+        \item Se sale automáticamente al tocar un objeto o al volver a pulsar el botón de salto
+    \end{itemize}
+   \item Cortando
+    \begin{itemize}
+        \item Se entra en este estado cuando se presiona la tecla p, una vez se carga la barra de power up
+        \item Se sale automáticamente al descargarse la barra de power up
+    \end{itemize}
+    \item Agachado
+    \begin{itemize}
+        \item Se entra en este estado cuando se presiona la tecla de agachar
+        \item Se sale automáticamente al tocar un objeto o al pulsar el botón de salto 
+    \end{itemize}
+    \item Muerto
+    \begin{itemize}
+        \item Se llega a través del resto de los estados
+        \item Indicará que se ha acabado la partida y que se tendrá que lanzar la pantalla de fin de partida
+    \end{itemize}
+\end{itemize}
+
+
+\section{Recursos adicionales}
+En lo referente a recursos hemos utilizado:
+
+\begin{itemize}
+	\item \textbf{Sprites:} personajes y diferentes objetos  cogidos de presets ya creados por otros usuarios de internet.
+	\item \textbf{Menús y fondos:} al igual que los sprites hemos realizado búsquedas por internet y procedido a la generación de los mismos.
+	\item \textbf{Sonidos:} al igual que los sprites hemos realizado búsquedas por internet y procedido a la introducción de los mismos .
+	\item \textbf{Tipografías:} las diferentes tipografías utilizadas en el juego han sido extraidas de Google Fonts.
+\end{itemize}
+
+
+\section{Requisitos finales del videojuego}
+El videojuego será jugable en cualquier sistema operativo que disponga de Google Chrome o bien de Mozilla Firefox, excepto en dispositivos móviles.
+Para poder jugar, será necesario el uso de un teclado para poder mover a los personajes y utilizar sus habilidades.
+Los requisitos minimos que se debera disponer son los siguientes:
+
+\begin{enumerate}
+	\item CPU intel core 2 duo.
+	\item Memoria RAM de 4 Gb.
+\end{enumerate}
+	
+
+\chapter{Análisis y diseño}
+Procederemos con los temas referentes a la planificación del proyecto, incluyendo el ciclo de vida del software, planteamiento de diseño a seguir y los diagramas que nos permitirán desarrollar e implementar todas las funcionalidades y aspectos descritos en el capítulo 1.
+
+\section{Modelo de ciclo de vida}
+
+Para el ciclo de vida de nuestro proyecto se tomará un diseño basado en cascada con realimentación, de modo que nos permite rápidamente volver a la fase anterior para corregir los errores que se pudieran haber cometido. Constará de las siguientes fases:
+
+\begin{enumerate}
+	\item \textbf{Análisis:} se analizan y se definen todas las funcionalidades y los requisitos que necesitará el proyecto, de modo que se pueda tener claro en la fase de diseño qué debería recoger.
+	\item \textbf{Diseño:} se escoge cual es el mejor método para llevar a cabo el proyecto en base a las especificaciones que se observaron en la fase de análisis y se plasman en una serie de documentos. Esto incluirá  la planificación temporal, funcionalidades y forma de implementarlas y todos los demás aspectos del proyecto.
+	\item \textbf{Implementación:} se comenzará con el desarrollo de toda la parte técnica del proyecto, de modo que sea coherente con todos los detalles que se planificaron previamente en la fase de diseño. Así mismo se podrán generar prototipos de todo el proyecto o de partes de él para que puedan pasar a la siguiente fase.
+	\item \textbf{Pruebas:} una buena parte del desarrollo es probar que todo lo anteriormente implementado funcione como se especificó en la parte de diseño. En esta fase se podrían incluso mostrar diversos prototipos al cliente final para que pueda observar el estado del proyecto. En caso de un error detectado se notificará y se devolverá a la fase de implementación o diseño, dependiendo del error.
+	\item \textbf{Entregas:} una vez que los prototipos que ya se planificaron en la fase de diseño, pasen la fase de pruebas se realiarán diferentes entregas de material al cliente para que se pueda ir evaluando el trabajo que se está desarrollando y que éste localice diferentes errores que como cliente no desee o no quedaran claras en la fase previa al análisis.
+	\item \textbf{Entrega del producto y mantenimiento:} una vez terminada toda las fases de desarrollo del proyecto se procederá con la entrega del mismo al cliente, y se mantendrá un periodo de mantenimiento en el que el cliente podrá notificar posibles errores o mejoras que se podrán implementar.
+\end{enumerate}
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{img/cascada.png}
+    \caption{Cascada con realimentación}
+    \label{fig:cascadarealimentacion}
+\end{figure}
+
+
+\section{Diseño}
+
+Para poder proceder correctamente con la implementación del proyecto es necesario realizar un diseño modular de todo el código del videojuego. Se diseñarán las clases del código a implmentar que darán forma a los elementos del videojuego.
+
+En esta sección se especificarán las implementaciones de la mayoría de los elementos descritos en la primera sección del documento, por lo que es recomendable que se consulte como referencia si en alguna parte de esta sección se tienen dudas.
+
+Todo el videojuego será controlado por una clase Main que contendrá todo el resto de los elementos del sistema. Esta contendrá al jugador, powerups(objetos que el jugador podrá obtener), los enemigos (elementos perjudiciales para el jugador) y el mapa.
+
+\begin{itemize}
+	\item El jugador tendrá entidad única para el mismo debido a su diferencia con el resto de instancias del juego. Además se le podrán cambiar diferentes aspectos de su física natural en base a los objetos que pueda ir recogiendo.
+
+	\item El mapa se irá generando automáticamente o cargando de ficheros externos para poder ir dibujando todo el sistema de juego.
+\end{itemize}
+
+Además se realizarán clases e interfaces que resuelvan las diferentes acciones que puedan ocurrir en el juego, como las colisiones entre objetos, los controles por parte de los diferentes dispositivos, así como las conexiones con el servidor de puntuaciones.
+
+
+\section{Interfaz del videojuego}
+La parte del videojuego que el cliente termina viendo es una de las más importantes a la hora del desarrollo del videojuego, por lo que en esta sección se pretende dar una idea de la composición de la interfaz de ususario. Se mostrará un ejemplo de otro juego con una interfaz similar a la que se quiere implementar.
+
+Los elementos que se mostrarán son los que siguen:
+\begin{itemize}
+	\item \textbf{Fondo:} se mostrará un fondo que refleje la situación del personaje dependiendo del traje que lleve en cada momento, de forma que pueda hacer que el usuario tenga una inmersión en el videojuego mayor.
+	\item \textbf{Personaje:} el personaje principal será una imagen que por norma general se encontrará en el centro del escenario. Dependiendo de diferentes mejoras del juego se podrá cambiar la imagen del mismo para poder reflejar mejor las mejoras que pueda haber conseguido.
+	\item \textbf{Barra superior:} en esta se mostrarán los principales indicadores del juego para que el jugador las pueda ver:
+		\begin{itemize}
+			\item \textbf{Distancia:} distancia (puntuación) recorrida por el personaje en la partida
+			\item \textbf{Monedas:} cantidad de monedas recogidas por el personaje en la partida
+			\item \textbf{Salud:} cantidad de vida de la que dispone el personaje en la partida
+			\item \textbf{Power up:} cantidad de power up del cual dispone el personaje en la partida
+			\item \textbf{Ajustes:} sonido del juego y boton de reinicio de partida
+			
+		\end{itemize}
+	
+\end{itemize}
+
+La interfaz sería parecida a la siguiente:
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/captura_zombies.png}
+    \caption{Interfaz similar a la descrita}
+    \label{fig:interfazzombie}
+\end{figure}
+
+
+\chapter{Implementación}
+Para facilitar la creación y la relación entre las clases definidas en la fase de diseño, se ha considerado el uso de patrones de diseño. Además se tratará de que el diseño sea lo más modular posible.
+
+Se van a usar dos tipos de patrones: de creación, para ayudar a crear los nuevos objetos en tiempo de ejecución y estructurales, para mejorar la organización del código.
+
+Para los patrones de creación se considera el siguiente:
+\begin{itemize}
+	\item \textbf{Singleton}: nos permite que algunas de las clases solo puedan ser creadas una vez de modo que su control es mucho más fácil por el resto de las clases. Sería los casos del juego o del personaje.
+\end{itemize}
+
+En cuanto a los patrones estructurales se considera el siguiente:
+\begin{itemize}
+	\item \textbf{Modelo Vista Controlador:} ayuda a organizar la lógica interna de modo que se separa por completo la parte de la interfaz de los datos que se manejan. De este modo se crea más independencia entre cada uno de los módulos pudiendo cambiar cada uno de ellos sin necesidad de cambiar el otro.
+\end{itemize}
+
+En lo que respecta a las fases de la implementación se consideran tres fases:
+
+\begin{itemize}
+	\item \textbf{Lógica:} nos referimos a la parte de toda la codificación de la parte lógica del videojuego, personajes, objetos, pantalla...
+	\item \textbf{Gráficos:} búsqueda de posibles materiales gráficos para la temática del juego y su adaptación a las necesidades del proyecto.
+	\item \textbf{Interfaz:} una vez finalizada la parte de gráficos, construcción de la interfaz basada en esos gráficos y su unión con la lógica del juego.
+\end{itemize}
+
+
+\chapter{Pruebas}
+Para una correcta integración de todas las partes del proyecto, se deben realizar pruebas para que una vez que se realice la integración no haya ningún problema.
+
+\begin{itemize}
+	\item \textbf{Lógica:} se hará una comprobación de que todas las clases tienen un funcionamiento correcto y más tarde se probará sun funcionalidad conjunta. De este modo nos aseguraremos que esta parte funciona de una forma correcta para que al añadir la parte de interfaz se minimicen los errores.
+	\item \textbf{Gráficos:} se cargarán todos los sprites, dibujos, imágenes y sonidos sobre una instancia de phaser nueva para comprobar que funcionan de un modo de adecuado con la plataforma al ser cargados.
+	\item \textbf{Interfaz:} se probarán la cohesión que tienen la creación de la parte gráfica con la lógica del videojuego. Se comproborará que la comunicación entre la lógica y la interfaz se produce de manera correcta, viéndose en la pantalla lo que corresponde por la parte del backend. Además se deberán hacer diferentes pruebas de velocidad del sistema para corregir errores de implementación a la hora de pintar la interfaz.
+\end{itemize}
+
+Cabe destacar, que debido a la complejidad de algunos de los componentes de la parte lógica, su correcto funcionamiento será comprobado mediante su salida por la interfaz, de modo que se comprueba a la vez parte de la lógica y parte de la interfaz.
+
+
+\newpage
+\appendix
+\chapter{Planificación temporal}
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/tabla_tiempos.png}
+    \caption{Tiempos de cada tarea}
+    \label{fig:tiempostarea}
+\end{figure}
+
+\newpage
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/gant_completo.png}
+    \caption{Diagrama de Gant}
+    \label{fig:diagramagant}
+\end{figure}
+
+\end{document}
