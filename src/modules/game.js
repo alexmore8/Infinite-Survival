@@ -175,7 +175,7 @@ define(function (require) {
                 },
                 function (inputValue) {
                     function testAlfaNumerico(texto) {
-                        var numeros = "0123456789abcdefghyjklmnñopqrstuvwxyz";
+                        var numeros = "0123456789abcdefghijklmnñopqrstuvwxyz";
                         if ((numeros.indexOf(texto.charAt(0), 0) > -1) && (numeros.indexOf(texto.charAt(0), 0) < 10)) return 1;
                         for (var i = 0; i < texto.length; i++) {
                             if (numeros.indexOf(texto.charAt(i), 0) == -1) return 1;

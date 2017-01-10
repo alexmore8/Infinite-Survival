@@ -36,7 +36,7 @@ define(function(require, exports, module) {
             this.game.load.audio('sound_player_jump', 'src/assets/sounds/8bit/344501__jeremysykes__jump04.wav');
             this.game.load.audio('sound_player_dead', 'src/assets/sounds/8bit/341239__jeremysykes__explosion00.wav');
             this.game.load.audio('sound_explosion',   'src/assets/sounds/bangsandexplosions/268550__cydon__bang-004.mp3');
-            this.game.load.audio('music_game',        'src/assets/sounds/Kevin_MacLeod_-_Call_to_Adventure.mp3');
+            this.music = this.game.load.audio('music_game',        'src/assets/sounds/Kevin_MacLeod_-_Call_to_Adventure.mp3');
 
 
 
@@ -138,7 +138,10 @@ define(function(require, exports, module) {
             this.game.load.image('platforml', 'src/assets/tiles/14.png');
         },
         create: function() {
-            this.state.start('menu');
+            this.game.sound.setDecodedCallback(this.music, this.start, this);
+        },
+        start: function() {
+            this.game.state.start('menu');
         }
     };
 
