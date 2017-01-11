@@ -15,7 +15,7 @@
 \chapter{Descripción general del proyecto}
 
 \section{Introducción}
-Este documento contiene las especificaciones de requisitos y el diseño del plan de trabajo del proyecto que se realizará por Alejandro Moreno San Vidal y Pablo Pérez Manso para la asignatura de Introducción a la Programación de Videojuegos.
+Este documento contiene las especificaciones de requisitos y el diseño del plan de trabajo del proyecto que se realizará por Alejandro Moreno San Vidal y Pablo Pérez Manso para la asignatura de Introducción a la Programación de Videojuegos y Gráficos.
 
 \section{Descripción general del producto}
 Este videojuego se desarrollará durante las prácticas de la asignatura, y su diseño y desarrollo se especifican en este documento. El videojuego será una combinación de las mecánicas que se observan en juegos tipo Endless Run, como son el caso de Zombie Tsunami o el popular Sonic, en la cual un personaje se mueve horizontalmente por la pantalla intentando recoger premios y evitando las cosas que le pueden matar.
@@ -37,15 +37,27 @@ Cada pantalla contiene las siguientes características y funcionalidades:
         \begin{itemize}
             \item Logo del juego
             \item Título del videojuego
- 	    \item Botones de sonido
-	    \item Selección de niveles
-	    \item Boton de ayuda
+            \item Botones de sonido
+            \item Selección de niveles
+            \item Boton de ayuda
         \end{itemize}
    
     \item Pantalla de juego
         \begin{itemize}
             \item Muestra la partida que se está jugando actualmente
             \item Los elementos que contiene esta pantalla están determinados más adelante
+        \end{itemize}
+   
+    \item Pantalla de pausa
+        \begin{itemize}
+            \item Diferentes controles para reanudar, reiniciar y cerrar la partida actual
+            \item Controles para compartir el juego en Redes Sociales
+        \end{itemize}
+   
+    \item Pantalla de gameover
+        \begin{itemize}
+            \item Resumen de la partida que acaba de terminar
+            \item Mejores resultados que hay actualmente en el servidor. Además si alguien supera tu resultado, el juego está continuamente comprobando si alguien ha superado los resultados.
         \end{itemize}
     
 \end{itemize}
@@ -83,7 +95,7 @@ Los controles son los siguientes:
 \begin{itemize}
     \item \textbf{Cortar:}
         \begin{itemize}
-            \item Un toque a la tecla (↑) hará que el personaje cuando este en modo power up, corte a los enemigos.
+            \item El jugador cortará automáticamente a los enemigos una vez que el powerup esté activado.
         \end{itemize}
     
 \end{itemize}
@@ -108,7 +120,7 @@ Los estados del juego son los siguientes:
     \item \textbf{Pantalla de juego}
         \begin{itemize}
             \item En esta pantalla se producen todas las acciones del juego y su historia. Se muestra la pantalla de juego (véase 3.3 Interfaz de videojuego)
-	    \item Desde esta pantalla podremos acceder al menú de pausa o bien al gameover.
+        \item Desde esta pantalla podremos acceder al menú de pausa o bien al gameover.
         \end{itemize}
 
    \item \textbf{Power up}
@@ -120,6 +132,7 @@ Los estados del juego son los siguientes:
         \begin{itemize}
             \item Se muestra una pantalla de game over, que nos permite reiniciar la partida o bien regresar al menú principal.
             \item Desde esta pantalla, podremos compartir nuestro mejor record mediante las redes sociales.
+            \item Se indicarán los mejores resultados que se han obtenido hasta ahora.
         \end{itemize}
             
 \end{itemize}
@@ -161,23 +174,39 @@ El personaje puede encontrarse en los siguientes estados
 En lo referente a recursos hemos utilizado:
 
 \begin{itemize}
-	\item \textbf{Sprites:} personajes y diferentes objetos  cogidos de presets ya creados por otros usuarios de internet.
-	\item \textbf{Menús y fondos:} al igual que los sprites hemos realizado búsquedas por internet y procedido a la generación de los mismos.
-	\item \textbf{Sonidos:} al igual que los sprites hemos realizado búsquedas por internet y procedido a la introducción de los mismos .
-	\item \textbf{Tipografías:} las diferentes tipografías utilizadas en el juego han sido extraidas de Google Fonts.
+    \item \textbf{Sprites:} personajes y diferentes objetos  cogidos de presets ya creados por otros usuarios de internet.
+    \item \textbf{Menús y fondos:} al igual que los sprites hemos realizado búsquedas por internet y procedido a la generación de los mismos.
+    \item \textbf{Sonidos:} al igual que los sprites hemos realizado búsquedas por internet y procedido a la introducción de los mismos .
+    \item \textbf{Tipografías:} las diferentes tipografías utilizadas en el juego han sido extraidas de Google Fonts.
 \end{itemize}
 
 
 \section{Requisitos finales del videojuego}
-El videojuego será jugable en cualquier sistema operativo que disponga de Google Chrome o bien de Mozilla Firefox, excepto en dispositivos móviles.
+El videojuego será jugable en cualquier sistema operativo que disponga de Google Chrome o bien de Mozilla Firefox, excepto en dispositivos móviles que carezcan de teclado.
 Para poder jugar, será necesario el uso de un teclado para poder mover a los personajes y utilizar sus habilidades.
 Los requisitos minimos que se debera disponer son los siguientes:
 
 \begin{enumerate}
-	\item CPU intel core 2 duo.
-	\item Memoria RAM de 4 Gb.
+    \item CPU intel core 2 duo.
+    \item Memoria RAM de 2 Gb.
 \end{enumerate}
-	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 \chapter{Análisis y diseño}
 Procederemos con los temas referentes a la planificación del proyecto, incluyendo el ciclo de vida del software, planteamiento de diseño a seguir y los diagramas que nos permitirán desarrollar e implementar todas las funcionalidades y aspectos descritos en el capítulo 1.
@@ -187,12 +216,12 @@ Procederemos con los temas referentes a la planificación del proyecto, incluyen
 Para el ciclo de vida de nuestro proyecto se tomará un diseño basado en cascada con realimentación, de modo que nos permite rápidamente volver a la fase anterior para corregir los errores que se pudieran haber cometido. Constará de las siguientes fases:
 
 \begin{enumerate}
-	\item \textbf{Análisis:} se analizan y se definen todas las funcionalidades y los requisitos que necesitará el proyecto, de modo que se pueda tener claro en la fase de diseño qué debería recoger.
-	\item \textbf{Diseño:} se escoge cual es el mejor método para llevar a cabo el proyecto en base a las especificaciones que se observaron en la fase de análisis y se plasman en una serie de documentos. Esto incluirá  la planificación temporal, funcionalidades y forma de implementarlas y todos los demás aspectos del proyecto.
-	\item \textbf{Implementación:} se comenzará con el desarrollo de toda la parte técnica del proyecto, de modo que sea coherente con todos los detalles que se planificaron previamente en la fase de diseño. Así mismo se podrán generar prototipos de todo el proyecto o de partes de él para que puedan pasar a la siguiente fase.
-	\item \textbf{Pruebas:} una buena parte del desarrollo es probar que todo lo anteriormente implementado funcione como se especificó en la parte de diseño. En esta fase se podrían incluso mostrar diversos prototipos al cliente final para que pueda observar el estado del proyecto. En caso de un error detectado se notificará y se devolverá a la fase de implementación o diseño, dependiendo del error.
-	\item \textbf{Entregas:} una vez que los prototipos que ya se planificaron en la fase de diseño, pasen la fase de pruebas se realiarán diferentes entregas de material al cliente para que se pueda ir evaluando el trabajo que se está desarrollando y que éste localice diferentes errores que como cliente no desee o no quedaran claras en la fase previa al análisis.
-	\item \textbf{Entrega del producto y mantenimiento:} una vez terminada toda las fases de desarrollo del proyecto se procederá con la entrega del mismo al cliente, y se mantendrá un periodo de mantenimiento en el que el cliente podrá notificar posibles errores o mejoras que se podrán implementar.
+    \item \textbf{Análisis:} se analizan y se definen todas las funcionalidades y los requisitos que necesitará el proyecto, de modo que se pueda tener claro en la fase de diseño qué debería recoger.
+    \item \textbf{Diseño:} se escoge cual es el mejor método para llevar a cabo el proyecto en base a las especificaciones que se observaron en la fase de análisis y se plasman en una serie de documentos. Esto incluirá  la planificación temporal, funcionalidades y forma de implementarlas y todos los demás aspectos del proyecto.
+    \item \textbf{Implementación:} se comenzará con el desarrollo de toda la parte técnica del proyecto, de modo que sea coherente con todos los detalles que se planificaron previamente en la fase de diseño. Así mismo se podrán generar prototipos de todo el proyecto o de partes de él para que puedan pasar a la siguiente fase.
+    \item \textbf{Pruebas:} una buena parte del desarrollo es probar que todo lo anteriormente implementado funcione como se especificó en la parte de diseño. En esta fase se podrían incluso mostrar diversos prototipos al cliente final para que pueda observar el estado del proyecto. En caso de un error detectado se notificará y se devolverá a la fase de implementación o diseño, dependiendo del error.
+    \item \textbf{Entregas:} una vez que los prototipos que ya se planificaron en la fase de diseño, pasen la fase de pruebas se realiarán diferentes entregas de material al cliente para que se pueda ir evaluando el trabajo que se está desarrollando y que éste localice diferentes errores que como cliente no desee o no quedaran claras en la fase previa al análisis.
+    \item \textbf{Entrega del producto y mantenimiento:} una vez terminada toda las fases de desarrollo del proyecto se procederá con la entrega del mismo al cliente, y se mantendrá un periodo de mantenimiento en el que el cliente podrá notificar posibles errores o mejoras que se podrán implementar.
 \end{enumerate}
 
 \begin{figure}[hbtp]
@@ -212,9 +241,9 @@ En esta sección se especificarán las implementaciones de la mayoría de los el
 Todo el videojuego será controlado por una clase Main que contendrá todo el resto de los elementos del sistema. Esta contendrá al jugador, powerups(objetos que el jugador podrá obtener), los enemigos (elementos perjudiciales para el jugador) y el mapa.
 
 \begin{itemize}
-	\item El jugador tendrá entidad única para el mismo debido a su diferencia con el resto de instancias del juego. Además se le podrán cambiar diferentes aspectos de su física natural en base a los objetos que pueda ir recogiendo.
+    \item El jugador tendrá entidad única para el mismo debido a su diferencia con el resto de instancias del juego. Además se le podrán cambiar diferentes aspectos de su física natural en base a los objetos que pueda ir recogiendo.
 
-	\item El mapa se irá generando automáticamente o cargando de ficheros externos para poder ir dibujando todo el sistema de juego.
+    \item El mapa se irá generando automáticamente o cargando de ficheros externos para poder ir dibujando todo el sistema de juego.
 \end{itemize}
 
 Además se realizarán clases e interfaces que resuelvan las diferentes acciones que puedan ocurrir en el juego, como las colisiones entre objetos, los controles por parte de los diferentes dispositivos, así como las conexiones con el servidor de puntuaciones.
@@ -225,18 +254,18 @@ La parte del videojuego que el cliente termina viendo es una de las más importa
 
 Los elementos que se mostrarán son los que siguen:
 \begin{itemize}
-	\item \textbf{Fondo:} se mostrará un fondo que refleje la situación del personaje dependiendo del traje que lleve en cada momento, de forma que pueda hacer que el usuario tenga una inmersión en el videojuego mayor.
-	\item \textbf{Personaje:} el personaje principal será una imagen que por norma general se encontrará en el centro del escenario. Dependiendo de diferentes mejoras del juego se podrá cambiar la imagen del mismo para poder reflejar mejor las mejoras que pueda haber conseguido.
-	\item \textbf{Barra superior:} en esta se mostrarán los principales indicadores del juego para que el jugador las pueda ver:
-		\begin{itemize}
-			\item \textbf{Distancia:} distancia (puntuación) recorrida por el personaje en la partida
-			\item \textbf{Monedas:} cantidad de monedas recogidas por el personaje en la partida
-			\item \textbf{Salud:} cantidad de vida de la que dispone el personaje en la partida
-			\item \textbf{Power up:} cantidad de power up del cual dispone el personaje en la partida
-			\item \textbf{Ajustes:} sonido del juego y boton de reinicio de partida
-			
-		\end{itemize}
-	
+    \item \textbf{Fondo:} se mostrará un fondo que refleje la situación del personaje dependiendo del traje que lleve en cada momento, de forma que pueda hacer que el usuario tenga una inmersión en el videojuego mayor.
+    \item \textbf{Personaje:} el personaje principal será una imagen que por norma general se encontrará en el centro del escenario. Dependiendo de diferentes mejoras del juego se podrá cambiar la imagen del mismo para poder reflejar mejor las mejoras que pueda haber conseguido.
+    \item \textbf{Barra superior:} en esta se mostrarán los principales indicadores del juego para que el jugador las pueda ver:
+        \begin{itemize}
+            \item \textbf{Distancia:} distancia (puntuación) recorrida por el personaje en la partida
+            \item \textbf{Monedas:} cantidad de monedas recogidas por el personaje en la partida
+            \item \textbf{Salud:} cantidad de vida de la que dispone el personaje en la partida
+            \item \textbf{Power up:} cantidad de power up del cual dispone el personaje en la partida
+            \item \textbf{Ajustes:} sonido del juego y boton de reinicio de partida
+            
+        \end{itemize}
+    
 \end{itemize}
 
 La interfaz sería parecida a la siguiente:
@@ -256,20 +285,20 @@ Se van a usar dos tipos de patrones: de creación, para ayudar a crear los nuevo
 
 Para los patrones de creación se considera el siguiente:
 \begin{itemize}
-	\item \textbf{Singleton}: nos permite que algunas de las clases solo puedan ser creadas una vez de modo que su control es mucho más fácil por el resto de las clases. Sería los casos del juego o del personaje.
+    \item \textbf{Singleton}: nos permite que algunas de las clases solo puedan ser creadas una vez de modo que su control es mucho más fácil por el resto de las clases. Sería los casos del juego o del personaje.
 \end{itemize}
 
 En cuanto a los patrones estructurales se considera el siguiente:
 \begin{itemize}
-	\item \textbf{Modelo Vista Controlador:} ayuda a organizar la lógica interna de modo que se separa por completo la parte de la interfaz de los datos que se manejan. De este modo se crea más independencia entre cada uno de los módulos pudiendo cambiar cada uno de ellos sin necesidad de cambiar el otro.
+    \item \textbf{Modelo Vista Controlador:} ayuda a organizar la lógica interna de modo que se separa por completo la parte de la interfaz de los datos que se manejan. De este modo se crea más independencia entre cada uno de los módulos pudiendo cambiar cada uno de ellos sin necesidad de cambiar el otro.
 \end{itemize}
 
 En lo que respecta a las fases de la implementación se consideran tres fases:
 
 \begin{itemize}
-	\item \textbf{Lógica:} nos referimos a la parte de toda la codificación de la parte lógica del videojuego, personajes, objetos, pantalla...
-	\item \textbf{Gráficos:} búsqueda de posibles materiales gráficos para la temática del juego y su adaptación a las necesidades del proyecto.
-	\item \textbf{Interfaz:} una vez finalizada la parte de gráficos, construcción de la interfaz basada en esos gráficos y su unión con la lógica del juego.
+    \item \textbf{Lógica:} nos referimos a la parte de toda la codificación de la parte lógica del videojuego, personajes, objetos, pantalla...
+    \item \textbf{Gráficos:} búsqueda de posibles materiales gráficos para la temática del juego y su adaptación a las necesidades del proyecto.
+    \item \textbf{Interfaz:} una vez finalizada la parte de gráficos, construcción de la interfaz basada en esos gráficos y su unión con la lógica del juego.
 \end{itemize}
 
 
@@ -277,9 +306,9 @@ En lo que respecta a las fases de la implementación se consideran tres fases:
 Para una correcta integración de todas las partes del proyecto, se deben realizar pruebas para que una vez que se realice la integración no haya ningún problema.
 
 \begin{itemize}
-	\item \textbf{Lógica:} se hará una comprobación de que todas las clases tienen un funcionamiento correcto y más tarde se probará sun funcionalidad conjunta. De este modo nos aseguraremos que esta parte funciona de una forma correcta para que al añadir la parte de interfaz se minimicen los errores.
-	\item \textbf{Gráficos:} se cargarán todos los sprites, dibujos, imágenes y sonidos sobre una instancia de phaser nueva para comprobar que funcionan de un modo de adecuado con la plataforma al ser cargados.
-	\item \textbf{Interfaz:} se probarán la cohesión que tienen la creación de la parte gráfica con la lógica del videojuego. Se comproborará que la comunicación entre la lógica y la interfaz se produce de manera correcta, viéndose en la pantalla lo que corresponde por la parte del backend. Además se deberán hacer diferentes pruebas de velocidad del sistema para corregir errores de implementación a la hora de pintar la interfaz.
+    \item \textbf{Lógica:} se hará una comprobación de que todas las clases tienen un funcionamiento correcto y más tarde se probará sun funcionalidad conjunta. De este modo nos aseguraremos que esta parte funciona de una forma correcta para que al añadir la parte de interfaz se minimicen los errores.
+    \item \textbf{Gráficos:} se cargarán todos los sprites, dibujos, imágenes y sonidos sobre una instancia de phaser nueva para comprobar que funcionan de un modo de adecuado con la plataforma al ser cargados.
+    \item \textbf{Interfaz:} se probarán la cohesión que tienen la creación de la parte gráfica con la lógica del videojuego. Se comproborará que la comunicación entre la lógica y la interfaz se produce de manera correcta, viéndose en la pantalla lo que corresponde por la parte del backend. Además se deberán hacer diferentes pruebas de velocidad del sistema para corregir errores de implementación a la hora de pintar la interfaz.
 \end{itemize}
 
 Cabe destacar, que debido a la complejidad de algunos de los componentes de la parte lógica, su correcto funcionamiento será comprobado mediante su salida por la interfaz, de modo que se comprueba a la vez parte de la lógica y parte de la interfaz.
