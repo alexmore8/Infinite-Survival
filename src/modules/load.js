@@ -3,6 +3,8 @@ define(function(require, exports, module) {
     'use strict';
 
     var Phaser = require('phaser');
+    var Firebase = require('firebase');
+    var Arbiter = require ('arbiter');
 
     function Load() {
         Phaser.State.call(this);
@@ -23,6 +25,10 @@ define(function(require, exports, module) {
             this.progressBar.anchor.setTo(0.5, 0.5);
             this.game.load.setPreloadSprite(this.progressBar);
 
+
+            Arbiter.subscribe('coinsload', this.bestCoins, null, this);
+            Arbiter.subscribe('distanceload', this.bestDistance, null, this);
+            (new Firebase(this.game.username)).bestData();
 
             // Preferencias del juego
             this.game.dificultad = localStorage.getItem("dificultad") == null ? "facil" : localStorage.getItem("dificultad");
@@ -142,6 +148,14 @@ define(function(require, exports, module) {
         },
         start: function() {
             this.game.state.start('menu');
+        },
+        bestDistance: function (data) {
+            this.game.distanceLeaderboard = data;
+            Arbiter.unsubscribe('distanceload');
+        },
+        bestCoins: function (data) {
+            this.game.coinLeaderboard = data;
+            Arbiter.unsubscribe('coinsload');
         }
     };
 

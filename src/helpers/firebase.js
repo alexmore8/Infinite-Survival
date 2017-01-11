@@ -50,10 +50,12 @@ define(function (require) {
         },
         bestDistance: function (data) {
             var datos = this.topdata(data);
+            Arbiter.publish('distanceload', datos);
             Arbiter.publish('distance', datos);
         },
         bestCoins: function (data) {
             var datos = this.topdata(data);
+            Arbiter.publish('coinsload', datos);
             Arbiter.publish('coins', datos);
         },
         topdata: function (objeto) {

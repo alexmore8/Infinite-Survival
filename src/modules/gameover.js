@@ -59,7 +59,10 @@ define(function(require, exports, module) {
             this.buttons.scale.setTo(0.7);
 
             this.leaderBoard = new LeaderBoard(this.game, 610 , 180, "distance");
-
+            if (this.game.distanceLeaderboard != undefined)
+                this.leaderBoard.setData(this.game.distanceLeaderboard);
+            else if (this.game.coinLeaderboard != undefined)
+                this.leaderBoard.setData(this.game.distanceLeaderboard);
             Arbiter.subscribe('closemenu', this.closemenu, null, this);
         },
         distanceLeaderboard: function () {
